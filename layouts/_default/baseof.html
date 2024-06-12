@@ -1,0 +1,26 @@
+{{- $env := .Site.Data.env.prod -}}
+{{- if in (string .Site.BaseURL) "localhost" -}}
+  {{ $env = .Site.Data.env.localhost -}}
+{{- else if in (string .Site.BaseURL) "master" -}}  
+  {{ $env = .Site.Data.env.master -}}
+{{- end -}}
+
+<!DOCTYPE html>
+<html class="h-full">
+  <head>
+    {{ partial "header-footer/head.html" . }}
+    {{- block "head-meta" (dict "ctx" . "env" $env) -}}{{- end }}
+  </head>
+  <body>
+    {{ partial "components/banner-ads/colored.html" . -}}
+    <div id="content">
+      <header id="header" class="sticky top-0 z-20">
+        {{ partial "navbar/navbar.html" . }}
+        {{- block "sub-nav" . }}{{- end }}
+      </header>
+      {{- block "main" (dict "ctx" . "env" $env) -}}{{- end }}
+    </div>
+    {{ partial "header-footer/footer.html" . }}
+    {{ partial "header-footer/footer-scripts.html" . }}
+  </body>
+</html>

@@ -1,0 +1,7 @@
+section: "form-page"
+content:
+  title: "Find out what your data platform could become"
+  description: "Struggling with the performance and cost challenges of your data stack? </br> Burdened with the quirks of Kafka, Flink, Spark, and data-related challenges? </br></br> We have the infrastructure engineering solution to the data plumbing problem! We would love to show you what InfinyOn and Fluvio can do for you."
+  button:
+    label: "Book a Discovery Session"
+    ref: "/request/book-a-call"

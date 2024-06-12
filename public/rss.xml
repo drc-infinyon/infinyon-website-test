@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+  	>	
+	<channel>
+		<title>InfinyOn - </title>
+		<link>http://localhost:1315/</link>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<description></description>
+		<copyright>Copyright (c) 2024 </copyright>
+		<lastBuildDate>Fri, 16 Feb 2024 00:00:00 &#43;0800</lastBuildDate>
+        <atom:link href="http://localhost:1315/rss.xml" rel="self" type="application/rss+xml"/>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>		
+		
+		<item>
+			<title>Real-time Streaming Analytics with Fluvio, DeepCausality, and Rust</title>
+			<link>http://localhost:1315/blog/2024/02/fluvio-deep-causality-rs/</link>
+			<pubDate>Fri, 16 Feb 2024 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2024/02/fluvio-deep-causality-rs/</guid>
+			<dc:creator>Marvin Hansen</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			real time streaming analytics with fluvio, deepcausality, and rust
+					Real-time Streaming Analytics with Fluvio, DeepCausality, and Rust This blog was published in collaboration with Marvin Hansen and Deep Causality.
+Introduction Why? Why this project? Why Fluvio? Why DeepCausality? Project Structure Architecture QD Communication Protocol QD Gateway Service Configuration Client handling Data handling Query vs. Fetch Data QD Client SBE Message Encoding Symbol Master (SYMDB) Real-Time Analytics The Model The Context Applied Contextual Causal Inference What was left out? Future of Real-Time Data Processing in Fluvio Future of DeepCausality Reflection Next Steps About Introduction Discuss this blog post on Maven, the world’s first serendipity network.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Simplifying Analytics Integration</title>
+			<link>http://localhost:1315/blog/2023/10/simplify-analytics-integration/</link>
+			<pubDate>Fri, 27 Oct 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/10/simplify-analytics-integration/</guid>
+			<dc:creator>T.J. Telan</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Short development story about how we use Fluvio for our analytics
+					This is a short story from engineering about how we saved ourselves a lot of time and effort. Instead of spending more time tuning the code for a new microservice, we replaced it with a general purpose connector.
+We started off wanting to add analytics to better understand how people use our product. Our default assumption is that creating a microservice was the way to go. But as we moved forward, we found that a simpler and more flexible solution was right in our own product - the connector.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Fluvio gets a version manager</title>
+			<link>http://localhost:1315/blog/2023/10/introducing-fvm/</link>
+			<pubDate>Fri, 20 Oct 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/10/introducing-fvm/</guid>
+			<dc:creator>T.J. Telan</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Announcement of new tool `fvm` - the Fluvio Version Manager CLI
+					We are excited to present fvm (Fluvio Version Manager), a new tool designed to streamline the management of multiple versions of the Fluvio CLI tools. This tool is currently in beta, but you are welcome to try fvm out now and enjoy a simplified setup process along with the ease of switching between different Fluvio versions.
+Here’s what changes are introduced with fvm:
+Simplified Installation: The installation script now installs fvm first, which in turn, automatically installs the rest of Fluvio for you.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>4 key challenge for IoT Analytics and a First Principle Solution</title>
+			<link>http://localhost:1315/blog/2023/09/edge-data-streaming/</link>
+			<pubDate>Fri, 22 Sep 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/09/edge-data-streaming/</guid>
+			<dc:creator>Deb RoyChowdhury</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Challenges and solutions related to edge data analytics.
+					Content Increase in Connected Devices Challenges of a Large IoT ecosystem A First Principle Solution Benefits of a Lightweight Data Streaming Solution Experience Edge Data Streaming Workflow in 10 minutes Increase in Connected Devices Internet of Things (IoT) refers to a network of connected devices, tools, machines, and sensors that communicate with each other and share data. These devices can be remotely controlled and receive commands from the cloud, providing users with a convenient way to manage and monitor their smart systems.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Rust vs Go - Which programming language will power the data ecosystem?</title>
+			<link>http://localhost:1315/blog/2023/09/rust-or-Go/</link>
+			<pubDate>Fri, 08 Sep 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/09/rust-or-Go/</guid>
+			<dc:creator>Deb RoyChowdhury</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Which modern programming language between Rust and Go is better suited to power the data ecosystem.
+					Content Rust or Go Go Rust or go home Teleological argument Advantages Performance Concurrency Scalability Memory Safety Developer Experience Why we chose Rust to build Fluvio Conclusion Rust or Go Someone on the data engineering subReddit recently posted a discussion starter with the title - &ldquo;Rust or Go.&rdquo; The author wanted the community&rsquo;s recommendation on picking up a new programming language for data engineering. Like every dichotomy, this is a simple question at the surface, but the answer to the question is complex.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Create a Github Stars/Forks Event Pipeline</title>
+			<link>http://localhost:1315/blog/2023/09/github-stars-to-slack/</link>
+			<pubDate>Thu, 07 Sep 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/09/github-stars-to-slack/</guid>
+			<dc:creator>A.J. Hunyady</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Create a data pipeline that notifies you in Slack or Discord anytime we get a new star or fork.
+					Nothing is more exhilarating than watching the github stars and forks go up on a newly launched github project. But constantly clicking on stars and forks tends to grow old. If you want to get notified in Slack or Discord anytime you receive a new star 🌟 or fork 🎏, this blog is for you!
+This blog is a step-by-step tutorial on how to create a data pipeline that watches github for changes and notifies you in Slack or Discord.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>OLAP for Event Streaming with MotherDuck Connector</title>
+			<link>http://localhost:1315/blog/2023/07/infinyon-motherduck/</link>
+			<pubDate>Thu, 20 Jul 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/07/infinyon-motherduck/</guid>
+			<dc:creator>Sehyo Chang</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Using InfinyOn DuckDB/MotherDuck connector to send data to MotherDuck
+					Introduction We are excited to announce the release of the Motherduck/DuckDB connector for InfinyOn Cloud. This connector lets you to stream data from the InfinyOn cloud to MotherDuck in real time. MotherDuck is a cloud data analytics platform powered by DuckDB, an open-source OLAP engine. InfinyOn Cloud is the next generation of data streaming platform allowing anyone to connect, transform and dispatch data to anywhere. InfinyOn Cloud has built-in connectors that can connect to various data sources such as HTTP, MQTT, and SQL.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Deduplicate data streaming events with SQL Upsert</title>
+			<link>http://localhost:1315/blog/2023/07/sql-upsert/</link>
+			<pubDate>Tue, 11 Jul 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/07/sql-upsert/</guid>
+			<dc:creator>Ozgur Akkurt</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Step-by-step guide on how to use SQL connector upsert operation for deduplication.
+					Streaming data from external data sources outside of the reader&rsquo;s control often produce undesirable duplicates in the data set. One common method for dealing with such a situation is to offload deduplication to the database using SQL upserts.
+This blog will show how to use the upsert operation with the sql-connector. You will learn how to set up an environment to use the SQL connector and how to apply the new upsert functionality.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>New Jolt Capabilities on Fluvio and How To Use Them</title>
+			<link>http://localhost:1315/blog/2023/06/new-jolt/</link>
+			<pubDate>Fri, 09 Jun 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/06/new-jolt/</guid>
+			<dc:creator>Ozgur Akkurt</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			New capabilities of the jolt smartmodule and how to use them.
+					JSON is ubiquitous in applications that need data and transforming data is very useful in almost every data pipeline. So the capability to transform JSON is nice to have when building data pipelines. We though about this before and developed fluvio-jolt which makes it easy to define and execute JSON-to-JSON mappings. It is based on the original java library. . Our use cases for fluvio-jolt have grown since, so we added more capabilities to it.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Optimize Your Fluvio Cluster with Pre-Commit SmartModules </title>
+			<link>http://localhost:1315/blog/2023/04/producer-smartmodule/</link>
+			<pubDate>Tue, 25 Apr 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/04/producer-smartmodule/</guid>
+			<dc:creator>Carson Rajcan</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Learn how to save resources and validate incoming data by applying SmartModules before save
+					SmartModules have long provided Fluvio users a way to manipulate data in real-time. Until recently, the Stream Processing Unit (SPU) performed these transformations just after reading messages from storage, before delivering them to Consumers. Now the SPU can apply SmartModule transformations just after receiving them from Producers, before writing to disk.
+This post will demonstrate how the SPU can apply multiple types of SmartModules for Producers in order to save storage space, save compute, validate data, and offload latency from the consumption flow to the production flow.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Why 87% of all data projects are doomed to fail, and how you can improve the odds of success</title>
+			<link>http://localhost:1315/blog/2023/03/failing-data-projects/</link>
+			<pubDate>Fri, 14 Apr 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/03/failing-data-projects/</guid>
+			<dc:creator>Deb RoyChowdhury</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			How to build ‘future proof,’ ‘green,’ data flows and drastically improve the the odds of success of your data application.
+					What the data processing tools in the markets won’t tell you about data pipelines As an engineering leader in an ambitious growing organization, there is a nine out of ten chance of you getting sucked into using data processing infrastructure and tools that will need 3x to 5x more time, developer capacity, and budget.
+Maybe you are already on that slippery slope subscribing to the ease of managed cloud solutions or the temptation of open source tools.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Why I am betting on InfinyOn</title>
+			<link>http://localhost:1315/blog/2023/03/betting-on-infinyon/</link>
+			<pubDate>Thu, 16 Mar 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/03/betting-on-infinyon/</guid>
+			<dc:creator>Deb RoyChowdhury</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Why I am excited about the future of InfinyOn and what made my want to take on building the product management system and practice here
+					Goal It&rsquo;s been 2 months for me at InfinyOn. In this post, I will share about the journey of joining InfinyOn as the Head of Product. This post will serve as a foundation for describing the product management system at InfinyOn as we build it out.
+Context Close to the end of 2022, I was in an interview with the Chief Data officer at a large pharma company for a Director of Data Products role.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Using DuckDB with Fluvio</title>
+			<link>http://localhost:1315/blog/2023/02/duckdb-fluvio/</link>
+			<pubDate>Fri, 03 Feb 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/02/duckdb-fluvio/</guid>
+			<dc:creator>Sehyo Chang</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Learn how to use how to utilize Fluvio SmartModules and DuckDb SQL to convert data records and create effective materialized views.
+					DuckDB is an open-source SQL OLAP database that&rsquo;s lightweight, fast, and user-friendly, a perfect match for Fluvio data streaming. Integrating these two technologies is a step toward Real-Time OLAP. This blog will show how to use Fluvio SmartModules and DuckDb SQL to transform data records and generate powerful materialized views.
+Prerequisite This blog assumes that you have already installed Fluvio and have a running cluster. You have 2 options:
+Sign-up for InfinyOn Cloud You&rsquo;ll need an InfinyOn Cloud account to download jolt from SmartModule Hub Install Fluvio on your local machine -&gt; This demo also uses the development version of the Fluvio toolchain.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>How to process streaming data using Google Colab or Jupyter Notebook</title>
+			<link>http://localhost:1315/blog/2023/01/jupyter-with-real-time-data/</link>
+			<pubDate>Tue, 17 Jan 2023 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2023/01/jupyter-with-real-time-data/</guid>
+			<dc:creator>Dr Alexander Mikhalev</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Learn how to integrate Jupyter notebooks with real-time data streams using Python and InfinyOn Cloud.
+					For the past few years, organizations have been adopting real-time streaming services but continue using batch processing for machine learning ML tools and analytics. Using databases and ETL tools as a bridge between real-time and ML adds unnecessary complexity and lengthens the time to resolution. This blog aims to demonstrate that ML tools can interact with real-time streams using Python without needing ETL. You will create an account in InfinyOn Cloud, set up a Jupyter Notebook environment, and write a small script that joins the two.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Building Real-time IoT Apps.</title>
+			<link>http://localhost:1315/blog/2022/02/building-real-time-iot-applications/</link>
+			<pubDate>Thu, 08 Dec 2022 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2022/02/building-real-time-iot-applications/</guid>
+			<dc:creator>Grant Swanson</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Why Klarian Chose InfinyOn Cloud over Kafka or RabbitMQ.
+					When building any kind of real-time IoT application, trying to figure out how to send data from the sensor to the cloud (or vice versa) is a big part of the equation. Ben Cleary, Head of Technology from Klarian, is focused on leading the software development and data teams as they continue to innovate on their Digipipe platform. The product allows users to monitor their operations and physical pipelines used to transport products including oil, gas, or hydrogen.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>How to Write to Apache Kafka from a Fluvio topic</title>
+			<link>http://localhost:1315/blog/2022/09/write-to-kafka-from-fluvio/</link>
+			<pubDate>Mon, 19 Sep 2022 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2022/09/write-to-kafka-from-fluvio/</guid>
+			<dc:creator>Grant Swanson</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Aggregate and Transform data in real-time with Fluvio before writing to a Kafka topic
+					This blog shows the power of Fluvio for performing real-time data transformations and provides a step by step example of how to stream clean data to a Kafka topic. In this example we are taking source data from the Finnhub API with our HTTP source connector, aggregating stock prices, and caluclating unrealised gains or losses in real-time before we send it to Apache Kafka.
+Start Install minikube, helm, kubectr with the following instructions: https://www.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Flexible JSON transformations in Rust</title>
+			<link>http://localhost:1315/blog/2022/08/fluvio-jolt-intro/</link>
+			<pubDate>Tue, 09 Aug 2022 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2022/08/fluvio-jolt-intro/</guid>
+			<dc:creator>Alexander Galibey</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			How to use Fluvio Jolt to transform JSON data in a flexible way
+					The JSON format remains one of the most popular text data formats for Data-in-Transition. You can encounter JSON data on every stack level of your application: from the database to UI, from IoT sensors data to the mobile app&rsquo;s payload. And it is not a coincidence; the format has a good balance between being convenient for developers and decent payload density. In Rust ecosystem, the de-facto standard for dealing with JSON is Serde.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Handling JSON data in Fluvio SmartModules</title>
+			<link>http://localhost:1315/blog/2022/06/smartmodule-json/</link>
+			<pubDate>Wed, 08 Jun 2022 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2022/06/smartmodule-json/</guid>
+			<dc:creator>Luis Moreno</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			How to use SmartModules to process JSON data in Fluvio
+					In a previous blog, we made an example on how we can work with XML data in Fluvio. Another very common data format in data streaming is JSON. In this blog, we will show an example on how to handle JSON data in SmartModules.
+This blog is intended for Rust beginners.
+Check out the full code in the fluvio-smartmodule-examples repository.
+Pre-conditions In order to properly follow this blog, you need to have installed the Fluvio CLI and a have a Fluvio cluster up and running.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Handling XML data in Fluvio SmartModules</title>
+			<link>http://localhost:1315/blog/2022/06/smartmodule-xml/</link>
+			<pubDate>Wed, 01 Jun 2022 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2022/06/smartmodule-xml/</guid>
+			<dc:creator>Luis Moreno</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			How to use SmartModules to process XML data in Fluvio
+					In Fluvio, records are just raw bytes, therefore we can create them with any kind of data. In SmartModules, we only need to know how to handle those raw bytes and how to convert them in something that we can process. In this blog, we will create a SmartModule that handles XML data.
+Check out the full code in the fluvio-smartmodule-examples repository.
+Pre-conditions In order to properly follow this blog, you need to have installed the Fluvio CLI and a have a Fluvio cluster up and running.
+      			]]>
+			</description>
+		</item>
+		
+		<item>
+			<title>Real-time Gaining Momentum in the Enterprise</title>
+			<link>http://localhost:1315/blog/2022/02/real-time-gaining-momentum/</link>
+			<pubDate>Tue, 26 Apr 2022 00:00:00 &#43;0800</pubDate>
+			<guid>http://localhost:1315/blog/2022/02/real-time-gaining-momentum/</guid>
+			<dc:creator>Grant Swanson</dc:creator>
+			<category>
+				<![CDATA[
+				
+				]]>
+			</category>
+			<description>
+			    <![CDATA[
+        			Real-time data infrastructure is becoming a growing priority in the enterprise.
+					At InfinyOn, we believe enabling a real-time data infrastructure is becoming a growing priority in the enterprise. This is evident when looking at company performance and indicators from Confluent (ticker symbol: CFLT). Their most recent quarterly results had revenue growth of 71% including 211% growth in cloud and were supported by 65% growth in customers and 130%+ dollar based net retention. This highlights the multiple growth engines that are working in CFLT&rsquo;s favor and the need for real-time applications.
+      			]]>
+			</description>
+		</item>
+		
+	</channel>
+</rss>

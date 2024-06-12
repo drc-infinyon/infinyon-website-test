@@ -1,0 +1,45 @@
+{{- $img := .Params.tile }}
+{{- if not $img -}}
+  {{- $img = .Params.img }}
+{{- end -}}
+{{- $author := .Params.author.github -}}
+{{- $name := .Params.author.name -}}
+{{- $title := .Params.author.title | default "Contributor" -}}
+{{- $link := .Params.url -}}
+<article class="flex flex-col items-start bg-gradient-to-b from-white to-gray-50 rounded-xl shadow border border-gray-100">
+  <div class="relative w-full border-b border-gray-200">
+    <a href="{{ $link }}">
+      <img src="/{{ $img }}" alt="{{ .Title }}" class="aspect-[19/10] w-full rounded-t-lg bg-gray-100 object-cover">
+    </a>
+  </div>
+  <div class="max-w-3xl flex-auto px-4">
+    <div class=" mt-3 flex items-center gap-x-1.5 text-xs">
+      <time class="text-gray-600 mr-3">{{.Date.Format site.Params.short_time_format }}</time>
+      {{- range .Params.metadata }}
+      <a href="#" class="relative z-10 rounded-md bg-blue-100 py-1 px-2 font-medium text-gray-500 hover:bg-blue-200">{{ . | upper }}</a>
+      {{- end }}
+    </div>
+    <div class="group relative">
+      <h3 class="mt-6 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+        <a href="{{ $link }}">
+          <span class="absolute inset-0"></span>
+          {{ .Title }}
+        </a>
+      </h3>
+      <p class="mt-3 text-base lg:text-av leading-6 text-gray-600 line-clamp-3">
+        {{- .Params.description -}}
+      </p>
+    </div>
+  </div>
+  <div class="relative mt-2 p-5 flex items-center gap-x-4">
+    <img src="https://avatars.githubusercontent.com/{{ $author }}" alt="{{ $name }}" class="h-14 w-14 rounded-full bg-gray-100">
+    <div class="leading-6 text-base lg:text-av">
+      <p class="font-semibold text-gray-900">
+        <a href="https://github.com/{{$author}}">
+          <span class="absolute inset-0"></span>{{ $name }}
+        </a>
+      </p>
+      <p class="text-gray-600">{{ $title }}</p>
+    </div>
+  </div>  
+</article>

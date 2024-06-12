@@ -1,0 +1,29 @@
+{{- $items := .content.items -}}
+{{- $class:= "bg-gray-500" -}}
+
+<div class="grid grid-cols-1 gap-8 text-white text-lg sm:text-xl mx-4">
+  {{ range $index, $item := $items -}}
+    {{ if eq $index 1 -}}
+      {{ $class = "pt-3 bg-gray-600" -}}
+    {{ else if eq $index 2 -}}
+      {{ $class = "pt-3 bg-gray-700" -}}
+    {{ else if eq $index 3 -}}
+      {{ $class = "pt-3 bg-gray-800" -}}
+    {{ end -}}
+
+    <div class="{{ $class }} flex items-center rounded-lg h-36">
+      <div class="mx-6 sm:mx-16">
+        <img class="w-16 h-16 sm:w-20 sm:h-20" src="{{ $item.image.src }}" alt="{{ $item.image.alt }}">
+      </div>
+      <div class="grid grid-cols-1 sm:flex">
+        <div class="font-bold tracking-wide uppercase mr-2">
+          {{ $item.title.keyword }}
+        </div>
+        <div>
+          {{ $item.title.text }}
+        </div>  
+      </div>
+    </div>
+  {{ end -}}
+
+</div>

@@ -1,0 +1,21 @@
+
+<div class="text-gray-600 pb-6">{{ .Params.description | markdownify }} </div>
+
+<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" >  
+  {{- range .Pages.ByWeight }}
+  {{ $hide := .Param "hidden" | default false }}    
+    {{ if ne $hide true -}}
+      <div 
+        class="rounded-lg bg-white p-4 shadow-md hover:shadow-lg border border-slate-200 hover:border-slate-300 hover:cursor-pointer"
+        onClick="window.location.href='{{ .Page.RelPermalink }}'"
+      >
+        <div class="font-medium text-slate-800 pb-2">{{ .Params.menu | default .Title }}</div>
+        <p class="text-sm text-gray-600">{{ .Params.description | markdownify }}</p>
+        </dt>
+      </div>
+    {{- end }}
+  {{- end }}
+
+</div>
+
+

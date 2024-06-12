@@ -1,0 +1,34 @@
+{{- $url := absURL .Params.url | safeHTML -}}
+{{- $title := .Title | safeHTML -}}
+{{- $description := .Params.description | safeHTML -}}
+{{- $svgClass := "w-9 h-9" -}}
+<div class="flex flex-row">
+  <div class="pr-2 hover:brightness-75">
+    <a class="twitter" title="Share on Twitter"
+        href="https://twitter.com/intent/tweet?url={{ $url }}&text={{ $title }}"
+        target="_blank">
+        {{ partial "heroicons/svgs/circled/twitter" (dict "class" $svgClass) -}}
+      </a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="button reddit" title="Share on Reddit"
+      href="https://www.reddit.com/submit?url={{ $url }}&title={{ $title }}&text={{ $description }}"
+      target="_blank">
+      {{ partial "heroicons/svgs/circled/reddit" (dict "class" $svgClass) -}}
+    </a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="linkedin" title="Share on LinkedIn"
+      href="https://www.linkedin.com/shareArticle?url={{ $url }}&title={{ $title }}&summary={{ $description }}"
+      target="_blank">
+      {{ partial "heroicons/svgs/circled/linkedin" (dict "class" $svgClass) -}}
+    </a>
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="ycombinator" title="Share on Y Combinator"
+      href="https://news.ycombinator.com/submitlink?u={{ $url }}&t={{ $title }}&text={{ $description }}"
+      target="_blank">
+      {{ partial "heroicons/svgs/circled/ycombinator" (dict "class" $svgClass) -}}
+    </a>
+  </div>
+</div>

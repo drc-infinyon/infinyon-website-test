@@ -1,0 +1,25 @@
+section: "cards-with-images"
+content:
+  title:  "Simplify data enrichment"
+  items:
+    - title: 
+        keyword: "Simplify"
+        text: "<br/> stream processing"
+      image:
+        src: "/assets/main/real-time-processing-light.png"
+        alt: "simplify stream processing"
+      description: "Apply in-flight trasformatins and time based operations on streaming data using the programming language of your choice and simple domain specific language"
+    - title: 
+        keyword: "Compose"
+        text: "<br/>stateful data flows"
+      image:
+        src: "/assets/main/prevent-dataloss-light.png"
+        alt: "build stateful data flows"
+      description: "Configure important parameters like dedupe, offset, timestamps, watermarks to build reliable stateful data flows that deliver enriched datasets and materialized views on demand"
+    - title: 
+        keyword: "Build"
+        text: "<br/>it all in one place"
+      image:
+        src: "/assets/main/efficiency-economics-light.png"
+        alt: "build it all in one place"
+      description: "Remove the complexity of stitching together multiple tools by building end to end straming data flows in one place."

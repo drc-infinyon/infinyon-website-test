@@ -1,0 +1,36 @@
+section: "key-features"
+content: 
+  title:  "Benefits you get"
+  items:
+    - title: "Smooth Operations"
+      description: "Deliver value to the organization without worrying about data ops overheads. With our outstanding CLI and control plane you wont spend endless engineering hours babysitting your operational data stack."
+      image:
+        src: "/assets/main/easy-operation-light.png"
+        alt: "lightweight data streaming platform"      
+      link:
+        ref: "/docs/cli/"
+        label: "Checkout our CLI"
+    - title: "Astronomical Efficiency"
+      description: "Delivery guarantees, zero data loss, no out of memory errors. Leverage the power of Rust in your data stack with orders of mangitude better throughput while consuming a fraction of compute resources."
+      image:
+        src: "/assets/main/astronomical-performance-light.png"
+        alt: "astronomical performance"      
+      link:
+        ref: "/docs/resources/compare-fluvio-vs-kafka/"
+        label: "Fluvio vs. Kafka"
+    - title: "Faster Iterations"
+      description: "Build your data products and flows faster with rare combination of low code domain specific language coupled with flexible development kits to compose compose bespoke data pipelines in record time."
+      image:
+        src: "/assets/main/fast-iteration-light.png"
+        alt: "faster iterations"      
+      link:
+        ref: "/docs/"
+        label: "Experience InfinyOn Cloud"
+    - title: "Intelligent Processing"
+      description: "Process clickstream data with wasm based in-flight transformations, filters, and enrichments. Build always on analytics to power your business on a single platform."
+      image:
+        src: "/assets/main/intelligent-processing-light.png"
+        alt: "intelligent processing"      
+      link:
+        ref: "/docs/guides/http-to-sql/"
+        label: "Buila a Data Flow in minutes"

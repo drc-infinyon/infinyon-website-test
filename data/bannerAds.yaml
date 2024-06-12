@@ -1,0 +1,5 @@
+active: true
+title: "Stateful Data Flow Beta"
+description: "Build composable event-driven data pipelines in minutes."
+buttonLabel: "Request access"
+buttonLink: "/request/ss-early-access"

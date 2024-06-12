@@ -1,0 +1,10 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.1.2
+  name: weather-monitor-sandiego
+  type: graphite-sink
+  topic: weather-ca-sandiego
+graphite:
+  # https://graphite.readthedocs.io/en/latest/feeding-carbon.html#step-1-plan-a-naming-hierarchy
+  metric-path: "weather.temperature.ca.sandiego"
+  addr: "localhost:2003"

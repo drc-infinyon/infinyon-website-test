@@ -1,0 +1,48 @@
+{{- $content := .content -}}
+
+<div class="relative z-20" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+  <div class="inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+  <div class="fixed inset-0 z-50">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div 
+        class="transform rounded-lg bg-white text-left shadow-xl transition-all lg:max-w-xl"
+        @keyup.escape.window="modal = false"
+      >
+
+        <div class="place-content-center bg-magenta-400 px-10 py-4 rounded-t-md">
+          <span class="flex text-white text-xl place-content-center justify-center">
+            {{ $content.header }}
+          </span>
+        </div>
+        
+        <div class="absolute right-0 top-0 pr-4 pt-6">
+          <button 
+            type="button" class="text-gray-300 hover:text-gray-50"
+            @click="modal = false"
+            >
+            <span class="sr-only">Close</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="pb-6 px-5">
+            <div class="flex justify-center">
+              <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+              <script>
+                hbspt.forms.create({
+                  region: "{{ $content.region }}",
+                  portalId: "{{ $content.portalId }}",
+                  formId: "{{ $content.formId }}",
+                });
+              </script>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

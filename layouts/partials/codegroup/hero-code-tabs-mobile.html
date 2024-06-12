@@ -1,0 +1,43 @@
+{{- $background_color := .page.Site.Data.styling.codegroup_bg_color -}}
+{{- $highlight_border_color := .page.Site.Data.styling.codegroup_border_color -}}
+{{- $highlight_text_color := .page.Site.Data.styling.codegroup_text_color -}}
+{{- $both_color := printf "%s %s" $highlight_border_color $highlight_text_color }}
+{{- $codeList := .code -}}
+
+<div class="mx-auto w-full">
+  <div class="{{ $background_color }} shadow sm:rounded-lg">
+    <div 
+      x-data="{
+        openTab: 0,
+        activeTextClass: '{{ $both_color }} group inline-flex items-center ',
+        inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center'
+      }"
+      class="text-sm font-medium w-full"
+    >
+      <div class="py-4">
+        <nav class="-mb-px pl-4 flex flex-col gap-4" aria-label="Tabs">
+          {{ range $index, $code := $codeList -}}
+            <a 
+              @click="openTab = {{ $index }}" 
+              :class="openTab === {{ $index }} ? activeTextClass : inactiveTextClass"
+              >
+              {{- $partialName := (printf "heroicons/svgs/%s" $code.svg) -}}
+              {{ partial $partialName (dict "class" "-ml-0.5 w-5 h-5 mr-1") -}}
+              <span>{{ $code.name }}</span>
+            </a>
+          {{- end }}
+        </nav>
+      </div>
+
+      <div class="mx-2 border-b border-gray-300"></div>
+
+      <div class="text-sm mt-3 pt-2 pr-2 pb-4 min-h-72">
+        {{ range $index, $code := $codeList -}}
+          <div class="overflow-scroll" x-show="openTab === {{ $index }}">
+            {{ transform.Highlight (os.ReadFile $code.file.name) $code.file.lang "style=api" }}
+          </div>      
+        {{- end }}  
+      </div>
+    </div>
+  </div>
+</div>

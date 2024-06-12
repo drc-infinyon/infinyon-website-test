@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud CLI on InfinyOn</title>
+    <link>http://localhost:1315/docs/cli/</link>
+    <description>Recent content in Cloud CLI on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1315/docs/cli/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cluster</title>
+      <link>http://localhost:1315/docs/cli/cluster/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/cli/cluster/</guid>
+      <description>The fluvio cloud cluster family of commands is used to create, delete, and troubleshoot Fluvio clusters in cloud.&#xA;%copy first-line%&#xA;$ fluvio cloud cluster -h $ fluvio cloud cluster View Cluster information Usage: fluvio cloud cluster &amp;lt;COMMAND&amp;gt; Commands: create Create a new Fluvio cluster delete Delete an existing Fluvio cluster list List all Fluvio clusters sync Sync Fluvio cluster profile usage Print cluster usage stats fluvio cloud cluster create This command is used to provision a new cluster.</description>
+    </item>
+    <item>
+      <title>Webhook</title>
+      <link>http://localhost:1315/docs/cli/webhook/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/cli/webhook/</guid>
+      <description>The fluvio cloud webhook family of commands is used to create, delete, and troubleshoot Webhooks in cloud.&#xA;%copy first-line%&#xA;$ fluvio cloud webhook -h Manage Webhooks Usage: fluvio-cloud webhook &amp;lt;COMMAND&amp;gt; Commands: create Create webhook delete Delete webhook list List webhooks update Update webhook logs View webhook connector logs fluvio cloud webhook create This command is used to provision a new cluster.&#xA;%copy first-line%&#xA;$ fluvio cloud webhook create -h Create webhook Usage: fluvio-cloud webhook create [OPTIONS] [NAME] Arguments: [NAME] Name of webhook Options: --topic &amp;lt;TOPIC&amp;gt; --config &amp;lt;CONFIG&amp;gt; Webhook config -c, --cluster &amp;lt;CLUSTER&amp;gt; Name of cluster Example usage:</description>
+    </item>
+    <item>
+      <title>Webhook config File</title>
+      <link>http://localhost:1315/docs/cli/webhook-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/cli/webhook-config/</guid>
+      <description>Webhook config template # example-webhook-template.yaml meta: name: my-webhook topic: my-topic # optional transforms: - uses: smartmodule_name with: param_name: param_value # optional webhook: outputParts: [body | full (default)] outputType: [text | json (default)] Config options Meta name - The name of your webhook topic - The name of the topic you want events to be stored. It will be automatically created if it doesn&amp;rsquo;t exist. Transforms Webhook connectors support transforms. Records can be modified before they are sent to the topic.</description>
+    </item>
+    <item>
+      <title>Connectors</title>
+      <link>http://localhost:1315/docs/cli/connector/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/cli/connector/</guid>
+      <description>The fluvio cloud connector subcommands are used to manage Connectors in InfinyOn Cloud.&#xA;%copy first-line%&#xA;$ fluvio cloud connector -h fluvio-cloud-connector View Fluvio Connector information USAGE: fluvio-cloud connector &amp;lt;SUBCOMMAND&amp;gt; OPTIONS: -h, --help Print help information SUBCOMMANDS: config Show the connector configuration details create Create a new Connector delete Delete a Connector help Print this message or the help of the given subcommand(s) list List all Connectors logs View connector logs update Update and restart a Connector -&amp;gt; For more info about using connectors, see the Connectors page.</description>
+    </item>
+    <item>
+      <title>Connector config file</title>
+      <link>http://localhost:1315/docs/cli/connector-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/cli/connector-config/</guid>
+      <description>This is the template YAML connector file. To make it useful, it needs to be populated. In the next section we will go over the different sections of the connector configuration file.&#xA;%copy%&#xA;# connector.yaml # Version of the schema of the connector config # Valid value is `0.1.0` apiVersion: 0.1.0 meta: name: version: type: topic: # optional producer: # optional linger: # optional batch-size: # optional compression: # optional consumer: # optional partition: # optional max_bytes: # optional secrets: - name: secret_1 # optional transforms: - uses: smartmodule_name with: param_name: param_value # Type specific configs # key depends on connector # &amp;lt;custom_key&amp;gt;: # foo: bar # # eg.</description>
+    </item>
+    <item>
+      <title>Secrets</title>
+      <link>http://localhost:1315/docs/cli/secret/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/cli/secret/</guid>
+      <description>Fluvio cloud secrets are set via the cli. Each secret is a named value with all secrets sharing a namespace per account. Connector configuration files can refer to secrets by name, and the cloud connector infrastructure will provision the connector with the named secrets.&#xA;Due to security concerns, listing actual secret values or downloading them after they have been set is not allowed. However, a listing of secret names as well as what date they were last set is accessible.</description>
+    </item>
+    <item>
+      <title>Usage</title>
+      <link>http://localhost:1315/docs/cli/usage/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/cli/usage/</guid>
+      <description>Query the CPU and memory usage of your SPUs.&#xA;fluvio cloud usage Example usage:&#xA;%copy first-line%&#xA;$ fluvio cloud usage SPU CPU Memory main-0 1066037n 3168Ki Note: CPU usage is expressed in nanocores. 1 nanocore is equal to 1 billionth of 1 core. </description>
+    </item>
+    <item>
+      <title>Record Deduplication</title>
+      <link>http://localhost:1315/docs/cli/deduplication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/cli/deduplication/</guid>
+      <description>Fluvio&amp;rsquo;s Deduplication feature allows for the removal of duplicate records based on their keys, streamlining your data processing.&#xA;To utilize deduplication, enable it on a desired topic. Duplicates are identified and dropped within a specified window, governed by the bounds configuration.&#xA;The available bounds options are age and count, elaborated in the bounds section.&#xA;Behavior The deduplication process is deterministic and maintains its state across restarts. Upon a restart, the deduplication algorithm traverses the data stream, reconstructing the memory object accordingly.</description>
+    </item>
+  </channel>
+</rss>

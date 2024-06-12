@@ -1,0 +1,16 @@
+apiVersion: 0.1.0
+meta:
+  name: avg-vehicle-last-5-minutes
+materialize:
+  window:
+    type: tumbling
+    bound: "5min"
+  compute: 
+    uses: "infinyon-labs/avg_bus_speed@0.1.0"
+    with:
+      group_by:
+        - vehicle_id
+      operation: 
+        type: average
+        param: speed
+        result: avg_speed

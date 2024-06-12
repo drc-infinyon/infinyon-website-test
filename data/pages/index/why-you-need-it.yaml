@@ -1,0 +1,25 @@
+section: "cards-with-images"
+content:
+  title:  "Increase returns on data investments"
+  items:
+    - title: 
+        keyword: "Reduce"
+        text: "<br/> Time and Complexity"
+      image:
+        src: "/assets/main/complexity.png"
+        alt: "reduce complexity"
+      description: "Tired of babysitting a bunch of tools and infrastructure to build basic data pipelines? We are as well!"
+    - title: 
+        keyword: "Improve"
+        text: "<br/> Development Experience"
+      image:
+        src: "/assets/main/dev-experience.png"
+        alt: "improve dev experience"
+      description: "Work on analytics, insights, intelligence instead of endlessly debugging failed jobs and lost data."
+    - title: 
+        keyword: "Deliver"
+        text: "<br/>Continuous Data Flows"
+      image:
+        src: "/assets/main//ship-data-flows.png"
+        alt: "ship scalable data flows"
+      description: "Deliver truly event driven continuous data enrichment to data consumers and intelligence to your customers."

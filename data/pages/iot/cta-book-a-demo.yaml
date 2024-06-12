@@ -1,0 +1,7 @@
+section: "call-to-action"
+content:
+  title: "See our platform in action"
+  description: "Discover how we can empower your edge analytics solutions while saving you time, money, and data-related challenges."
+  button:
+    label: "Book a Demo Now"
+    ref: "/request/book-a-call"

@@ -1,0 +1,15 @@
+beforeContent:
+  - title: "## Our Mission"
+    content:
+      - "InfinyOn is an early-stage startup backed by Tier 1 venture funds. InfinyOn was founded under the belief that every organization needs to transform into a real-time enterprise to be competitive. Today, InfinyOn is building a new generation of real-time data stack to enable organizations to build real-time applications and services rapidly."
+afterContent:
+  - title: "## Additional Requirements"
+    content:
+      - "We are a startup, and we work extended hours, which at times extend into the weekend. You must be comfortable to work in startup environment."
+  - title: "## Conpensation And Benefits"
+    content: 
+      - "Your actual level and base salary will be determined on a case-by-case basis. They may vary based on the following considerations: job-related knowledge and skills, education, and experience."
+      - "Base salary is just one part of your total rewards package at InfinyOn. You will be eligible for long-term incentives in the form of stock options to participate in the company's success. In addition, we offer a comprehensive benefits package that includes medical, dental, and vision (this is based on your location and eligibility). We also offer unlimited paid time off and a remote first work environment."
+  - tilte: "## About InfinyOn"
+    content: 
+      - "InfinyOn, a technology company in Silicon Valley, aims to accelerate the world's transition to a real-time economy. We have built a modern real-time data platform with a powerful event stream processing engine that allows architects, data engineers, and developers to build the next generation of real-time services. Please visit [infinyon.com](https://www.infinyon.com) to learn more."

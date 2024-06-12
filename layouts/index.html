@@ -1,0 +1,22 @@
+{{ define "head-meta" }}
+  {{- $reCAPTCHA_key := .env.reCAPTCHA_key -}}
+  <script src="https://www.google.com/recaptcha/api.js?render={{ $reCAPTCHA_key }}"></script>
+{{- end }}
+
+{{ define "main" }}
+  {{- $styling := .ctx.Site.Data.styling }}
+  {{- $pages := .ctx.Site.Data.pages.index }}
+  {{- $sections := .ctx.Param "sections" }}
+  {{- $reCAPTCHA_key := .env.reCAPTCHA_key -}}
+
+  <main class="min-h-screen">
+    {{ partial (printf "components/%s.html" (.ctx.Param "hero.component")) .ctx -}}
+    {{ range $sections }}
+      {{- $page := index $pages . -}}
+      {{- if $page.section }}
+        {{- $path := (printf "sections/%s.html" $page.section) -}}
+        {{- partial $path (dict "content" $page.content "styling" $styling "reCAPTCHA_key" $reCAPTCHA_key) }}
+      {{- end }}
+    {{ end }}
+  </main>
+{{- end }}

@@ -1,0 +1,117 @@
+faqs:
+  title: "Frequently Asked Questions (FAQs)"
+  description: "Our responses to the questions that we asked ourselves and have received from data practitioners"
+  items:
+    - question: "Do we really need another data streaming platform?"
+      answer: |
+        Our response is a resounding **YES!**
+        
+        The reason for the emergence of several new real-time data streaming platforms and databases is that current data processing platforms have limitations and fail to deliver the expected value and experience. The availability of modern programming paradigms in the [Rust Programming Language](https://www.rust-lang.org/) and [Web Assembly (WASM)](https://webassembly.org/) presents an opportunity to reinvent the wheel.
+
+        For the past 5 years, we have been developing our core data processing platform using Rust. Meanwhile, WASM has become a powerful runtime for expressing operations in various web-friendly languages. There is no doubt about the capabilities of Rust compared to other programming languages, and we firmly believe that this is how data streaming will become accessible to the rest of the software world beyond the tech giants.
+    - question: "How is the InfinyOn Cloud Platform different compared to all the other available streaming platforms?"
+      answer: | 
+        InfinyOn Cloud data streaming platform is a unified, composable, stateful solution purpose-built for stream processing. InfinyOn Cloud is a managed delpyment of the Fluvio open source stream processing runtime. Distributed stream processing has been around for almost two decades. There are several feature-rich data streaming paradigms available in Java, Scala, Clojure, C++, and more recently Python and Go. The more mature platforms are primarily based on Java and Scala.
+        
+        Taking into account the lessons learned from software and data engineering challenges over the past couple of decades, we have developed a data streaming platform that is:
+        
+        **Unified**: It is a single platform to collect, transform, deduplicate, materialize, and dispatch data.
+        
+        **Composable**: Our approach aligns with the system-level programming principles of the Rust programming language. We have prioritized the development of core stream processor primitives, focusing on building blocks before introducing layers of abstraction. Our platform components function as Lego blocks, allowing users to construct data pipelines using various patterns on top of the core streaming runtime.
+        
+        The implications of this approach are significant!
+        At a high level of abstraction, you can use simple YAML files to express Domain Specific Language (DSL) for data flows. This includes using inbound connectors or clients to collect data, performing transformation operations using WASM in flight, and utilizing outbound connectors or clients to consume data through materialized views. Additionally, you can dispatch data to actionable streams or downstream data stores. Depending on your data sources and transformation requirements, you have the flexibility to choose delivery semantics such as at least once, at most once, or exactly once. You can also control partitioning behaviors, caching, mirroring, cluster profiles, and stateful aggregations based on your specific needs.
+        At the system level, you can create custom deployments and clients using the Fluvio SDK. Furthermore, you can develop inbound or outbound data connectors using the connector development kit, as well as build transformation operators using the smart modules development kit.
+        
+        **Stateful**: One of the biggest complaints and challenges with stream processing platforms not written in Java is the lack of state management abilities. Reliable data delivery guarantees and the ability to manage state and offset are essential for most data pipelines. However, stateful distributed stream processing remains one of the most complex aspects of the data streaming paradigm. The Fluvio streaming platform is ready to launch stateful stream processing. Our upcoming release, on-stream materialized views, is currently undergoing validation with a select group of beta customers.
+    - question: "Streaming platforms are a pain! What is the level of difficulty of setup, configuration, and maintenance of the platform?"
+      answer: |
+        The InfinyOn Cloud platform is designed for composability and simplicity. It leverages the Fluvio stream processing runtime, which is a single binary deployment featuring a well-designed command line interface (CLI) and support for clients in Rust, Python, Node, and Go.
+        
+        Interacting with the managed cloud version is easy through both the CLI and the clients. For self-managed installations, deployment and orchestration are flexible and straightforward.
+    - question: "How does the InfinyOn Cloud platform scale as the data pipelines grow?"
+      answer: | 
+        Infinyon Cloud offers a managed deployment of the Fluvio streaming runtime. 
+        
+        The Fluvio streaming runtime is a compact binary that can be run on edge devices and containers with limited memory, storage, and compute resources. It enables stateful, exactly-once stream processing on a single partition, capable of handling millions of records every minute. By utilizing multiple partitions, the platform scales linearly to process the amount of data you need to process.
+    - question: "How does InfinyOn Data Platform integrate with the remaining data stack?"
+      answer: |
+        The composable nature of the InfinyOn Cloud platform and the focus on the primitives or building blocks allows for flexible configurations and customizations of inbound and outbound data sources to integrate seamlessly with your data stack. Connector development kit enables integration of bespoke inbound and outbound data sources by interacting with the core protocols, authentication, and API layers of web application sources, edge devices, sensors and IoT, BLOB storage, databases etc.
+
+        In addition to connectors, there are supported Rust, Python, Node and Go clients. Internally we have tested inbound and outbound webhook gateway as an on demand semantic data layer for accessing data."
+    - question: "Can I trust that my data will be safe from loss during high loads or failures?"
+      answer: ""
+      hidden: true
+    - question: "Will this platform make event-driven workflows and processing less complex?"
+      answer: ""
+      hidden: true
+    - question: "Will this streaming solution minimize delays for real-time applications?"
+      answer: ""
+      hidden: true
+    - question: "Can I Get Real-time Insights?"
+      answer: ""
+      hidden: true
+    - question: "Will I be able to extract valuable insights from my data streams in real-time?"
+      answer: ""
+      hidden: true
+    - question: "Does this platform have a shorter learning curve compared to others?"
+      answer: ""
+      hidden: true
+    - question: "Can I expect support for open standards and avoiding vendor lock-in?"
+      answer: ""
+      hidden: true
+    - question: "Will this platform allow me to explore new use cases and drive innovation?"
+      answer: ""
+      hidden: true
+    - question: "Can I rely on consistent high performance, even with high data loads?"
+      answer: ""
+      hidden: true
+    - question: "How modular and extensible is the platform's architecture?"
+      answer: ""
+      hidden: true
+    - question: "What partitioning strategies does each platform support?"
+      answer: ""
+      hidden: true
+    - question: "Are there differences in load balancing and data distribution mechanisms?"
+      answer: ""
+      hidden: true
+    - question: "Which serialization formats are supported natively by each platform?"
+      answer: ""
+      hidden: true
+    - question: "Are there compatibility concerns when dealing with different data formats?"
+      answer: ""
+      hidden: true
+    - question: "How do the platforms handle node failures and data replication?"
+      answer: ""
+      hidden: true
+    - question: "Are there variations in strategies for maintaining data integrity?"
+      answer: ""
+      hidden: true
+    - question: "Data Delivery Semantics: What about idempotence and data delivery guarantees?"
+      answer: ""
+      hidden: true
+    - question: "How do the platforms manage backpressure in case of uneven data flow?"
+      answer: ""
+      hidden: true
+    - question: "Are there tools or techniques to prevent overload scenarios?"
+      answer: ""
+      hidden: true
+    - question: "How do maintain state for stream processing?"
+      answer: ""
+      hidden: true
+    - question: "Are there variations in state storage and recovery mechanisms?"
+      answer: ""
+      hidden: true
+    - question: "How well does the platform integrate with external services like databases or APIs?"
+      answer: ""
+      hidden: true
+    - question: "Are there differences in ease of integrating third-party components?"
+      answer: ""
+      hidden: true
+    - question: "How do the platforms handle time-based event processing and windowing?"
+      answer: ""
+      hidden: true
+    - question: " What are the supported APIs and SDKs for customization?"
+      answer: ""
+      hidden: true
+

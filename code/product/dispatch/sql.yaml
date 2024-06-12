@@ -1,0 +1,27 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.3.3
+  name: json-sql-connector
+  type: sql-sink
+  topic: sql-topic
+  secrets:
+    - name: DATABASE_URL
+sql:
+  url: ${{ secrets.DATABASE_URL }}
+transforms:
+  - uses: infinyon/json-sql
+    with:
+      mapping:
+        table: "topic_message"
+        map-columns:
+          "device_id":
+            json-key: "device.device_id"
+            value:
+              type: "int"
+              default: "0"
+              required: true
+          "record":
+            json-key: "$"
+            value:
+              type: "jsonb"
+              required: true

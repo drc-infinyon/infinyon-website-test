@@ -1,0 +1,25 @@
+section: "cards-with-images"
+content:
+  title:  "Simplify event processing"
+  items:
+    - title: 
+        keyword: "Process"
+        text: "<br/> real-time events"
+      image:
+        src: "/assets/main/real-time-processing-light.png"
+        alt: "process real time events"
+      description: "Build simple yet powerful data flows combining collection, transformation, and aggregation on events in one platform"
+    - title: 
+        keyword: "Remove"
+        text: "<br/>Memory Errors"
+      image:
+        src: "/assets/main/prevent-dataloss-light.png"
+        alt: "remove memory errors"
+      description: "Leverage the performance benefits of Rust extended by WASM to break-up with 'out of memory errors'"
+    - title: 
+        keyword: "Improve"
+        text: "<br/> Efficiency & Economics"
+      image:
+        src: "/assets/main/efficiency-economics-light.png"
+        alt: "improve efficiency and economics"
+      description: "Minimize data pipeline resource consumption, improve latency and throughput and returns on data pipeline investments."

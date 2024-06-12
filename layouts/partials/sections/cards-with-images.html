@@ -1,0 +1,38 @@
+{{- $bg_color := .styling.page_bg_color_1 -}}
+{{- $title := .content.title -}}
+{{- $subtitle := .content.subtitle -}}
+{{- $items := .content.items -}}
+{{- $card_bg_color := "bg-gray-800" -}}
+{{- if (eq .content.use_color true) -}}
+  {{- $card_bg_color = .styling.card_bg_color -}}
+{{- end -}}
+
+<div class="{{ $bg_color }} pt-32 pb-32">
+  <div class="mx-auto max-w-md px-6 text-center sm:max-w-3xl lg:max-w-7xl lg:px-8">
+  
+    {{ partial "components/title" (dict "title" $title "subtitle" $subtitle) }}
+
+    <div class="mt-20"></div>
+    
+    <ul role="list" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+      {{- range $items }}
+        <li class="{{ $card_bg_color }} rounded-lg text-center border border-gray-700 hadow py-2">
+          <div class="p-6">
+            <div class="py-4">
+              <img class="mx-auto h-24 w-24" src="{{ .image.src }}" alt="{{ .image.alt }}">
+            </div>
+            <h1 class="mt-4 text-xl font-normal text-white leading-9"> 
+              <span class="font-bold tracking-wide uppercase">{{ .title.keyword }}</span>
+              {{ .title.text | markdownify }}
+            </h1>
+            <p class="mt-10 text-md text-left text-gray-300">
+              {{ .description }}
+            </p>
+          </div>
+        </li>
+      {{ end -}}   
+
+    </ul>
+  </div> 
+</div>

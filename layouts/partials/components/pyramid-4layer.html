@@ -1,0 +1,39 @@
+{{- $items := .content.items -}}
+{{- $class:= "pt-12 t1 bg-gray-500" -}}
+{{- $img_class:= "sm" -}}
+
+<div class="triangle grid grid-cols-5">
+
+  <!-- Left: Pyramid -->
+  <div class="left col-span-3">
+    {{ range $index, $item := $items -}}
+      {{ if eq $index 1 -}}
+        {{ $class = "pt-3 bg-gray-600" -}}
+        {{- $img_class = "md" -}}
+      {{ else if eq $index 2 -}}
+        {{ $class = "pt-3 bg-gray-700" -}}
+        {{- $img_class = "lg" -}}
+      {{ else if eq $index 3 -}}
+        {{ $class = "pt-3 bg-gray-800" -}}
+        {{- $img_class = "xl" -}}
+      {{ end -}}
+
+      <div class="flex items-center {{$class }}">
+        <img class="{{ $img_class }}" src="{{ $item.image.src }}" alt="{{ $item.image.alt }}">
+      </div>
+
+    {{ end -}}
+  </div>
+
+  <!-- Right: Description -->
+  <div class="right col-span-2 text-white text-xl mt-4">
+    {{ range $items -}}
+      <div>
+        <span class="font-bold tracking-wide uppercase">
+          {{ .title.keyword }}
+        </span>
+        {{ .title.text }}
+      </div>
+    {{ end -}}
+  </div>    
+</div>

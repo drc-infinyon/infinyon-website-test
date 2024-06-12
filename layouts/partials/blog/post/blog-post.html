@@ -1,0 +1,55 @@
+{{- $showHeaderImg := .Param "show-header-img" | default true -}}
+{{- $img := .Params.tile }}
+{{- if not $img -}}
+  {{- $img = .Params.img }}
+{{- end -}}
+{{- $content := .Content -}}
+{{- $content := partial "augment/caution-symbol.html" $content -}}
+{{- $content := partial "augment/idea-symbol.html" $content -}}
+{{- $content := partial "augment/copy-code.html" $content -}}
+
+<div class="flex flex-1 items-start overflow-hidden max-w-7xl mx-auto py-6">
+  <main class="flex-1 overflow-y-auto">
+    <section aria-labelledby="primary-heading" class="flex min-w-0 flex-1 flex-col">
+      <div class="mx-5">
+        <div class="mb-6">
+          {{ partial "blog/post/sections/nav.html" . -}}
+        </div>
+        <div class="mb-6">
+          {{ partial "blog/post/sections/title.html" . -}}
+        </div>
+        {{ if $showHeaderImg -}}
+        <div class="w-full lg:block hidden">
+          <img class="mx-auto aspect-[19/10] rounded-lg lg:h-80" src="/{{ $img }}" alt="{{ .Title }}">
+        </div>
+        {{- end }}
+        <div class="block lg:hidden mt-4">
+          <div class="flex flex-row">
+            <div class="ml-4">
+              {{ partial "blog/post/sections/author.html" . -}}
+            </div>
+            <div class="grow"></div>
+            <div class="flex flex-col mr-4 sm:mr-10">
+              <h5 class="text-base text-gray-500">SHARE ON</h5>
+              <div class="mt-1 pt-2">
+                {{ partial "blog/post/sections/social.html" . -}}
+              </div>
+              <div class="mt-1 pt-2">
+                {{ partial "blog/post/sections/fluvio-oss.html" . -}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="blog mt-8 lg:max-w-5xl max-w-7xl prose prose-quoteless prose-zing prose-md">
+          {{ $content }}
+        </div>      
+      </div>
+
+    </section>
+  </main> 
+
+  {{ partial "blog/post/sidebar.html" . -}}
+
+</div>
+
+<script src="/js/copy-code.js"></script>

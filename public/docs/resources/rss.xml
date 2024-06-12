@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Resources on InfinyOn</title>
+    <link>http://localhost:1315/docs/resources/</link>
+    <description>Recent content in Resources on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1315/docs/resources/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Analytics 101</title>
+      <link>http://localhost:1315/docs/resources/analytics-101/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/analytics-101/</guid>
+      <description>Welcome to &amp;ldquo;Analytics 101.&amp;rdquo; The purpose of this guide is to set the context of the information economy in which we exist and describe the important concepts and critical constraints to build data products that delivers value and delight customers.&#xA;Analytics in the digital age There is no doubt that we live in a digital age transacting in the information economy. The three legs of the digital stool are computers, software, and data.</description>
+    </item>
+    <item>
+      <title>Frequently Asked Questions (FAQs)</title>
+      <link>http://localhost:1315/docs/resources/faqs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/faqs/</guid>
+      <description>Do we really need another data streaming platform? Our response is a resounding YES!&#xA;The reason for the emergence of several new real-time data streaming platforms and databases is that current data processing platforms have limitations and fail to deliver the expected value and experience. The availability of modern programming paradigms in the Rust Programming Language and Web Assembly (WASM) presents an opportunity to reinvent the wheel.&#xA;For the past 5 years, we have been developing our core data processing platform using Rust.</description>
+    </item>
+    <item>
+      <title>Comparison: Fluvio vs Kafka</title>
+      <link>http://localhost:1315/docs/resources/compare-fluvio-vs-kafka/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/compare-fluvio-vs-kafka/</guid>
+      <description>Context This purpose of this document is to compare and contrast Apache Kafka with Fluvio Open Source.&#xA;Fluvio is a cloud native data streaming runtime that was architected from the ground up in Rust to solve the challenges with Kafka and alternatives to Kafka.&#xA;Fluvio is built to deliver a lean and mean data streaming platform with all the core functionality with unmatched performance and efficiency without the complexities and overhead of operating and managing Kafka.</description>
+    </item>
+    <item>
+      <title>Smart Connectors Core Concepts</title>
+      <link>http://localhost:1315/docs/resources/connector-core-concepts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/connector-core-concepts/</guid>
+      <description>There are 4 steps to the connector:&#xA;Protocol: Parses data according to the wire format of the connected data platform. Extract: Extracts raw data from the protocol format and packages it neatly into data structures that may be used by subsequent stages or be produced directly to a topic. Filter (optional): A user-provided SmartModule that may determine whether a given record should be discarded before sending it over the network to Fluvio, saving bandwidth.</description>
+    </item>
+    <item>
+      <title>SmartModule Operators</title>
+      <link>http://localhost:1315/docs/resources/smartmodule-operator-reference/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/smartmodule-operator-reference/</guid>
+      <description>Filter The simplest type of SmartModule is a filter, which can examine each record in a stream and decide whether to accept or reject it. All accepted records are delivered down the pipeline, and rejected records are discarded. SmartModule applied in consumers or sink connectors filter records after they are stored in a topic, and will not impact persistence - it simply means that records filtered out are not delivered to the consumer.</description>
+    </item>
+    <item>
+      <title>Stateful Services Concepts</title>
+      <link>http://localhost:1315/docs/resources/stateful-services-concepts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/stateful-services-concepts/</guid>
+      <description>Fluvio is an implementation of the Event-Driven Architecture (EDA), and Stateful Services are an extension of the same paradigm. The following concepts are essential for understanding the architecture:&#xA;Events Event Streams &amp;amp; Partitions State Operators Windowing Service Chaining (DAG) WebAssembly Component Model Events An event registers an activity that occurred in the past - an immutable fact. Events can be represented in formats like JSON, Avro, Protobuf, etc. Events can be produced by services such as databases, microservices, sensors, IoT devices, or other physical devices.</description>
+    </item>
+    <item>
+      <title>Transformation Chaining</title>
+      <link>http://localhost:1315/docs/resources/transformation-chaining/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/transformation-chaining/</guid>
+      <description>In Fluvio, data modification is done using SmartModules, user-defined functions converted to WebAssembly (WASM). Several SmartModules can form a Transformation Chain, working in sequence—each one modifies the data and passes it to the next. Both the sending (Producer) and receiving (Consumer) ends can use these chains; for the Producer, modification happens before the data is saved to the topic, while for the Consumer, it occurs before sending the data.&#xA;Transformation Chaining is available for:</description>
+    </item>
+    <item>
+      <title>InfinyOn Hub Features</title>
+      <link>http://localhost:1315/docs/resources/infinyon-hub-features/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/infinyon-hub-features/</guid>
+      <description>The Hub service, is a where users can download SmartModules and Connectors and integrate them into their data pipelines. To use this service you need an InfinyOn Cloud account.&#xA;Each SmartModule and Connector in the Hub are uniquely identified by a group, name, and version.&#xA;For example, the following SmartModules is published by InfinyOn:&#xA;infinyon/sql-json@0.1.0 Private/Public SmartModules and Connectors SmartModules published to the Hub can be public or private. Public SmartModules are visible and downloadable by anyone, whereas private SmartModules are only visible to the owner.</description>
+    </item>
+    <item>
+      <title>Stream Processing with Lookback SmartModules</title>
+      <link>http://localhost:1315/docs/resources/lookback/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/resources/lookback/</guid>
+      <description>The Lookback feature in Fluvio SmartModule is the way to access records from the data stream before the SmartModule starts allowing it to build its internal state depending on what the topic currently has.&#xA;If configured, the Lookback phase is guaranteed to take place after init method but before the first record is processed.&#xA;To activate Lookback SmartModule must fit the following criteria:&#xA;A function annotated with #[smartmodule(look_back)] macro is present in the code.</description>
+    </item>
+  </channel>
+</rss>

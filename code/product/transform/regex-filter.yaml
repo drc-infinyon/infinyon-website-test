@@ -1,0 +1,5 @@
+# Filter out all records that fail to match `Cat` or `cat`
+transforms:
+- uses: infinyon/regex-filter@0.1.0
+  with:
+    regex: "[Cc]at"

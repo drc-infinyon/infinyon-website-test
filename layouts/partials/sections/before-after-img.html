@@ -1,0 +1,15 @@
+{{- $bg_color := .styling.page_bg_color_1 -}}
+{{- $before := .content.before -}}
+{{- $after := .content.after -}}
+
+<div class="{{ $bg_color }} pt-32 pb-32">
+  <div class="max-w-xl sm:max-w-3xl lg:max-w-7xl mx-auto">
+    
+    {{ partial "components/image-with-title" (dict "content" $before) }}
+
+    <div class="mt-20"></div>
+
+    {{ partial "components/image-with-title" (dict "content" $after) }}
+
+  </div>
+</div>

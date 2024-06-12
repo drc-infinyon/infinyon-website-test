@@ -1,0 +1,27 @@
+
+.slide-text .slide-up {
+	overflow: hidden;
+}
+
+.slide-text span {
+  display: none;
+}
+
+.slide-text span.text-in {
+	display: block;
+	animation: textIn .5s ease;
+}
+
+.slide-text span.text-out {
+	animation: textOut .5s ease;
+}
+
+@keyframes textIn {
+	0%   { transform: translateY(100%); }
+	100% { transform: translateY(0%); }
+}
+
+@keyframes textOut{
+	0%   { transform: translateY(0%); }
+	100% { transform: translateY(-100%); }
+}

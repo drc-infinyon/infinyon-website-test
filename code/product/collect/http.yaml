@@ -1,0 +1,14 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.2.5
+  name: http-github
+  type: http-source
+  topic: github-events
+  secrets:
+    - name: GITHUB_TOKEN
+http:
+  endpoint: 'https://api.github.com/repos/infinyon/fluvio'
+  method: GET
+  headers: 
+    - 'Authorization: token ${{ secrets.GITHUB_TOKEN }}'
+  interval: 30s

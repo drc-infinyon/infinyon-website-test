@@ -1,0 +1,9 @@
+{{ define "main" }}
+<main id="docs-main" class="min-h-screen">
+  {{ partial "docs/doc-main" .ctx -}}
+</main>
+{{- end }}
+
+{{ define "sub-nav" }}
+  {{ partial "docs/sub-nav" . -}}
+{{- end }}

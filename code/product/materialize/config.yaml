@@ -1,0 +1,30 @@
+# Materialized view configuration file
+#  - mv.yaml
+apiVersion: 0.1.0
+meta:
+  name: avg_bus_speed
+materialize:
+  window:
+    type: tumbling
+    bound: "5min"
+    trigger: events
+  input: 
+    topic: helsinki
+    schema:
+      - name: vehicle_id
+        type: u16
+      - name: speed
+        type: float
+  output:
+    fields:
+      - name: vehicle_id
+      - name: avg_speed
+  compute: 
+    uses: "infinyon-labs/avg_bus_speed@0.1.0"
+    with:
+      group_by:
+        - vehicle_id
+      operation: 
+        type: average
+        param: speed
+        result: avg_speed

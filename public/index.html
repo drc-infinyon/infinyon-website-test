@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head>
+	<meta name="generator" content="Hugo 0.122.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script>
+    <title>InfinyOn | The streaming data platform for engineers who want the power of Rust and WASM</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"><script defer src="/js/alpine_3_11_1.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdFYjsoAAAAAAdOUN6lhdqaf5utvQxZX6hn1h2s"></script>
+  </head>
+  <body>
+    
+<div class="relative isolate flex items-center gap-x-6 overflow-hidden bg--100 py-2.5 px-6 sm:px-3.5 sm:before:flex-1 bg-indigo-300">
+  <div class="flex flex-auto items-center gap-y-2 gap-x-4">
+    <p class="text-sm leading-6 text-gray-900">
+      <strong class="font-semibold">Stateful Services (private release)</strong>
+      <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+      Build composable event-driven data pipelines in minutes.
+    </p>
+    <a href="/request/ss-early-access" class="flex-none rounded-full bg-gray-900 py-1 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+      Request access <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</div><div id="content">
+      <header id="header" class="sticky top-0 z-20">
+        <div 
+  x-data="{ isOpen: false, menuOpen: '', showBorder: false }"
+  @scroll.window="showBorder = (document.querySelector('#header').getBoundingClientRect().top <= 0 && window.pageYOffset > 2 ) ? true : false"
+  :class="{ 'border-b border-gray-700' : showBorder}"
+>
+  <div class="bg-magenta-900 pt-4 pb-4">
+    <nav class="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
+      <div class="flex flex-1 items-center">
+        <div class="flex w-full items-center justify-between md:w-auto">
+          <a href="/">
+            <span class="sr-only">InfinyOn</span>
+            <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+          </a>
+
+          <div class="-mr-2 flex items-center md:hidden">
+            <button 
+              @click="isOpen = !isOpen" 
+              type="button" 
+              class="focus-ring-inset inline-flex items-center justify-center rounded-md bg-magenta-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white" aria-expanded="false"
+              >
+              <span class="sr-only">Open main menu</span>
+              
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.4" stroke="white" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>                  
+          </div>
+        </div>
+
+        <div class="hidden space-x-8 md:ml-10 md:flex">
+              
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Use Cases</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-8 py-7 bg-slate-50" aria-labelledby="solutions-heading">
+          <ul role="list" class="space-y-5">
+              <li class="flow-root">
+                <a href="/clickstream" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+</svg><span class="ml-4">Clickstream Analytics</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/iot" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+</svg><span class="ml-4">IoT Mirroring</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/stateful-streaming" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+</svg>
+<span class="ml-4">Stateful Streaming</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+  
+</div>    
+            
+<a href="/docs" class="text-base text-white hover:text-gray-300 " class="">Docs</a>    
+            
+<a href="/blog" class="text-base text-white hover:text-gray-300 " class="">Blog</a>    
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Resources</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-16 py-8 grid grid-cols-2 gap-24 bg-slate-50" aria-labelledby="solutions-heading">
+
+          <div>
+            <h3 class="text-md text-gray-700">Company</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/about" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+</svg><span class="ml-4">About</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/careers" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+</svg><span class="ml-4">Careers</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/press-releases" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+</svg><span class="ml-4">Press</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-md text-gray-700">Resources</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/resources" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+</svg><span class="ml-4">Articles</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/webinars" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+</svg><span class="ml-4">Webinars</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="https://www.youtube.com/@infinyon/videos" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+</svg><span class="ml-4">Videos</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+  
+</div>    
+                
+            </div>
+
+      </div>
+      
+      <div class="hidden md:flex md:items-center md:space-x-6">
+            
+          
+        <a href="https://infinyon.cloud?utm_campaign=global%20cloud%20link&amp;utm_source=website&amp;utm_medium=global%20button&amp;utm_term=infinyon%20cloud&amp;utm_content=cloud-registration" class="inline-flex items-center rounded-md px-4 py-1.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600">Cloud Login</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="absolute inset-x-0 top-0 px-2 origin-top transform transition md:hidden">
+  <div x-show="isOpen" x-cloak x-transition:enter="duration-150 ease-out" x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="duration-100 ease-in"
+    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+    class="overflow-hidden rounded-lg bg-slate-50 shadow-lg ring-1 ring-black ring-opacity-5">
+
+    <div class="flex items-center justify-between px-5 pt-4 pb-2 bg-magenta-900">
+      <div>
+        <a href="/">
+          <span class="sr-only">InfinyOn</span>
+          <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        </a>
+      </div>
+      <div class="-mr-2">
+        <button type="button" @click="isOpen = !isOpen"
+          class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+          <span class="sr-only">Close menu</span>
+          
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-5 pb-6 max-h-screen -mb-16 overflow-y-auto">
+      <div class="mb-16 space-y-1 px-2">
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Use Cases</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/clickstream"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Clickstream Analytics</a>
+                  
+                    <a href="/iot"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">IoT Mirroring</a>
+                  
+                    <a href="/stateful-streaming"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Stateful Streaming</a>
+                  </div>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Documentation</p> 
+              <a href="/docs"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Docs</a>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Blog Articles</p> 
+              <a href="/blog"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Blog</a>
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Resources</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/about"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">About</a>
+                  
+                    <a href="/careers"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Careers</a>
+                  
+                    <a href="/press-releases"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Press</a>
+                  
+                    <a href="/resources"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Articles</a>
+                  
+                    <a href="/webinars"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Webinars</a>
+                  
+                    <a href="https://www.youtube.com/@infinyon/videos"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Videos</a>
+                  </div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+      </header><main class="min-h-screen">
+    <div class=" bg-gradient-to-b from-magenta-900 to-gray-800 pt-6 sm:pt-8 lg:overflow-hidden">
+  <div class="relative mx-auto max-w-7xl lg:px-8 pb-2 lg:pb-12"> 
+    <div class="lg:grid lg:grid-cols-2 lg:gap-5">
+
+      <div class="mb-24">
+        <div class="mx-auto max-w-2xl px-6 sm:max-w-2xl sm:text-center lg:flex lg:items-start lg:px-4 lg:text-left">
+          <div class="lg:pt-8"> 
+
+            
+  
+            <div class="mt-4 sm:mt-5 lg:mt-8">
+              <h1 class="text-3xl font-bold leading-tight tracking-wide">
+                <span class="block text-white">Build event streaming data flows</span>
+
+                
+                  <span class="block bg-clip-text pt-2 pb-3 text-transparent sm:pb-5 bg-indigo-500">100x faster.</span>
+              </h1>
+            </div>
+
+            <div class="mt-10">
+              <p class="text-base text-gray-200 tracking-wider lg:text-md">With InfinyOn Cloud data platform, developers and analysts collaborate to build and maintain end to end streaming data flows on asynchronous event driven architecture with zero data loss, guranteed delivery, self healing, built in observability.<br /></p>
+            </div>
+
+            <div class="mt-10 sm:mt-12">
+              
+            </div>
+            
+          </div>
+        </div> 
+
+        <div class="flex flex-wrap justify-center lg:justify-start lg:ml-5 gap-4">
+          
+          
+          <a href="https://github.com/infinyon/fluvio"
+            class="uppercase rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Try Fluvio Open Source</a>
+          
+          
+          <a href="/request/book-a-call"
+            class="uppercase rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Book a Discovery Call</a>
+        </div>
+                
+      </div>
+
+      <div class="lg:relative pb-20">
+          <div class="mx-auto max-w-2xl px-5">
+            <div class="hidden sm:inline mt-0 lg:mt-12">
+              <div class="bg-gray-800 mt-16 shadow sm:rounded-lg min-w-min">
+  <div 
+    x-data="{
+      openTab: 0,
+      activeTextClass: 'border-white text-white group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium'
+    }"
+    class="px-4 py-3"
+  >
+    <div class="border-b border-gray-300">
+      <nav class="-mb-px flex space-x-1" aria-label="Tabs">
+        <a @click="openTab = 0" :class="openTab === 0 ? activeTextClass : inactiveTextClass"><svg class="rotate-180 -ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+</svg><span>Collect</span>
+          </a><a @click="openTab = 1" :class="openTab === 1 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+</svg><span>Transform</span>
+          </a><a @click="openTab = 2" :class="openTab === 2 ? activeTextClass : inactiveTextClass"><svg class="rotate-180 -ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
+</svg><span>Dedup</span>
+          </a><a @click="openTab = 3" :class="openTab === 3 ? activeTextClass : inactiveTextClass"><svg class="rotate-[-90deg] -ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+</svg><span>Materialize</span>
+          </a><a @click="openTab = 4" :class="openTab === 4 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+</svg><span>Dispatch</span>
+          </a>
+      </nav>
+    </div>
+    <div class="text-sm mt-2 h-72 overflow-y-scroll">
+      <div x-show="openTab === 0">
+          <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.2.5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki-mqtt </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">mqtt-source</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mqtt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mqtt://mqtt.hsl.fi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/hfp/v2/journey/ongoing/vp/+/+/+/#&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">secs</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">nanos</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">payload_output_type</span><span class="p">:</span><span class="w"> </span><span class="l">json</span></span></span></code></pre></div>
+        </div><div x-show="openTab === 1">
+          <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/jolt@0.3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">shift</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">payload</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">VP</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">veh</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vehicle&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">spd</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;speed&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/json-sql@0.2.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mapping</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;speed&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">map-columns</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;lat&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;vehicle&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">json-key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vehicle&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;int&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;speed&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">json-key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;speed&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;float&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre></div>
+        </div><div x-show="openTab === 2">
+          <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dedup-bus-events</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">deduplication</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">bounds</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="m">1000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">age</span><span class="p">:</span><span class="w"> </span><span class="l">24h</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">filter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">transform</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon-labs/dedup-filter@0.0.2</span></span></span></code></pre></div>
+        </div><div x-show="openTab === 3">
+          <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">avg-vehicle-last-5-minutes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">materialize</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">window</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">tumbling</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">bound</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5min&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">compute</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;infinyon-labs/avg_bus_speed@0.1.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">group_by</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">vehicle_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operation</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">average</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">param</span><span class="p">:</span><span class="w"> </span><span class="l">speed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">result</span><span class="p">:</span><span class="w"> </span><span class="l">avg_speed</span></span></span></code></pre></div>
+        </div><div x-show="openTab === 4">
+          <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">md-helsinki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">duckdb-sink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secrets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">MD_TOKEN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">duckdb</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;md:?token=${{ secrets.MD_TOKEN }}&#34;</span></span></span></code></pre></div>
+        </div>  
+    </div>
+  </div>
+</div></div>
+            <div class="inline sm:hidden">
+              <div class="mx-auto w-full">
+  <div class="bg-gray-800 shadow sm:rounded-lg">
+    <div 
+      x-data="{
+        openTab: 0,
+        activeTextClass: 'border-white text-white group inline-flex items-center ',
+        inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center'
+      }"
+      class="text-sm font-medium w-full"
+    >
+      <div class="py-4">
+        <nav class="-mb-px pl-4 flex flex-col gap-4" aria-label="Tabs">
+          <a 
+              @click="openTab = 0" 
+              :class="openTab === 0 ? activeTextClass : inactiveTextClass"
+              ><svg class="rotate-180 -ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+</svg><span>Collect</span>
+            </a><a 
+              @click="openTab = 1" 
+              :class="openTab === 1 ? activeTextClass : inactiveTextClass"
+              ><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+</svg><span>Transform</span>
+            </a><a 
+              @click="openTab = 2" 
+              :class="openTab === 2 ? activeTextClass : inactiveTextClass"
+              ><svg class="rotate-180 -ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
+</svg><span>Dedup</span>
+            </a><a 
+              @click="openTab = 3" 
+              :class="openTab === 3 ? activeTextClass : inactiveTextClass"
+              ><svg class="rotate-[-90deg] -ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+</svg><span>Materialize</span>
+            </a><a 
+              @click="openTab = 4" 
+              :class="openTab === 4 ? activeTextClass : inactiveTextClass"
+              ><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+</svg><span>Dispatch</span>
+            </a>
+        </nav>
+      </div>
+
+      <div class="mx-2 border-b border-gray-300"></div>
+
+      <div class="text-sm mt-3 pt-2 pr-2 pb-4 min-h-72">
+        <div class="overflow-scroll" x-show="openTab === 0">
+            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.2.5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki-mqtt </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">mqtt-source</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mqtt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mqtt://mqtt.hsl.fi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/hfp/v2/journey/ongoing/vp/+/+/+/#&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">secs</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">nanos</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">payload_output_type</span><span class="p">:</span><span class="w"> </span><span class="l">json</span></span></span></code></pre></div>
+          </div><div class="overflow-scroll" x-show="openTab === 1">
+            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/jolt@0.3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">shift</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">payload</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">VP</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">veh</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vehicle&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">spd</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;speed&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/json-sql@0.2.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mapping</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;speed&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">map-columns</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;lat&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;vehicle&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">json-key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vehicle&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;int&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;speed&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">json-key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;speed&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;float&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre></div>
+          </div><div class="overflow-scroll" x-show="openTab === 2">
+            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dedup-bus-events</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">deduplication</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">bounds</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="m">1000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">age</span><span class="p">:</span><span class="w"> </span><span class="l">24h</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">filter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">transform</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon-labs/dedup-filter@0.0.2</span></span></span></code></pre></div>
+          </div><div class="overflow-scroll" x-show="openTab === 3">
+            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">avg-vehicle-last-5-minutes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">materialize</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">window</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">tumbling</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">bound</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5min&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">compute</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;infinyon-labs/avg_bus_speed@0.1.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">group_by</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">vehicle_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operation</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">average</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">param</span><span class="p">:</span><span class="w"> </span><span class="l">speed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">result</span><span class="p">:</span><span class="w"> </span><span class="l">avg_speed</span></span></span></code></pre></div>
+          </div><div class="overflow-scroll" x-show="openTab === 4">
+            <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">md-helsinki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">duckdb-sink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secrets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">MD_TOKEN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">duckdb</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;md:?token=${{ secrets.MD_TOKEN }}&#34;</span></span></span></code></pre></div>
+          </div>  
+      </div>
+    </div>
+  </div>
+</div></div>
+          </div>
+        </div>  
+      
+
+    </div>
+
+    
+    
+  </div>
+</div>
+
+<script src="/js/animate-text.js"></script>
+<div class="bg-gradient-to-b from-gray-900 to-gray-800 pt-32 pb-32">
+  <div class="mx-auto max-w-md px-6 text-center sm:max-w-3xl lg:max-w-7xl lg:px-8">
+  
+    <div class="text-white text-center px-4">
+  <h2 class="text-4xl font-bold tracking-wide">Increase returns on data investments</h2>
+  </div>
+
+
+    <div class="mt-20"></div>
+    
+    <ul role="list" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <li class="bg-gray-800 rounded-lg text-center border border-gray-700 hadow py-2">
+          <div class="p-6">
+            <div class="py-4">
+              <img class="mx-auto h-24 w-24" src="/assets/main/complexity.png" alt="reduce complexity">
+            </div>
+            <h1 class="mt-4 text-xl font-normal text-white leading-9"> 
+              <span class="font-bold tracking-wide uppercase">Reduce</span>
+              <br/> Time and Complexity
+            </h1>
+            <p class="mt-10 text-md text-left text-gray-300">
+              Tired of babysitting a bunch of tools and infrastructure to build basic data pipelines? We are as well!
+            </p>
+          </div>
+        </li>
+      
+        <li class="bg-gray-800 rounded-lg text-center border border-gray-700 hadow py-2">
+          <div class="p-6">
+            <div class="py-4">
+              <img class="mx-auto h-24 w-24" src="/assets/main/dev-experience.png" alt="improve dev experience">
+            </div>
+            <h1 class="mt-4 text-xl font-normal text-white leading-9"> 
+              <span class="font-bold tracking-wide uppercase">Improve</span>
+              <br/> Development Experience
+            </h1>
+            <p class="mt-10 text-md text-left text-gray-300">
+              Work on analytics, insights, intelligence instead of endlessly debugging failed jobs and lost data.
+            </p>
+          </div>
+        </li>
+      
+        <li class="bg-gray-800 rounded-lg text-center border border-gray-700 hadow py-2">
+          <div class="p-6">
+            <div class="py-4">
+              <img class="mx-auto h-24 w-24" src="/assets/main//ship-data-flows.png" alt="ship scalable data flows">
+            </div>
+            <h1 class="mt-4 text-xl font-normal text-white leading-9"> 
+              <span class="font-bold tracking-wide uppercase">Deliver</span>
+              <br/>Continuous Data Flows
+            </h1>
+            <p class="mt-10 text-md text-left text-gray-300">
+              Deliver truly event driven continuous data enrichment to data consumers and intelligence to your customers.
+            </p>
+          </div>
+        </li>
+      </ul>
+  </div> 
+</div>
+
+    <div class="bg-gradient-to-b from-gray-900 to-magenta-800 pb-16 pt-24 sm:pb-24 sm:pt-32 xl:pb-32">
+  <div class="mx-auto max-w-2xl px-4 lg:max-w-5xl">
+
+    <div class="pb-24">
+      <div class="text-white text-center px-4">
+  <h2 class="text-4xl font-bold tracking-wide">Technology Leaders Experience</h2>
+  </div>
+
+    </div>
+
+    <div class="grid grid-cols-1 items-center gap-x-8 gap-y-8 lg:gap-x-10">
+      <div class="relative col-span-2 lg:col-start-1 lg:row-start-2">
+        <figure class="relative isolate -mt-12 pt-6 sm:pt-12">
+          <svg viewBox="0 0 162 128" fill="none" aria-hidden="true" class="absolute left-0 top-0 -z-10 h-32 stroke-white/20">
+            <path id="b56e9dab-6ccb-4d32-ad02-6b4bb5d9bbeb" d="M65.5697 118.507L65.8918 118.89C68.9503 116.314 71.367 113.253 73.1386 109.71C74.9162 106.155 75.8027 102.28 75.8027 98.0919C75.8027 94.237 75.16 90.6155 73.8708 87.2314C72.5851 83.8565 70.8137 80.9533 68.553 78.5292C66.4529 76.1079 63.9476 74.2482 61.0407 72.9536C58.2795 71.4949 55.276 70.767 52.0386 70.767C48.9935 70.767 46.4686 71.1668 44.4872 71.9924L44.4799 71.9955L44.4726 71.9988C42.7101 72.7999 41.1035 73.6831 39.6544 74.6492C38.2407 75.5916 36.8279 76.455 35.4159 77.2394L35.4047 77.2457L35.3938 77.2525C34.2318 77.9787 32.6713 78.3634 30.6736 78.3634C29.0405 78.3634 27.5131 77.2868 26.1274 74.8257C24.7483 72.2185 24.0519 69.2166 24.0519 65.8071C24.0519 60.0311 25.3782 54.4081 28.0373 48.9335C30.703 43.4454 34.3114 38.345 38.8667 33.6325C43.5812 28.761 49.0045 24.5159 55.1389 20.8979C60.1667 18.0071 65.4966 15.6179 71.1291 13.7305C73.8626 12.8145 75.8027 10.2968 75.8027 7.38572C75.8027 3.6497 72.6341 0.62247 68.8814 1.1527C61.1635 2.2432 53.7398 4.41426 46.6119 7.66522C37.5369 11.6459 29.5729 17.0612 22.7236 23.9105C16.0322 30.6019 10.618 38.4859 6.47981 47.558L6.47976 47.558L6.47682 47.5647C2.4901 56.6544 0.5 66.6148 0.5 77.4391C0.5 84.2996 1.61702 90.7679 3.85425 96.8404L3.8558 96.8445C6.08991 102.749 9.12394 108.02 12.959 112.654L12.959 112.654L12.9646 112.661C16.8027 117.138 21.2829 120.739 26.4034 123.459L26.4033 123.459L26.4144 123.465C31.5505 126.033 37.0873 127.316 43.0178 127.316C47.5035 127.316 51.6783 126.595 55.5376 125.148L55.5376 125.148L55.5477 125.144C59.5516 123.542 63.0052 121.456 65.9019 118.881L65.5697 118.507Z" />
+            <use href="#b56e9dab-6ccb-4d32-ad02-6b4bb5d9bbeb" x="86" />
+          </svg>
+          <blockquote class="text-xl font-normal leading-8 text-gray-200 sm:text-xl sm:leading-9">
+            <p>By adopting InfinyOn Cloud, we&#39;ve transformed our engineering velocity and eliminated the roadblocks and delays associated with traditional systems and services, empowering our teams to focus on innovation and growth.</p>
+          </blockquote>
+        </figure>
+      </div>
+      <div class="col-end-1 w-16 lg:row-span-4 lg:w-72">
+        <img class="rounded-xl lg:rounded-3xl" src="/assets/users/Ben-Cleary.jpg" alt="CTO of Klarian">
+      </div>
+      <figcaption class="text-lg lg:col-start-1 lg:row-start-3">
+        <div class="font-bold tracking-wider text-gray-300">Ben Cleary</div>
+        <div class="mt-1 text-gray-500">CTO of Klarian</div>
+      </figcaption>
+    </div>
+  </div>
+</div>
+    <div class="relative isolate overflow-hidden bg-gray-900">
+  <div class="px-6 py-28 sm:px-6 sm:py-38 lg:px-8">
+    <div class="px-3 mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl font-bold tracking-wide text-white sm:text-4xl">
+       Level Up Your Data Platform
+      </h2>
+      <div class="mt-12 max-w-3xl text-left text-lg leading-8 text-gray-300">
+        1 - Deliver continuous intelligence with focus on business challenges.</br>2 - Implement real-time event driven architecture on ONE platform.</br>3 - Enjoy the freedom from infrastructure management hell.</br>4 - Drive higher returns on your data investment.
+      </div>
+      <div class="mt-20 flex items-center justify-center gap-x-6">
+        <a href="/request/book-a-call" class="uppercase rounded-md bg-white px-10 py-2.5 font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+          Book a Discovery Session
+        </a>
+      </div>
+    </div>
+  </div>
+  <svg viewBox="0 0 1024 1024" class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]" aria-hidden="true">
+    <circle cx="512" cy="512" r="512" fill="url(#8d958450-c69f-4251-94bc-4e091a323369)" fill-opacity="0.7" />
+    <defs>
+      <radialGradient id="8d958450-c69f-4251-94bc-4e091a323369">
+        <stop stop-color="#7775D6" />
+        <stop offset="1" stop-color="#E935C1" />
+      </radialGradient>
+    </defs>
+  </svg>
+</div>
+    <div class="bg-gradient-to-b from-gray-900 to-gray-800 pt-32 pb-32">
+  <div class="max-w-xl sm:max-w-3xl lg:max-w-7xl mx-auto">
+    
+    <div class="pb-8 px-6">
+  <div class="text-white text-center px-4">
+  <h2 class="text-4xl font-bold tracking-wide">Stuck with a bloated data stack?</h2>
+  </div>
+
+</div>
+
+<div class="pb-12 px-6 text-lg text-gray-300 max-w-6xl mx-auto">
+  If you are struggling to manage a bloated data stack with multiple tools glued together, infrstructure management overhead, slow development velocity - We have lived through this pain and want to help you optimize your data stack.
+</div>
+
+<div class="flow-root">
+  <div class="p-5 mx-1 lg:mx-20 rounded-xl lg:rounded-2xl">
+    <img src="/assets/main/infinyon-before.svg" class="rounded-md" alt="Kafka, Flink, Airflow - data pipeline spagetti">
+  </div>
+</div>
+
+
+    <div class="mt-20"></div>
+
+    <div class="pb-8 px-6">
+  <div class="text-white text-center px-4">
+  <h2 class="text-4xl font-bold tracking-wide">Realize the benefits of a unified data platform!</h2>
+  </div>
+
+</div>
+
+<div class="pb-12 px-6 text-lg text-gray-300 max-w-6xl mx-auto">
+  Roll-out end-to-end data flows in minutes with composable configurations. Create custom flows with development kits. Deliver continuous value with your data by adopting asynchronous event driven architecture without the infrastructure overhead.
+</div>
+
+<div class="flow-root">
+  <div class="p-5 mx-1 lg:mx-20 rounded-xl lg:rounded-2xl">
+    <img src="/assets/main/infinyon-after.svg" class="rounded-md" alt="InfinyOn data streaming pipeline">
+  </div>
+</div>
+
+
+  </div>
+</div>
+    <div class="bg-gradient-to-b from-gray-900 to-gray-800 pt-32 pb-32">
+  <div class="mx-auto max-w-md px-6 text-center sm:max-w-3xl lg:max-w-7xl lg:px-8">
+  
+    <div class="text-white text-center px-4">
+  <h2 class="text-4xl font-bold tracking-wide">What data practitioners say</h2>
+  </div>
+
+
+    <div class="mt-20"></div>
+
+    <ul role="list" class="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
+      
+      
+        <li class="rounded-lg bg-gray-800 px-5 py-8">
+          <img class="mx-auto h-44 w-44 rounded-full" src="/assets/users/artem-bw.jpg" alt="CEO and Author">
+          <h2 class="text-emerald-400 mt-4 text-2xl  leading-7 tracking-tight">
+            Artem
+          </h2>
+          <h4 class="text-gray-400 my-4 px-8 text-lg leading-7">
+            Data Platform Architect
+          </h4>
+          
+          <hr class="w-32 h-0.5 mx-auto my-1 border-gray-500 border-b rounded mt-6">
+
+          <p class="mt-12 mb-6 px-2 font-light text-lg italic text-gray-200 tracking-wider text-left">
+            "I would love a unified solution without the memory limitations of JVM based tools."
+          </p>
+        </li>
+        <li class="rounded-lg bg-gray-800 px-5 py-8">
+          <img class="mx-auto h-44 w-44 rounded-full" src="/assets/users/joao-bw.jpg" alt="Cloud Architect">
+          <h2 class="text-emerald-400 mt-4 text-2xl  leading-7 tracking-tight">
+            Joao
+          </h2>
+          <h4 class="text-gray-400 my-4 px-8 text-lg leading-7">
+            Cloud Infrastructure Architect
+          </h4>
+          
+          <hr class="w-32 h-0.5 mx-auto my-1 border-gray-500 border-b rounded mt-6">
+
+          <p class="mt-12 mb-6 px-2 font-light text-lg italic text-gray-200 tracking-wider text-left">
+            "It was awesome to see the CLI experience. That&#39;s like a million times better than Kafka. I think it&#39;s uncomfortable how much better it is than the Kafka."
+          </p>
+        </li>
+        <li class="rounded-lg bg-gray-800 px-5 py-8">
+          <img class="mx-auto h-44 w-44 rounded-full" src="/assets/users/jowanza.jpg" alt="CEO and Author">
+          <h2 class="text-emerald-400 mt-4 text-2xl  leading-7 tracking-tight">
+            Jowanza
+          </h2>
+          <h4 class="text-gray-400 my-4 px-8 text-lg leading-7">
+            Data Practitioner, CEO, Author
+          </h4>
+          
+          <hr class="w-32 h-0.5 mx-auto my-1 border-gray-500 border-b rounded mt-6">
+
+          <p class="mt-12 mb-6 px-2 font-light text-lg italic text-gray-200 tracking-wider text-left">
+            "The event based approach without babysitting a bunch of point solutions is the way I want to build."
+          </p>
+        </li>
+
+    </ul>
+
+
+  </div>
+</div>
+
+    <div class="relative isolate overflow-hidden bg-gray-900">
+  <div class="px-6 py-28 sm:px-6 sm:py-38 lg:px-8">
+    <div class="px-3 mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl font-bold tracking-wide text-white sm:text-4xl">
+       Simplify your data stack
+      </h2>
+      <div class="mt-12 max-w-3xl text-left text-lg leading-8 text-gray-300">
+        Struggling with the performance and cost challenges of the modern data stack?</br></br>We have the solution to the data plumbing problem! Find out how InfinyOn can help you simplify your data stack and accelerate your data transformation journey.
+      </div>
+      <div class="mt-20 flex items-center justify-center gap-x-6">
+        <a href="/request/book-a-call" class="uppercase rounded-md bg-white px-10 py-2.5 font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+          Book a Discovery Session
+        </a>
+      </div>
+    </div>
+  </div>
+  <svg viewBox="0 0 1024 1024" class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]" aria-hidden="true">
+    <circle cx="512" cy="512" r="512" fill="url(#8d958450-c69f-4251-94bc-4e091a323369)" fill-opacity="0.7" />
+    <defs>
+      <radialGradient id="8d958450-c69f-4251-94bc-4e091a323369">
+        <stop stop-color="#7775D6" />
+        <stop offset="1" stop-color="#E935C1" />
+      </radialGradient>
+    </defs>
+  </svg>
+</div>
+    <div class="bg-gradient-to-b from-gray-900 to-magenta-800 pt-32 pb-32">
+  <div     
+    x-data="{ 
+      openTab: 0,
+      mobile: (window.innerWidth < 1024) ? true : false,
+      activeSectionClass: 'bg-magenta-600 border-magenta-200',
+      inactiveSectionClass: 'bg-gray-700 hover:border-gray-400'
+    }"
+    @resize.window="mobile = (window.innerWidth < 1024) ? true : false"
+    class="mx-auto max-w-max px-6 lg:px-8 text-center sm:max-w-3xl lg:max-w-7xl">
+
+    <div class="pb-16">
+      <div class="text-white text-center px-4">
+  <h2 class="text-4xl font-bold tracking-wide">Building blocks of reliable data pipelines</h2>
+  </div>
+
+    </div>
+
+    <div class="mx-auto max-w-7xl pb-5">
+      <div class="hidden lg:grid grid-cols-1 lg:grid-cols-5 gap-6 mx-auto max-w-md lg:max-w-none md:mx-4 ">
+          <a 
+            @click="openTab = 0"
+            :class="openTab === 0 ? activeSectionClass : inactiveSectionClass"
+            class="flex flex-col justify-between rounded-3xl p-4 xl:p-8 mt-4 border border-gray-500"
+          >
+            <div class="flex flex-col items-center justify-between text-gray-50">
+              <div><svg class="rotate-180 w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+</svg></div>
+              <h3 class="text-xl tracking-wide mt-5 mx-auto">Collect</h3>
+            </div>
+          </a>
+          <a 
+            @click="openTab = 1"
+            :class="openTab === 1 ? activeSectionClass : inactiveSectionClass"
+            class="flex flex-col justify-between rounded-3xl p-4 xl:p-8 mt-4 border border-gray-500"
+          >
+            <div class="flex flex-col items-center justify-between text-gray-50">
+              <div><svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+</svg></div>
+              <h3 class="text-xl tracking-wide mt-5 mx-auto">Transform</h3>
+            </div>
+          </a>
+          <a 
+            @click="openTab = 2"
+            :class="openTab === 2 ? activeSectionClass : inactiveSectionClass"
+            class="flex flex-col justify-between rounded-3xl p-4 xl:p-8 mt-4 border border-gray-500"
+          >
+            <div class="flex flex-col items-center justify-between text-gray-50">
+              <div><svg class="rotate-180 w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
+</svg></div>
+              <h3 class="text-xl tracking-wide mt-5 mx-auto">Deduplicate</h3>
+            </div>
+          </a>
+          <a 
+            @click="openTab = 3"
+            :class="openTab === 3 ? activeSectionClass : inactiveSectionClass"
+            class="flex flex-col justify-between rounded-3xl p-4 xl:p-8 mt-4 border border-gray-500"
+          >
+            <div class="flex flex-col items-center justify-between text-gray-50">
+              <div><svg class="rotate-[-90deg] w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+</svg></div>
+              <h3 class="text-xl tracking-wide mt-5 mx-auto">Materialize</h3>
+            </div>
+          </a>
+          <a 
+            @click="openTab = 4"
+            :class="openTab === 4 ? activeSectionClass : inactiveSectionClass"
+            class="flex flex-col justify-between rounded-3xl p-4 xl:p-8 mt-4 border border-gray-500"
+          >
+            <div class="flex flex-col items-center justify-between text-gray-50">
+              <div><svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+</svg></div>
+              <h3 class="text-xl tracking-wide mt-5 mx-auto">Dispatch</h3>
+            </div>
+          </a>
+      </div>                
+    </div>
+    
+    <div class="bg-magenta-600 border border-magenta-200 pt-5 pb-10 mx-0 lg:mx-4 rounded-xl">
+        <div 
+          x-show="(openTab === 0) || (mobile === true)"
+          class="lg:grid lg:grid-cols-7 gap-3 text-white px-4"
+        >
+
+          <div class="lg:col-span-3 px-8 py-6">
+            <div class="flex pt-4 justify-center lg:justify-start">
+              <div><svg class="rotate-180 w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+</svg></div>
+              <div class="-mt-1 px-3">
+                <span class="text-2xl font-medium tracking-wide mx-auto">Collect</span>
+              </div>
+            </div>
+            <div class="pt-4">
+              <h3 class="text-md text-left text-gray-200">
+                Collect your data with built-in connectors, webhooks, and IoT collectors, or build your own custom clients.
+              </h3>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 text-left">
+            <div class="hidden sm:inline mx-auto px-0 max-w-xl rounded-xl">
+              <div class="mt-5 shadow sm:rounded-lg bg-gray-800 border border-gray-500">
+  <div 
+    x-data="{
+      openTab: 0,
+      openSection: 0,
+      activeTextClass: 'group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      activeSectionClass: 'bg-gray-100 text-gray-700 py-1 px-2 rounded-md',
+      inactiveSectionClass: 'bg-gray-500 text-gray-200 py-1 px-2 rounded-md'
+    }"
+    class="px-4 py-3"
+  >
+
+    <div class="border-b border-gray-300">
+      <nav class="-mb-px flex space-x-1" aria-label="Tabs">
+        
+        <a @click="openTab = 0; openSection = 0;" :class="openTab === 0 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+</svg><span>connectors</span>
+          </a><a @click="openTab = 1; openSection = 0;" :class="openTab === 1 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg><span>webhooks</span>
+          </a><a @click="openTab = 2; openSection = 0;" :class="openTab === 2 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+</svg><span>IoT-collectors</span>
+          </a><a @click="openTab = 3; openSection = 0;" :class="openTab === 3 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+</svg><span>clients</span>
+          </a>
+
+      </nav>
+    </div>
+
+    <div class="text-sm mt-2">
+        <div x-show="openTab === 0" class="h-72"><div class="h-full flex flex-col space-y-3 py-2 pr-3 float-left border-r"><a @click="openSection = 0" :class="openSection === 0 ? activeSectionClass : inactiveSectionClass">
+                  http
+                </a><a @click="openSection = 1" :class="openSection === 1 ? activeSectionClass : inactiveSectionClass">
+                  mqtt
+                </a></div>
+
+            <div x-show="openSection === 0" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.2.5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http-github</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">http-source</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">github-events</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secrets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GITHUB_TOKEN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;https://api.github.com/repos/infinyon/fluvio&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l">GET</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">headers</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">&#39;Authorization</span><span class="p">:</span><span class="w"> </span><span class="l">token ${{ secrets.GITHUB_TOKEN }}&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 1" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.2.5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki-mqtt </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">mqtt-source</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mqtt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mqtt://mqtt.hsl.fi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/hfp/v2/journey/ongoing/vp/+/+/+/#&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">secs</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">nanos</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">payload_output_type</span><span class="p">:</span><span class="w"> </span><span class="l">json</span></span></span></code></pre></div>
+                </div>
+        </div>
+        <div x-show="openTab === 1" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-stripe-webhook</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">payment_confirmations</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secrets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">stripe_secret_key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">webhook</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">verification</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/stripe-webhook-verifier@0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">webhook_key</span><span class="p">:</span><span class="w"> </span><span class="l">${{ stripe_secret_key }}</span></span></span></code></pre></div>
+              </div>
+        </div>
+        <div x-show="openTab === 2" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## Cloud Collector </span>
+</span></span><span class="line"><span class="cl">$ fluvio topic create collector-topic --mirror
+</span></span><span class="line"><span class="cl">$ fluvio topic collector-topic --mirror-add <span class="m">6001</span>
+</span></span><span class="line"><span class="cl">$ fluvio cloud register cluster --id <span class="m">6001</span> --source-ip 35:42:12:192 
+</span></span><span class="line"><span class="cl">$ fluvio cloud cluster metadata <span class="nb">export</span> --topic local-topic <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --mirror-spu <span class="m">6001</span> --file remote-6001.toml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## IoT Sensor (ARMv7, ARM64, etc.)</span>
+</span></span><span class="line"><span class="cl">$ fluvio cluster start --local --config remote-6001.toml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Produce at Edge</span>
+</span></span><span class="line"><span class="cl">$ fluvio produce local-topic
+</span></span><span class="line"><span class="cl">&gt; <span class="nb">test</span> from <span class="m">6001</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Read from Cloud</span>
+</span></span><span class="line"><span class="cl">$ fluvio consume collector-topic -B
+</span></span><span class="line"><span class="cl"><span class="nb">test</span> from <span class="m">6001</span></span></span></code></pre></div>
+              </div>
+        </div>
+        <div x-show="openTab === 3" class="h-72"><div class="h-full flex flex-col space-y-3 py-2 pr-3 float-left border-r"><a @click="openSection = 0" :class="openSection === 0 ? activeSectionClass : inactiveSectionClass">
+                  rust
+                </a><a @click="openSection = 1" :class="openSection === 1 ? activeSectionClass : inactiveSectionClass">
+                  python
+                </a><a @click="openSection = 2" :class="openSection === 2 ? activeSectionClass : inactiveSectionClass">
+                  node
+                </a><a @click="openSection = 3" :class="openSection === 3 ? activeSectionClass : inactiveSectionClass">
+                  go
+                </a></div>
+
+            <div x-show="openSection === 0" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">fluvio</span>::<span class="p">{</span><span class="n">Fluvio</span><span class="p">,</span><span class="w"> </span><span class="n">RecordKey</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#[async_std::main]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;rust-topic&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Hello from rust!&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">fluvio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Fluvio</span>::<span class="n">connect</span><span class="p">().</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">producer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fluvio</span>::<span class="n">producer</span><span class="p">(</span><span class="n">topic</span><span class="p">).</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">producer</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">RecordKey</span>::<span class="no">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">record</span><span class="p">).</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">producer</span><span class="p">.</span><span class="n">flush</span><span class="p">().</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 1" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fluvio</span> <span class="kn">import</span> <span class="n">Fluvio</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">topic</span> <span class="o">=</span> <span class="s2">&#34;python-topic&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">record</span> <span class="o">=</span> <span class="s2">&#34;Hello from rust!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">fluvio</span> <span class="o">=</span> <span class="n">Fluvio</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">producer</span> <span class="o">=</span> <span class="n">fluvio</span><span class="o">.</span><span class="n">topic_producer</span><span class="p">(</span><span class="n">topic</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">producer</span><span class="o">.</span><span class="n">send_string</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">producer</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 2" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Fluvio</span> <span class="kr">from</span> <span class="s2">&#34;@fluvio/client&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">produce</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kr">const</span> <span class="nx">TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&#34;node-topic&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="kr">const</span> <span class="nx">RECORD_TEXT</span> <span class="o">=</span> <span class="s2">&#34;Hello from node!&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">await</span> <span class="nx">fluvio</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="kr">const</span> <span class="nx">producer</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fluvio</span><span class="p">.</span><span class="nx">topicProducer</span><span class="p">(</span><span class="nx">TOPIC_NAME</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">await</span> <span class="nx">producer</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">RECORD_TEXT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fluvio</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fluvio</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">produce</span><span class="p">();</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 3" class="h-72 max-w-lg overflow-scroll">
+                <h3 class="text-center text-gray-300 mt-10 text-lg">
+  Coming soon ...
+</h3>
+
+                </div>
+        </div>  
+    </div>
+
+  </div>
+</div></div>
+          </div>
+
+          <div class="mt-10 lg:mt-0"></div>
+        </div>
+      
+      
+        <div 
+          x-show="(openTab === 1) || (mobile === true)"
+          class="lg:grid lg:grid-cols-7 gap-3 text-white px-4"
+        >
+
+          <div class="lg:col-span-3 px-8 py-6">
+            <div class="flex pt-4 justify-center lg:justify-start">
+              <div><svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+</svg></div>
+              <div class="-mt-1 px-3">
+                <span class="text-2xl font-medium tracking-wide mx-auto">Transform</span>
+              </div>
+            </div>
+            <div class="pt-4">
+              <h3 class="text-md text-left text-gray-200">
+                Apply transformations in-line as your data traverses the pipelines. Use pre-built SmartModules from the Hub or build your own with SMDK.
+              </h3>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 text-left">
+            <div class="hidden sm:inline mx-auto px-0 max-w-xl rounded-xl">
+              <div class="mt-5 shadow sm:rounded-lg bg-gray-800 border border-gray-500">
+  <div 
+    x-data="{
+      openTab: 0,
+      openSection: 0,
+      activeTextClass: 'group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      activeSectionClass: 'bg-gray-100 text-gray-700 py-1 px-2 rounded-md',
+      inactiveSectionClass: 'bg-gray-500 text-gray-200 py-1 px-2 rounded-md'
+    }"
+    class="px-4 py-3"
+  >
+
+    <div class="border-b border-gray-300">
+      <nav class="-mb-px flex space-x-1" aria-label="Tabs">
+        
+        <a @click="openTab = 0; openSection = 0;" :class="openTab === 0 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
+</svg><span>regex-filter</span>
+          </a><a @click="openTab = 1; openSection = 0;" :class="openTab === 1 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
+</svg><span>jolt-map</span>
+          </a><a @click="openTab = 2; openSection = 0;" :class="openTab === 2 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
+</svg><span>jolt-sql</span>
+          </a><a @click="openTab = 3; openSection = 0;" :class="openTab === 3 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
+</svg><span>lookback</span>
+          </a><a @click="openTab = 4; openSection = 0;" :class="openTab === 4 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+</svg>
+<span>smdk</span>
+          </a>
+
+      </nav>
+    </div>
+
+    <div class="text-sm mt-2">
+        <div x-show="openTab === 0" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Filter out all records that fail to match `Cat` or `cat`</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/regex-filter@0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;[Cc]at&#34;</span></span></span></code></pre></div>
+              </div>
+        </div>
+        <div x-show="openTab === 1" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># JOLT: JSON Language for Transformations</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/jolt@0.3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">remove</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">shift</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">&#34;*&#34;: </span><span class="s2">&#34;data.&amp;0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http-connector&#34;</span></span></span></code></pre></div>
+              </div>
+        </div>
+        <div x-show="openTab === 2" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Tranform JSON records into SQL statements (used with sql-sink)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/json-sql@0.2.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mapping</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;target_table&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">map-columns</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;device_id&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">json-key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;device.device_id&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;int&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;record&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">json-key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;$&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;jsonb&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre></div>
+              </div>
+        </div>
+        <div x-show="openTab === 3" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Look at last 10 records.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Filter out based based on your custom business logic.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/fluvio-smartmodule-filter-lookback@0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">lookback</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">last</span><span class="p">:</span><span class="w"> </span><span class="m">10</span></span></span></code></pre></div>
+              </div>
+        </div>
+        <div x-show="openTab === 4" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## Use smartmodule developer kit (smdk) to build your own.</span>
+</span></span><span class="line"><span class="cl">$ fluvio install smdk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Create your smarmodule project</span>
+</span></span><span class="line"><span class="cl">$ smdk generate 
+</span></span><span class="line"><span class="cl">🤷 Project Name: my-smartmodule
+</span></span><span class="line"><span class="cl">🤷 Which <span class="nb">type</span> of SmartModule would you like?
+</span></span><span class="line"><span class="cl">❯ filter
+</span></span><span class="line"><span class="cl">  map
+</span></span><span class="line"><span class="cl">  filter-map
+</span></span><span class="line"><span class="cl">  array-map
+</span></span><span class="line"><span class="cl">  aggregate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Build &amp; Test</span>
+</span></span><span class="line"><span class="cl">$ smdk build
+</span></span><span class="line"><span class="cl">$ smdk <span class="nb">test</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Load to Cluster</span>
+</span></span><span class="line"><span class="cl">$ smdk load
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Publish to Hub</span>
+</span></span><span class="line"><span class="cl">$ smkd publish</span></span></code></pre></div>
+              </div>
+        </div>  
+    </div>
+
+  </div>
+</div></div>
+          </div>
+
+          <div class="mt-10 lg:mt-0"></div>
+        </div>
+      
+      
+        <div 
+          x-show="(openTab === 2) || (mobile === true)"
+          class="lg:grid lg:grid-cols-7 gap-3 text-white px-4"
+        >
+
+          <div class="lg:col-span-3 px-8 py-6">
+            <div class="flex pt-4 justify-center lg:justify-start">
+              <div><svg class="rotate-180 w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
+</svg></div>
+              <div class="-mt-1 px-3">
+                <span class="text-2xl font-medium tracking-wide mx-auto">Deduplicate</span>
+              </div>
+            </div>
+            <div class="pt-4">
+              <h3 class="text-md text-left text-gray-200">
+                Apply duplication for exactly-once semantics. Choose our certified pre-built algorithms or build your own.
+              </h3>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 text-left">
+            <div class="hidden sm:inline mx-auto px-0 max-w-xl rounded-xl">
+              <div class="mt-5 shadow sm:rounded-lg bg-gray-800 border border-gray-500">
+  <div 
+    x-data="{
+      openTab: 0,
+      openSection: 0,
+      activeTextClass: 'group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      activeSectionClass: 'bg-gray-100 text-gray-700 py-1 px-2 rounded-md',
+      inactiveSectionClass: 'bg-gray-500 text-gray-200 py-1 px-2 rounded-md'
+    }"
+    class="px-4 py-3"
+  >
+
+    <div class="border-b border-gray-300">
+      <nav class="-mb-px flex space-x-1" aria-label="Tabs">
+        
+        <a @click="openTab = 0; openSection = 0;" :class="openTab === 0 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+</svg>
+<span>configure</span>
+          </a><a @click="openTab = 1; openSection = 0;" :class="openTab === 1 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+</svg>
+<span>run</span>
+          </a>
+
+      </nav>
+    </div>
+
+    <div class="text-sm mt-2">
+        <div x-show="openTab === 0" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Deduplication configuration file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  - topic-config.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dedup</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">deduplication</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">bounds</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="m">1000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">age</span><span class="p">:</span><span class="w"> </span><span class="l">1w</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">filter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">transform</span><span class="p">:</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon-labs/dedup-filter@0.0.2</span></span></span></code></pre></div>
+              </div>
+        </div>
+        <div x-show="openTab === 1" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># apply dedup configuration</span>
+</span></span><span class="line"><span class="cl">$ fluvio topic apply --config topic-config.yaml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># produce</span>
+</span></span><span class="line"><span class="cl">$ fluvio produce dedup --key-separator <span class="s2">&#34;:&#34;</span>
+</span></span><span class="line"><span class="cl">1: one
+</span></span><span class="line"><span class="cl">1: one
+</span></span><span class="line"><span class="cl">2: two
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># consume</span>
+</span></span><span class="line"><span class="cl">$ fluvio consume dedup -B -k
+</span></span><span class="line"><span class="cl">1: one
+</span></span><span class="line"><span class="cl">2: two</span></span></code></pre></div>
+              </div>
+        </div>  
+    </div>
+
+  </div>
+</div></div>
+          </div>
+
+          <div class="mt-10 lg:mt-0"></div>
+        </div>
+      
+      
+        <div 
+          x-show="(openTab === 3) || (mobile === true)"
+          class="lg:grid lg:grid-cols-7 gap-3 text-white px-4"
+        >
+
+          <div class="lg:col-span-3 px-8 py-6">
+            <div class="flex pt-4 justify-center lg:justify-start">
+              <div><svg class="rotate-[-90deg] w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+</svg></div>
+              <div class="-mt-1 px-3">
+                <span class="text-2xl font-medium tracking-wide mx-auto">Materialize</span>
+              </div>
+            </div>
+            <div class="pt-4">
+              <h3 class="text-md text-left text-gray-200">
+                Materialized views are in early development and the interfaces presented here are subject to change. Join us on <u><a href="https://discord.com/invite/bBG2dTz">Discord</a></u> to give us feedback.
+              </h3>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 text-left">
+            <div class="hidden sm:inline mx-auto px-0 max-w-xl rounded-xl">
+              <div class="mt-5 shadow sm:rounded-lg bg-gray-800 border border-gray-500">
+  <div 
+    x-data="{
+      openTab: 0,
+      openSection: 0,
+      activeTextClass: 'group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      activeSectionClass: 'bg-gray-100 text-gray-700 py-1 px-2 rounded-md',
+      inactiveSectionClass: 'bg-gray-500 text-gray-200 py-1 px-2 rounded-md'
+    }"
+    class="px-4 py-3"
+  >
+
+    <div class="border-b border-gray-300">
+      <nav class="-mb-px flex space-x-1" aria-label="Tabs">
+        
+        <a @click="openTab = 0; openSection = 0;" :class="openTab === 0 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+</svg>
+<span>configure</span>
+          </a><a @click="openTab = 1; openSection = 0;" :class="openTab === 1 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+</svg>
+<span>run</span>
+          </a>
+
+      </nav>
+    </div>
+
+    <div class="text-sm mt-2">
+        <div x-show="openTab === 0" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Materialized view configuration file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  - mv.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">avg_bus_speed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">materialize</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">window</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">tumbling</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">bound</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5min&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">trigger</span><span class="p">:</span><span class="w"> </span><span class="l">events</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">input</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">helsinki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">schema</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">vehicle_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">u16</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">speed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">float</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">output</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">fields</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">vehicle_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">avg_speed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">compute</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;infinyon-labs/avg_bus_speed@0.1.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">group_by</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">vehicle_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operation</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">average</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">param</span><span class="p">:</span><span class="w"> </span><span class="l">speed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">result</span><span class="p">:</span><span class="w"> </span><span class="l">avg_speed</span></span></span></code></pre></div>
+              </div>
+        </div>
+        <div x-show="openTab === 1" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># create materialized view</span>
+</span></span><span class="line"><span class="cl">$ fluvio materialized-view create --config mv.yaml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># view materialized view current state</span>
+</span></span><span class="line"><span class="cl">$ fluvio state avg_bus_speed
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">[</span>
+</span></span><span class="line"><span class="cl">        <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;vehicle_id&#34;</span>: <span class="s2">&#34;123&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;avg_speed&#34;</span>: 10.0
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">        <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;vehicle_id&#34;</span>: <span class="s2">&#34;456&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;avg_speed&#34;</span>: 35.0
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></div>
+              </div>
+        </div>  
+    </div>
+
+  </div>
+</div></div>
+          </div>
+
+          <div class="mt-10 lg:mt-0"></div>
+        </div>
+      
+      
+        <div 
+          x-show="(openTab === 4) || (mobile === true)"
+          class="lg:grid lg:grid-cols-7 gap-3 text-white px-4"
+        >
+
+          <div class="lg:col-span-3 px-8 py-6">
+            <div class="flex pt-4 justify-center lg:justify-start">
+              <div><svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+</svg></div>
+              <div class="-mt-1 px-3">
+                <span class="text-2xl font-medium tracking-wide mx-auto">Dispatch</span>
+              </div>
+            </div>
+            <div class="pt-4">
+              <h3 class="text-md text-left text-gray-200">
+                Send data to multiple destinations with build-in certified connectors, your own custom connectors, or your full featured consumer clients.
+              </h3>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 text-left">
+            <div class="hidden sm:inline mx-auto px-0 max-w-xl rounded-xl">
+              <div class="mt-5 shadow sm:rounded-lg bg-gray-800 border border-gray-500">
+  <div 
+    x-data="{
+      openTab: 0,
+      openSection: 0,
+      activeTextClass: 'group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      activeSectionClass: 'bg-gray-100 text-gray-700 py-1 px-2 rounded-md',
+      inactiveSectionClass: 'bg-gray-500 text-gray-200 py-1 px-2 rounded-md'
+    }"
+    class="px-4 py-3"
+  >
+
+    <div class="border-b border-gray-300">
+      <nav class="-mb-px flex space-x-1" aria-label="Tabs">
+        
+        <a @click="openTab = 0; openSection = 0;" :class="openTab === 0 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+</svg><span>connectors</span>
+          </a><a @click="openTab = 1; openSection = 0;" :class="openTab === 1 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+</svg><span>clients</span>
+          </a><a @click="openTab = 2; openSection = 0;" :class="openTab === 2 ? activeTextClass : inactiveTextClass"><svg class="-ml-0.5 w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+</svg>
+<span>cdk</span>
+          </a>
+
+      </nav>
+    </div>
+
+    <div class="text-sm mt-2">
+        <div x-show="openTab === 0" class="h-72"><div class="h-full flex flex-col space-y-3 py-2 pr-3 float-left border-r"><a @click="openSection = 0" :class="openSection === 0 ? activeSectionClass : inactiveSectionClass">
+                  http
+                </a><a @click="openSection = 1" :class="openSection === 1 ? activeSectionClass : inactiveSectionClass">
+                  sql
+                </a><a @click="openSection = 2" :class="openSection === 2 ? activeSectionClass : inactiveSectionClass">
+                  graphite
+                </a><a @click="openSection = 3" :class="openSection === 3 ? activeSectionClass : inactiveSectionClass">
+                  duckdb
+                </a></div>
+
+            <div x-show="openSection === 0" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.2.5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-http-sink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">http-sink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">http-sink-topic</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secrets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">AUTHORIZATION_TOKEN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://127.0.0.1/post&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;Authorization: token ${{ secrets.AUTHORIZATION_TOKEN }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;Content-Type: application/json&#34;</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 1" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.3.3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">json-sql-connector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sql-sink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">sql-topic</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secrets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">DATABASE_URL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">sql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.DATABASE_URL }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/json-sql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mapping</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;topic_message&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">map-columns</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;device_id&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">json-key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;device.device_id&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;int&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="s2">&#34;record&#34;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">json-key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;$&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;jsonb&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 2" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">weather-monitor-sandiego</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">graphite-sink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">weather-ca-sandiego</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">graphite</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># https://graphite.readthedocs.io/en/latest/feeding-carbon.html#step-1-plan-a-naming-hierarchy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metric-path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;weather.temperature.ca.sandiego&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;localhost:2003&#34;</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 3" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">0.1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">duckdb-connector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">duckdb-sink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">fluvio-topic-source</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">duckdb</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;local.db&#39;</span><span class="w">    </span><span class="c"># local duckdb</span></span></span></code></pre></div>
+                </div>
+        </div>
+        <div x-show="openTab === 1" class="h-72"><div class="h-full flex flex-col space-y-3 py-2 pr-3 float-left border-r"><a @click="openSection = 0" :class="openSection === 0 ? activeSectionClass : inactiveSectionClass">
+                  rust
+                </a><a @click="openSection = 1" :class="openSection === 1 ? activeSectionClass : inactiveSectionClass">
+                  python
+                </a><a @click="openSection = 2" :class="openSection === 2 ? activeSectionClass : inactiveSectionClass">
+                  node
+                </a><a @click="openSection = 3" :class="openSection === 3 ? activeSectionClass : inactiveSectionClass">
+                  go
+                </a></div>
+
+            <div x-show="openSection === 0" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">async_std</span>::<span class="n">stream</span>::<span class="n">StreamExt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">fluvio</span>::<span class="p">{</span><span class="n">Fluvio</span><span class="p">,</span><span class="w"> </span><span class="n">Offset</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#[async_std::main]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;rust-topic&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">fluvio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Fluvio</span>::<span class="n">connect</span><span class="p">().</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fluvio</span>::<span class="n">consumer</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span><span class="w"> </span><span class="n">partitino</span><span class="p">).</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">consumer</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="n">Offset</span>::<span class="n">from_end</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="nb">Ok</span><span class="p">(</span><span class="n">record</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stream</span><span class="p">.</span><span class="n">next</span><span class="p">().</span><span class="k">await</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="kd">let</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from_utf8_lossy</span><span class="p">(</span><span class="n">record</span><span class="p">.</span><span class="n">value</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 1" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fluvio</span> <span class="kn">import</span> <span class="n">Fluvio</span><span class="p">,</span> <span class="n">Offset</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">topic</span> <span class="o">=</span> <span class="s2">&#34;python-topic&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">partition</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">fluvio</span> <span class="o">=</span> <span class="n">Fluvio</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">consumer</span> <span class="o">=</span> <span class="n">fluvio</span><span class="o">.</span><span class="n">partition_consumer</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="n">partition</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">record</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="n">consumer</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">Offset</span><span class="o">.</span><span class="n">from_end</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="p">):</span>
+</span></span><span class="line"><span class="cl">       <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">value_string</span><span class="p">()))</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="mi">9</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">           <span class="k">break</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 2" class="h-72 max-w-lg overflow-scroll">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Fluvio</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Offset</span><span class="p">,</span> <span class="nx">Record</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@fluvio/client&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">consume</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kr">const</span> <span class="nx">TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&#34;hello-node&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="kr">const</span> <span class="nx">PARTITION</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">await</span> <span class="nx">fluvio</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="kr">const</span> <span class="nx">consumer</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fluvio</span><span class="p">.</span><span class="nx">partitionConsumer</span><span class="p">(</span><span class="nx">TOPIC_NAME</span><span class="p">,</span> <span class="nx">PARTITION</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">await</span> <span class="nx">consumer</span><span class="p">.</span><span class="nx">stream</span><span class="p">(</span><span class="nx">Offset</span><span class="p">.</span><span class="nx">FromEnd</span><span class="p">(),</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">record</span>: <span class="kt">Record</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Key=</span><span class="si">${</span><span class="nx">record</span><span class="p">.</span><span class="nx">keyString</span><span class="p">()</span><span class="si">}</span><span class="sb">, Value=</span><span class="si">${</span><span class="nx">record</span><span class="p">.</span><span class="nx">valueString</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fluvio</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fluvio</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">consume</span><span class="p">();</span></span></span></code></pre></div>
+                </div><div x-show="openSection === 3" class="h-72 max-w-lg overflow-scroll">
+                <h3 class="text-center text-gray-300 mt-10 text-lg">
+  Coming soon ...
+</h3>
+
+                </div>
+        </div>
+        <div x-show="openTab === 2" class="h-72"><div class="h-72 overflow-scroll">
+              <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## Use connector developer kit (cdk) to build your own.</span>
+</span></span><span class="line"><span class="cl">$ fluvio install cdk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Create your connector project</span>
+</span></span><span class="line"><span class="cl">$ cdk generate       
+</span></span><span class="line"><span class="cl">🤷 Project Name: my-connector
+</span></span><span class="line"><span class="cl">🤷 Which <span class="nb">type</span> of Connector would you like <span class="o">[</span>source/sink<span class="o">]</span>? ›
+</span></span><span class="line"><span class="cl">  <span class="nb">source</span>
+</span></span><span class="line"><span class="cl">❯ sink
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Build &amp; Test</span>
+</span></span><span class="line"><span class="cl">$ cdk build
+</span></span><span class="line"><span class="cl">$ cdk <span class="nb">test</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Deploy on your machine</span>
+</span></span><span class="line"><span class="cl">$ cdk deploy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Publish to Hub</span>
+</span></span><span class="line"><span class="cl">$ cdk publish</span></span></code></pre></div>
+              </div>
+        </div>  
+    </div>
+
+  </div>
+</div></div>
+          </div>
+
+          <div class="mt-10 lg:mt-0"></div>
+        </div>
+      
+      </div>
+
+  </div>
+</div> 
+    <div>
+  
+  <div class="bg-gradient-to-b from-gray-900 to-magenta-800 pt-32 pb-32">
+    <div class="pb-10">
+      <div class="text-white text-center px-4">
+  <h2 class="text-4xl font-bold tracking-wide">Newsletter</h2>
+  </div>
+
+    </div>
+
+    <div class="mx-auto px-6 text-center max-w-4xl px-8">
+      <p class="mt-1 text-lg text-gray-300">
+        Subscribe to our newsletter to keep up with the latest news and upcoming releases.</p>
+      <div class="mt-6 mx-auto max-w-lg">
+        <form class="flex" name="inline_form" id="inline_form">
+          <label for="email" class="sr-only">
+            Email address
+          </label>
+          <input type="email" name="email" id="email" autocomplete="on" required 
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-base leading-6" placeholder="Enter email">
+
+          <button type="submit"
+            class="ml-2 flex-shrink-0 rounded-md bg-indigo-500 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="input_modal" class="hidden">
+    <div class="relative z-20" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-md max-w-full sm:pt-6 sm:pb-4">
+            
+            <form name="input_modal_form" id="input_modal_form">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-indigo-200 sm:mx-0 sm:h-10 sm:w-10"><svg class="w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+</svg></div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-xl mt-0 sm:mt-2 leading-6 text-gray-700" id="modal-title">
+                    Newsletter
+                  </h3>
+                </div>
+              </div>
+
+              <div class="mt-4 w-full border-t border-gray-300"></div>
+
+              <div class="mt-4 mx-4">
+                <div class="grid grid-cols-1 gap-y-4">
+
+                  <div>
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                    <div class="mt-2">
+                      <input type="email" id="email" name="email" autocomplete="on" required 
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">
+                      Name
+                    </label>
+                    <div class="mt-2">
+                      <input type="text" name="name" id="name" autocomplete="name" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                  </div>
+      
+                </div><input type="hidden" id="type" name="type" value="subscribe">
+                <input type="hidden" id="source" name="source" value="front-page">
+                
+                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+              </div>
+
+              <div class="mt-6 pl-4">
+                <button type="submit" class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:w-auto">
+                  Subscribe
+                </button>
+
+                <button type="button" id="input_modal_cancel" class="ml-4 text-sm font-semibold leading-6 text-gray-700">
+                  Cancel
+                </button>
+              </div>
+
+              <div class="mt-6 w-full border-t border-gray-300"></div>
+
+              <p class="text-gray-500 px-4 pt-2 text-sm">
+                <small>This site is protected by reCAPTCHA and the Google <a class="underline" href="https://policies.google.com/privacy">Privacy Policy</a> and <a class="underline" href="https://policies.google.com/terms">Terms of Service</a> apply.</small>
+              </p>
+            </form>
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  
+  <div id="success_modal" class="hidden">
+    <div class="relative z-20">
+      <div aria-labelledby="modal-success" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-2 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+        <div>
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="w-6 h-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+</svg>
+</div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-md font-medium mt-0 sm:mt-2 leading-6 text-green-700" id="modal-title">
+                Success
+              </h3>
+            </div>
+          </div>
+          <div class="ml-1 mt-5">
+            <p class="text-sm text-gray-700">
+              Your subscription is confirmed.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 sm:mt-6 flex justify-center">
+          <button type="button" id="close_success" class="rounded-md bg-white px-5 py-1 text-sm text-gray-500 shadow-sm border border-gray-400 hover:bg-gray-50 hover:text-gray-700 hover:border-gray-700">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let close_success_btn = document.getElementById('close_success');
+  let success_modal_parent = document.getElementById('success_modal');
+
+  
+  close_success_btn.addEventListener('click', closeSuccessHandler);
+
+  
+  function closeSuccessHandler() {
+    success_modal_parent.className = "hidden";
+    location.href = "\/";
+  }
+
+</script></div>
+  </div>
+  
+    
+  <div id="error_modal" class="hidden">
+    <div class="relative z-20">
+      <div aria-labelledby="modal-error" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-2 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+        <div>
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="w-6 h-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+</svg></div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-md font-medium mt-0 sm:mt-2 leading-6 text-red-700" id="modal-title">
+                Error
+              </h3>
+            </div>
+          </div>
+          <div class="ml-1 mt-5">
+            <p class="text-sm text-gray-700" id="error_message"></p>
+            <p class="pt-1 text-sm text-gray-700">
+              Please try again, or <a href="mailto:support@infinyon.com" class="underline">contact support</a>.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 sm:mt-6 flex justify-center">
+          <button type="button" id="close_error" class="rounded-md bg-white px-5 py-1 text-sm text-gray-500 shadow-sm border border-gray-400 hover:bg-gray-50 hover:text-gray-700 hover:border-gray-700">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let close_error_btn = document.getElementById('close_error');
+  let error_modal_parent = document.getElementById('error_modal');
+
+  
+  close_error_btn.addEventListener('click', closeErrorHandler);
+
+  
+  function closeErrorHandler() {
+    error_modal_parent.className = "hidden";
+    location.href = "\/";
+  }
+
+</script></div>
+  </div>
+</div>
+
+<script>
+  const SUBMIT_URL = "/api/v0/submit";
+
+  let inline_form = document.getElementById('inline_form');
+
+  let input_modal = document.getElementById('input_modal');
+  let input_modal_form = document.getElementById('input_modal_form');
+  let input_modal_cancel = document.getElementById('input_modal_cancel');
+  
+  let success_modal = document.getElementById('success_modal');
+  let error_modal = document.getElementById('error_modal');
+  let error_message = document.getElementById('error_message');
+
+  
+  inline_form.addEventListener('submit', inlineFormHandler);
+  input_modal_form.addEventListener('submit', inputModalFormHandler);
+  input_modal_cancel.addEventListener('click', cancelFormHandler);
+  document.addEventListener('keydown', escapeKeyHandler);
+
+  
+  function inlineFormHandler(event) {
+    event.preventDefault();
+
+    
+    const formData = new FormData(inline_form);
+    formData.forEach((value, key) => {
+      if (input_modal_form.elements[key]) {
+        input_modal_form.elements[key].value = value;
+      }
+    });
+
+    
+    input_modal.className = "block"
+  }
+
+  
+  function inputModalFormHandler(event) {
+    event.preventDefault();
+
+    
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6LdFYjsoAAAAAAdOUN6lhdqaf5utvQxZX6hn1h2s', {action: 'submit'}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value = token;
+
+        
+        var data = {};
+        const formData = new FormData(input_modal_form);
+        formData.forEach((value, key) => data[key] = value);
+
+        
+        submitData(data);
+      });
+    });
+  }
+
+  
+  function submitData(data){
+    var request = new XMLHttpRequest();
+    
+    
+    request.addEventListener("load", handleSubmitReponse);
+    request.open("POST", SUBMIT_URL, true);
+    request.send(JSON.stringify(data)); 
+
+    
+    inline_form.reset();
+    input_modal_form.reset();
+
+    
+    input_modal.className = "hidden";
+  }
+
+  
+  function handleSubmitReponse () {
+    if (this.status === 200) {
+      success_modal.className = "block";
+    } else {
+      error_message.innerHTML = this.responseText;
+      error_modal.className = "block";
+    }
+  }
+
+  
+  function cancelFormHandler() {
+    input_modal.className = "hidden";
+  }
+  
+  
+  function escapeKeyHandler(event) {
+    if (event.key === 'Escape') {
+      input_modal.className = "hidden";
+      success_modal.className = "hidden";
+      error_modal.className = "hidden";
+    }
+  }
+</script>
+    
+  </main>
+    </div>
+    <footer class="bg-gray-900" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8">
+    <div class="lg:grid lg:grid-cols-10 lg:gap-8">
+
+      
+      <div class="lg:col-span-2 space-y-6">
+        <img class="h-7 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        <p class="text-sm leading-6 text-gray-300"></p>
+        <div class="flex space-x-6">
+            <a href="https://github.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">GitHub</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+            <a href="https://twitter.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">Twitter</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+</svg>
+            </a>
+            <a href="https://linkedin.com/company/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">linkedin</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
+  <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+</svg>
+            </a>
+            <a href="https://discordapp.com/invite/bBG2dTz" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">discord</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true"
+    viewBox="0 0 640 512">
+    <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z" />
+</svg>
+            </a>
+            <a href="https://www.youtube.com/@infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">YouTube</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+        </div>
+      </div>
+
+      
+      <div class="lg:col-span-8">
+        <div class="mt-16 lg:mt-0 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Cloud</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/infinyon-cloud" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Cloud
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/signup" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Sign Up
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/login" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Login
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Product</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Platform
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Hub
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Connectors
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webhooks
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    SmartModules
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Event Streams
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Stateful Streams
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Solutions</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/iot" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    IoT Aggregation
+                </a>
+                </li>
+                <li>
+                  <a href="/clickstream" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Website Monitoring
+                </a>
+                </li>
+                <li>
+                  <a href="/" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Microservices Event Bridge
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">About</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/about" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Company
+                </a>
+                </li>
+                <li>
+                  <a href="/careers" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Careers
+                </a>
+                </li>
+                <li>
+                  <a href="/resources" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Articles
+                </a>
+                </li>
+                <li>
+                  <a href="/press-releases" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    News
+                </a>
+                </li>
+                <li>
+                  <a href="/webinars" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webinars
+                </a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@infinyon/videos" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Videos
+                </a>
+                </li>
+                <li>
+                  <a href="/blog" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Blog
+                </a>
+                </li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="mt-8 border-t border-white/10 pt-4 text-center">
+      <div class="text-center text-xs text-gray-400">
+        
+        <span><a href="/legal/privacy">Privacy Policy</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/security">Security</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/user-agreement">Terms and Conditions</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/cookies">Cookie Notice</a></span>
+          
+      </div>
+      <p class="text-xs leading-5 text-gray-400">&copy; <span id="year"></span> InfinyOn, Inc. All rights reserved.</p>
+      <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+      </script>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+</html>

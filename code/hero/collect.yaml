@@ -1,0 +1,13 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.2.5
+  name: helsinki-mqtt 
+  type: mqtt-source
+  topic: helsinki
+mqtt:
+  url: "mqtt://mqtt.hsl.fi"
+  topic: "/hfp/v2/journey/ongoing/vp/+/+/+/#"
+  timeout:
+    secs: 30
+    nanos: 0
+  payload_output_type: json

@@ -1,0 +1,35 @@
+{{- $background_color := .page.Site.Data.styling.codegroup_bg_color -}}
+{{- $highlight_border_color := .page.Site.Data.styling.codegroup_border_color -}}
+{{- $highlight_text_color := .page.Site.Data.styling.codegroup_text_color -}}
+{{- $both_color := printf "%s %s" $highlight_border_color $highlight_text_color }}
+{{- $codeList := .code -}}
+
+<div class="{{ $background_color }} mt-16 shadow sm:rounded-lg min-w-min">
+  <div 
+    x-data="{
+      openTab: 0,
+      activeTextClass: '{{ $both_color }} group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium',
+      inactiveTextClass: 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-400 group inline-flex items-center border-b-2 py-4 px-2 text-sm font-medium'
+    }"
+    class="px-4 py-3"
+  >
+    <div class="border-b border-gray-300">
+      <nav class="-mb-px flex space-x-1" aria-label="Tabs">
+        {{ range $index, $code := $codeList -}}
+          <a @click="openTab = {{ $index }}" :class="openTab === {{ $index }} ? activeTextClass : inactiveTextClass">
+            {{- $partialName := (printf "heroicons/svgs/%s" $code.svg) -}}
+            {{ partial $partialName (dict "class" "-ml-0.5 w-5 h-5 mr-1") -}}
+            <span>{{ $code.name }}</span>
+          </a>
+        {{- end }}
+      </nav>
+    </div>
+    <div class="text-sm mt-2 h-72 overflow-y-scroll">
+      {{ range $index, $code := $codeList -}}
+        <div x-show="openTab === {{ $index }}">
+          {{ transform.Highlight (os.ReadFile $code.file.name) $code.file.lang "style=api" }}
+        </div>      
+      {{- end }}  
+    </div>
+  </div>
+</div>

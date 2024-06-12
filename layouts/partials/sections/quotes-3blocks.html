@@ -1,0 +1,39 @@
+{{- $bg_color := .styling.page_bg_color_1 -}}
+{{- $name_color := .styling.quote_name_color -}}
+{{- $title_color := .styling.quote_title_color -}}
+{{- $title := .content.title -}}
+{{- $subtitle := .content.subtitle -}}
+{{- $items := .content.items -}}
+
+<div class="{{ $bg_color }} pt-32 pb-32">
+  <div class="mx-auto max-w-md px-6 text-center sm:max-w-3xl lg:max-w-7xl lg:px-8">
+  
+    {{ partial "components/title" (dict "title" $title "subtitle" $subtitle) }}
+
+    <div class="mt-20"></div>
+
+    <ul role="list" class="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
+      
+      {{ range $items }}
+        <li class="rounded-lg bg-gray-800 px-5 py-8">
+          <img class="mx-auto h-44 w-44 rounded-full" src="{{ .image.src }}" alt="{{ .image.alt }}">
+          <h2 class="{{ $name_color }} mt-4 text-2xl  leading-7 tracking-tight">
+            {{ .name }}
+          </h2>
+          <h4 class="{{ $title_color }} my-4 px-8 text-lg leading-7">
+            {{ .title }}
+          </h4>
+          
+          <hr class="w-32 h-0.5 mx-auto my-1 border-gray-500 border-b rounded mt-6">
+
+          <p class="mt-12 mb-6 px-2 font-light text-lg italic text-gray-200 tracking-wider text-left">
+            "{{ .quote }}"
+          </p>
+        </li>
+      {{- end }}
+
+    </ul>
+
+
+  </div>
+</div>

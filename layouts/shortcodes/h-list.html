@@ -1,0 +1,82 @@
+{{- $tabTotal := .Get "tabTotal" -}}
+{{- $tabID := $.Get "tabID" -}}
+
+{{/* <div class="lang-nav">
+    <ul class="nav justify-content-center" id="lang-tab" role="tablist">
+        {{- range $i, $sequence := (seq $tabTotal) -}}
+        {{- $tabName := (print "tabName" $sequence) -}}
+        {{- $tabHREF := (print "tab-" $tabID $sequence) -}}
+        {{- $active := "" }}
+        {{- $selected := "false" }}
+
+        {{- if eq $sequence 1 }}
+        {{- $active = " active" }}
+        {{- $selected = "true" }}
+        {{- end -}}
+
+        <li class="nav-item" role="presentation">
+            <a class="nav-link{{ $active }}" id="nav-{{ $tabHREF }}" data-toggle="tab" href="#{{ $tabHREF | urlize }}"
+                role="tab" aria-controls="h-list-{{ $tabID }}" aria-selected="{{ $selected }}">
+                {{ $.Get $tabName }}
+            </a>
+        </li>
+        {{ end }}
+    </ul>
+
+    <div class="tab-content" id="h-list-{{ $tabID }}">
+        {{ .Inner }}
+    </div>
+</div> */}}
+
+
+<div>
+
+    <div class="hidden sm:block" x-data="{selected: 'tab-{{ $tabID }}1', isSelected(id) { this.selected == id } }">
+        <nav class="isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs">
+
+            {{- range $i, $sequence := (seq $tabTotal) -}}
+            {{- $tabName := (print "tabName" $sequence) -}}
+            {{- $tabHREF := (print "tab-" $tabID $sequence) -}}
+            {{- $active := "" }}
+            {{- $selected := "false" }}
+
+            {{- if eq $sequence 1 }}
+            {{- $active = " active" }}
+            {{- $selected = "true" }}
+            {{- end -}}
+
+            <a href="#{{ $tabHREF | urlize }}" id="nav-{{ $tabHREF }}" data-toggle="tab"
+                class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10"
+                role="tab" aria-controls="h-list-{{ $tabID }}" aria-selected="{{ $selected }}" aria-current="page" x-data="selected = 'tab-{{ $tabID }}{{ $sequence }}'" x-effect="console.log('tab-{{ $tabID }}{{ $sequence }}')">
+                <span>{{ $.Get $tabName }}</span>
+                <span aria-hidden="true" class="bg-indigo-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+            </a>
+            {{ end }}
+            {{/* <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
+            <a href="#"
+                class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10"
+                aria-current="page">
+                <span>My Account</span>
+                <span aria-hidden="true" class="bg-indigo-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+            </a>
+            <a href="#"
+                class="text-gray-500 hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                <span>Company</span>
+                <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
+            </a>
+            <a href="#"
+                class="text-gray-500 hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                <span>Team Members</span>
+                <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
+            </a>
+            <a href="#"
+                class="text-gray-500 hover:text-gray-700 rounded-r-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                <span>Billing</span>
+                <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"></span>
+            </a> */}}
+        </nav>
+        <div class="tab-content" id="h-list-{{ $tabID }}">
+            {{ .Inner }}
+        </div>
+    </div>
+</div>

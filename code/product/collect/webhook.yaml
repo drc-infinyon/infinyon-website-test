@@ -1,0 +1,11 @@
+apiVersion: 0.1.0
+meta:
+  name: my-stripe-webhook
+  topic: payment_confirmations
+  secrets:
+    - name: stripe_secret_key
+webhook:
+  verification:
+    - uses: infinyon/stripe-webhook-verifier@0.1.0
+      with:
+        webhook_key: ${{ stripe_secret_key }}

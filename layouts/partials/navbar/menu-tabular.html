@@ -1,0 +1,122 @@
+{{- $items := .items -}}
+<div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>{{ .name }}</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 inset-x-0 pt-3 z-10 transform shadow-lg"
+    >
+
+    <div 
+      x-data="{ select : 0 }"
+      class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+      >
+
+      <div class="relative bg-white grid grid-cols-12 py-6 px-6 gap-x-8 lg:px-10">
+        <div class="col-span-4 lg:col-span-3 gap-y-5 bg-white" aria-labelledby="product-heading">
+
+          <h3 class="text-lg text-gray-700 py-3 mb-2 border-b-2 border-slate-100">{{ .title }}</h3>
+          
+          <ul role="list" class="mt-5 pb-6 space-y-4 border-b-2 border-slate-100">
+          {{range $index, $item := .items}}
+            <li
+              @mouseover="select = {{ $index }}"
+              class="flow-root h-10"
+            >
+              <div 
+                :class="{ '{{ $item.highlight }}' : select === {{ $index }} }"
+                class="-m-2 flex items-center rounded-md py-4 px-4 transition duration-150 ease-in-out cursor-pointer text-gray-600 hover:{{ $item.highlight }}"
+                >
+                {{ $spacing := "ml-4" -}}
+                {{ if $item.boxedIcon -}}
+                  {{ partial "heroicons/boxed-icon" (dict "name" $item.boxedIcon.svg "bgColor" $item.boxedIcon.bgColor) -}}
+                {{ else -}}
+                  {{ partial "heroicons/icon" (dict "name" $item.icon.svg "color" $item.icon.color) -}}
+                  {{ $spacing = "ml-2" -}}
+                {{ end -}}
+                <span class="{{ $spacing }}">{{ $item.title }}</span>
+                <div class="flex-1">
+                  <div class="float-right">
+                    {{ partial "heroicons/icon" (dict "name" "chevron-right" "class" "w-4 h-4") -}}
+                  </div>
+                </div>
+              </div>
+            </li>
+          {{ end -}}
+          </ul>          
+        </div>
+
+        <div class="col-span-8 lg:col-span-9 py-4 bg-gradient-to-r from-gray-50 to-bg-white rounded-xl">
+          
+        {{- range $index, $item := .items -}}
+          {{- $header := $item.header | default $item.title }}
+          {{- $svg :=  $item.boxedIcon.svg | default $item.icon.svg }}
+          {{- $color :=  $item.boxedIcon.color | default $item.icon.color }}
+          <div id="{{ $index }}" x-show="select === {{ $index }}">
+
+              <div class="ml-2 pl-3 lg:pl-7 pt-4 pb-5 border-b-2 border-slate-100">
+                <div class="flex flex-row">
+                  <div class="pt-2">
+                    {{ partial "heroicons/icon" (dict "name" $svg "color" $color "class" "w-8") -}}
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-lg">
+                      <span class="text-gray-700">{{ $header }}</span>
+                      <span class="text-gray-500 text-xs tracking-wide">{{ $item.subscript }}</span>
+                    </h3>
+                    <p class="text-sm text-gray-500 hidden lg:block">{{ $item.subtitle }}</p>  
+                  </div>                
+                </div>
+              </div>       
+
+              <div class="relative grid gap-1 px-3 py-6 lg:gap-5 lg:px-6 lg:grid-cols-2">
+
+                {{range $section := $item.sections -}}
+                <a href="{{ $section.link }}" class=" flex items-start rounded-lg py-3 hover:{{ $item.highlight }}">
+                  <div class="ml-4">
+                    <p class="text-base font-medium text-gray-900">{{ $section.title }}</p>
+                    <p class="mt-1 text-sm text-gray-500">{{ $section.description }}</p>
+                  </div>
+                </a>
+                {{ end -}}
+
+              </div>
+            </div>
+        {{ end -}} 
+                   
+        </div>
+      </div>
+
+
+      {{ if  .announcement -}}
+      <div class="hidden bg-gray-50 p-5 sm:p-7 border-t-2 border-slate-10 lg:block">
+        <a href="{{ .announcement.link }}" class="-m-3 flow-root rounded-md p-3">
+          <div class="flex items-center">
+            <div class="text-base font-medium text-gray-700">{{ .announcement.title }}</div>
+            <span class="ml-3 inline-flex items-center rounded-full bg-indigo-100 px-4 py-1 text-sm font-medium leading-5 text-indigo-700">{{ .announcement.badge }}</span>
+          </div>
+          <p class="mt-1 text-sm text-gray-500">{{ .announcement.description }}</p>
+        </a>
+      </div>
+      {{ end -}}
+
+    </div>
+  </div>
+</div>

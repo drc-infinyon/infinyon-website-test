@@ -1,0 +1,2 @@
+{{ $new := (printf "<pre tabindex=\"0\" class=\"chroma\" style=\"max-height: %dpx\">" .height) }}
+{{ .content | replaceRE "(<pre tabindex=\"0\" class=\"chroma\">)" $new | safeHTML }}

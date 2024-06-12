@@ -1,0 +1,10 @@
+# Deduplication configuration file
+#  - topic-config.yaml
+name: dedup
+deduplication:
+  bounds: 
+    count: 1000000
+    age: 1w
+  filter:
+    transform:  
+      uses: infinyon-labs/dedup-filter@0.0.2

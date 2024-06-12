@@ -1,0 +1,56 @@
+{{- $titleLine1 := .Param "hero.title.line1" | default .Title -}}
+{{- $titleLine2 := .Param "hero.title.line2" | default "" -}}
+{{- $titleLine2Color := .Site.Data.styling.hero_bg_color -}}
+
+{{- $descriptionL1 := .Param "hero.description.line1" | default (.Param "description") }}
+{{- $descriptionL2 := .Param "hero.description.line2" }}
+{{- $descriptionAlign := .Param "hero.description.alignment" | default "text-left md:text-center" -}}
+
+{{- $imageSrc := .Param "hero.image.src" | default (.Param "hero.image") -}}
+{{- $imageClass := .Param "hero.image.class" | default "" -}}
+{{- $imageAlt := .Param "hero.image.alt" | default "" -}}
+
+{{- $buttons := .Param "hero.buttons" -}}
+{{- $btnLeft := .Param "hero.buttons.left" -}}
+{{- $btnRight := .Param "hero.buttons.right" -}}
+
+<div class="relative isolate overflow-hidden bg-magenta-900 min-h-fit py-4">
+  <img src="{{ $imageSrc }}" alt="{{ $imageAlt }}" class="absolute inset-0 h-full -z-10 w-full object-cover opacity-25 {{ $imageClass }}">
+
+  <div class="mt-16 px-6 my-20">
+    <div class="mx-auto max-w-5xl px-4 md:px-0">
+      <div class="text-center">
+        <h1 class=" text-3xl md:text-4xl font-bold leading-tight tracking-wide">
+          <span class="block text-white">
+            {{- $titleLine1 -}}
+          </span>
+          <span class="block bg-clip-text pb-3 text-transparent sm:pb-5 {{ $titleLine2Color }}">
+            {{- $titleLine2 -}}
+          </span>
+        </h1>
+
+        <p class="mt-8 text-md font-normal tracking-wide leading-8 text-gray-300 pb-8 {{ $descriptionAlign }}">
+            {{- $descriptionL1 -}} <br />
+            {{- $descriptionL2 -}}  
+        </p>
+
+        {{ if $buttons -}}
+          <div class="flex flex-wrap justify-center gap-4">
+            {{ if $btnLeft -}}
+            <a href="{{ $btnLeft.ref }}" class="uppercase rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">{{ $btnLeft.label }}</a>
+            {{- end }}
+            {{ if $btnRight -}}
+              <a href="{{ $btnRight.ref }}" class="uppercase rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">{{ $btnRight.label }}</a>
+            {{- end }}
+          </div> 
+        {{- end }} 
+
+      </div>     
+    <div>
+
+      </div>
+    </div>   
+  </div>
+
+</div>
+

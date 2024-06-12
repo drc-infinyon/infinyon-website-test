@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guides on InfinyOn</title>
+    <link>http://localhost:1315/docs/guides/</link>
+    <description>Recent content in Guides on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1315/docs/guides/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hackernews Reader</title>
+      <link>http://localhost:1315/docs/guides/hackernews-reader/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/hackernews-reader/</guid>
+      <description>Hackernews Reader helps you build an XML reader that ingests hackernews articles, converts them to json, divides them into records, and publishes each record to a topic. This guide uses the following connector:&#xA;http-source: to read periodically from a hackernews, parse the XML result into json records, and publish the result to a topic. Prerequisites Fluvio CLI running locally Account on InfinyOn Cloud Step-by-Step Create http-source configuration file Download smartmodules Start Connector Check Results Create http-source configuration file Create an HTTP source connector configuration file called hackernews.</description>
+    </item>
+    <item>
+      <title>Webhook Events to Slack Notifications</title>
+      <link>http://localhost:1315/docs/guides/webhook-to-slack/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/webhook-to-slack/</guid>
+      <description>This guide shows an end-to-end event pipeline that reads an event from a webhook, generates a formatted string, and publishes the result to Slack. While this is a simple example, it has many event notification use cases, such as:&#xA;submission from website forms (via Cloudflare workers or your custom backend). activity from e-commerce platforms on purchases and shopping carts. notifications from github on your projects&amp;rsquo; activities. alerts from financial products on your transactions.</description>
+    </item>
+    <item>
+      <title>HTTP to SQL</title>
+      <link>http://localhost:1315/docs/guides/http-to-sql/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/http-to-sql/</guid>
+      <description>This guide expects you to already have the Fluvio CLI installed, and InfinyOn Cloud set up. If neither of these is the case, please follow the instructions here!&#xA;Connector Pipeline There are two main steps for this tutorial:&#xA;Creating an Inbound HTTP Connector to collect JSON Receive data without any modifications JSON to JSON transformation before send to topic Creating an Outbound SQL Connector to insert the input JSON into a database Basic insert JSON to JSON transformation before insert We will be looking at the Inbound HTTP Connector setup, and connecting to the catfact.</description>
+    </item>
+    <item>
+      <title>MQTT to SQL</title>
+      <link>http://localhost:1315/docs/guides/mqtt-to-sql/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/mqtt-to-sql/</guid>
+      <description>At the end of this tutorial, we will see data starting from an MQTT broker and ending in a PostgreSQL table.&#xA;We&amp;rsquo;ll use 2 connectors:&#xA;Inbound MQTT connector Outbound SQL connector There will be an example of combining multiple SmartModules, known as SmartModule chaining The Outbound connector will be using a PostgreSQL database. It will listen to the topic for new records and insert them into a table.&#xA;You can use your own PostgreSQL instance, if it can be reached over the internet.</description>
+    </item>
+    <item>
+      <title>Github to Slack</title>
+      <link>http://localhost:1315/docs/guides/github-to-slack/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/github-to-slack/</guid>
+      <description>Create an end-to-end event pipeline that detects changes in github stars &amp;amp; forks and publishes the result to Slack. This guide uses two connectors:&#xA;http-source: to read periodically from a github, parse the fields from the json output, and publishes the result to a topic. http-sink: to listen to the same topic, detect changes, and publish the result to Slack. Let&amp;rsquo;s get started.&#xA;Prerequisites Fluvio CLI running locally Account on InfinyOn Cloud Step-by-Step Create http-source configuration file Create http-sink configuration file Download smartmodules Start Connectors Test Data Pipeline Create http-source configuration file Create an HTTP source connector configuration file called github.</description>
+    </item>
+    <item>
+      <title>Github to Discord</title>
+      <link>http://localhost:1315/docs/guides/github-to-discord/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/github-to-discord/</guid>
+      <description>Create an end-to-end event pipeline that detects changes in github stars &amp;amp; forks and publishes the result to Discord. This guide uses two connectors:&#xA;http-source: to read periodically from a github, parse the fields from the json output, and publish the result to a topic. http-sink: to listen to the same topic, detect changes, and publish the result to Discord. Let&amp;rsquo;s get started.&#xA;Prerequisites Fluvio CLI running locally Account on InfinyOn Cloud Step-by-Step Create http-source configuration file Create http-sink configuration file Download smartmodules Start Connectors Test Data Pipeline Create http-source configuration file Create an HTTP source connector configuration file called github.</description>
+    </item>
+    <item>
+      <title>IoT Mirroring - Edge VM to Cloud</title>
+      <link>http://localhost:1315/docs/guides/iot-mirroring-cloud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/iot-mirroring-cloud/</guid>
+      <description>InfinyOn IoT edge is a ~14 Mb binary that runs on ARMv7 chips on less than 256 MB memory. We are working with teams building the future of monitoring dynamic assets to push the boundaries of edge data stream processing.&#xA;If connected, InfinyOn IoT edge sends telemetry and events to the InfinyOn Cloud in real-time using mirroring.&#xA;If disconnected, the InfinyOn IoT edge stream processor caches events locally. When the connection resumes, the InfinyOn IoT edge stream processor brings InfinyOn Cloud up to date and continues mirroring until the subsequent connection loss.</description>
+    </item>
+    <item>
+      <title>IoT Mirroring - Raspberry Pi to Local Cluster</title>
+      <link>http://localhost:1315/docs/guides/iot-mirroring-local/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/iot-mirroring-local/</guid>
+      <description>This advanced tutorial reuqires a Raspberry Pi and a local installation of your collector cluster running on Kubernetes. Checkout the basic versino at: &amp;ldquo;IoT Mirroring - Edge VM to Cloud&amp;rdquo;.&#xA;Raspberry Pi to Local Cluster This section will use Raspberry Pi v3 running Ubuntu 32-bit as the edge device and our local machine for the target cluster. Let&amp;rsquo;s start with installing and configuring the target cluster.&#xA;Install Target Cluster on Local Machine Installing the target cluster on Linux or Mac requires Kubernetes.</description>
+    </item>
+    <item>
+      <title>Custom Clients with Docker</title>
+      <link>http://localhost:1315/docs/guides/infinyon-cloud-docker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/infinyon-cloud-docker/</guid>
+      <description>In this guide, you&amp;rsquo;ll learn how to package your custom app with a Fluvio client into a Docker image, and how to run a container with docker CLI.&#xA;We assume you are connected to a cluster with the CLI. If this is not the case, please login to Cloud before continuing.&#xA;Example custom Fluvio client To help illustrate the basic development workflow for all services using a Fluvio client, we&amp;rsquo;ll create this sample Rust service.</description>
+    </item>
+    <item>
+      <title>How to Link Zapier and InfinyOn Cloud</title>
+      <link>http://localhost:1315/docs/guides/zapier-cloud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/zapier-cloud/</guid>
+      <description>If you&amp;rsquo;re using both Zapier and InfinyOn Cloud, integrating the two can supercharge your workflows. Zapier&amp;rsquo;s automation prowess can link up with InfinyOn Cloud&amp;rsquo;s robust data streaming, allowing you to move and transform data and trigger actions seamlessly between them. This can not only save you time but also unlock new possibilities for your real-time data.&#xA;To follow along in this guide you need:&#xA;Access to Zapier Premium apps InfinyOn Cloud cluster Google Forms trigger to Zapier Google Sheets trigger to Zapier Linking Zapier to InfinyOn Cloud This section covers sending events from Zapier Zaps to InfinyOn Cloud Webhooks.</description>
+    </item>
+    <item>
+      <title>Amplitude Analytics</title>
+      <link>http://localhost:1315/docs/guides/amplitude/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/amplitude/</guid>
+      <description>With this guide, you can send events from InfinyOn Cloud to Amplitude. Connecting your services to this pipeline is simpler than microservices running around&#xA;To follow along in this guide you need:&#xA;The Amplitude API key from your account. InfinyOn Cloud cluster and Fluvio CLI. Setup Create secret You can follow Amplitude&amp;rsquo;s instructions for how to collect your api token so you can create a secret the connector can use when building the json request for Amplitude.</description>
+    </item>
+    <item>
+      <title>Integrate Cloudflare Workers with InfinyOn Cloud</title>
+      <link>http://localhost:1315/docs/guides/cloudflare-workers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/cloudflare-workers/</guid>
+      <description>Connect your Cloudflare workers with InfinyOn Cloud for powerful event-processing data pipelines. InfinyOn Cloud&amp;rsquo;s robust data streaming allows you to seamlessly move and transform data and trigger actions.&#xA;In this guide, we&amp;rsquo;ll build a simple CloudFlare worker that sends events to InfinyOn Cloud through the webhook API.&#xA;Use Cases Send form submission notifications to Slack. Send clickstream events to Amplitude. Send form submissions to HubSpot. Prerequisites To follow along you&amp;rsquo;ll need the following:</description>
+    </item>
+    <item>
+      <title>HubSpot CRM</title>
+      <link>http://localhost:1315/docs/guides/hubspot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/guides/hubspot/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

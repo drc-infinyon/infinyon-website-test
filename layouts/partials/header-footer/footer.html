@@ -1,0 +1,65 @@
+{{- $footer := .Site.Data.footer -}}
+{{- $social := $footer.social -}}
+{{- $content := $footer.content -}}
+{{- $legal:= $footer.legal -}}
+
+<footer class="bg-gray-900" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8">
+    <div class="lg:grid lg:grid-cols-10 lg:gap-8">
+
+      <!-- social -->
+      <div class="lg:col-span-2 space-y-6">
+        <img class="h-7 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        <p class="text-sm leading-6 text-gray-300"></p>
+        <div class="flex space-x-6">
+          {{- range $social }}
+            <a href="{{ .link }}" class="text-gray-300 hover:text-gray-100" target="_blank">
+              {{- partial .svg }}
+            </a>
+          {{- end }}
+        </div>
+      </div>
+
+      <!-- content -->
+      <div class="lg:col-span-8">
+        <div class="mt-16 lg:mt-0 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+
+          {{- range $content }}
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">{{ .title }}</h3>
+            <ul role="list" class="mt-6 space-y-2">
+              {{- range .items }}
+                <li>
+                  <a href="{{ .link }}" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    {{ .name}}
+                </a>
+                </li>
+              {{- end }}
+            </ul>
+          </div>
+          {{- end }}
+          
+        </div>
+      </div>
+
+    </div>
+
+    <!-- footer -->
+    <div class="mt-8 border-t border-white/10 pt-4 text-center">
+      <div class="text-center text-xs text-gray-400">
+        {{ $lastItem := index (last 1 $legal) 0 }}
+        {{ range $legal -}}
+          <span><a href="{{ .link }}">{{.name}}</a></span>
+          {{ if ne $lastItem.name .name }} 
+          <span class="px-1">|</span> {{ end }}
+        {{- end }}
+      </div>
+      <p class="text-xs leading-5 text-gray-400">&copy; <span id="year"></span> InfinyOn, Inc. All rights reserved.</p>
+      <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+      </script>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,18 @@
+hero_bg_color: "bg-indigo-500" #[bg-gradient-to-r from-pink-500 to-blue-400, bg-white]
+banner_ads_bg_color: "bg-indigo-300" #bg-gradient-to-r from-indigo-500 to-pink-200
+button_bg_color: "bg-indigo-500 hover:bg-indigo-600" #"bg-pink-600  hover:bg-pink-500"
+button_bg_color-gradient: "bg-gradient-to-r from-pink-600 to-indigo-400 hover:bg-gray-700"
+codegroup_bg_color: "bg-gray-800" #bg-magenta-700
+codegroup_border_color: "border-white"
+codegroup_text_color: "text-white" #text-emerald-400
+page_bg_color_mono: "bg-gray-900"
+page_bg_color_1: "bg-gradient-to-b from-gray-900 to-gray-800"
+page_bg_color_2: "bg-gradient-to-b from-gray-900 to-magenta-800"
+section_bk_color_1: "bg-magenta-600"
+section_btn_color_1: "bg-magenta-600"
+quote_name_color: "text-emerald-400" #text-indigo-400
+quote_title_color: "text-gray-400" #text-emerald-400
+box_bg_color: "bg-gray-800" #"bg-gradient-to-r from-gray-800 to-gray-800"
+box_title_color: "text-indigo-400" #text-blue-400 text-white
+box_text_color: "text-gray-300"
+card_bg_color: "bg-gradient-to-b from-magenta-600 to-magenta-800"

@@ -1,0 +1,75 @@
+{{- $leftTitle := .content.left.title -}}
+{{- $leftItems := .content.left.items -}}
+{{- $middleTitle := .content.middle.title -}}
+{{- $middleItems := .content.middle.items -}}
+<div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>{{ .name }}</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 inset-x-0 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+
+      <div class="relative mx-auto grid max-w-7xl grid-cols-2">
+        <div class="grid gap-y-10 bg-white py-8 px-8 sm:grid-cols-2 sm:gap-x-2 sm:py-12 lg:px-12" aria-labelledby="solutions-heading">
+
+          <div class="lg:px-10">
+            <h3 class="text-md text-gray-700">{{ $leftTitle }}</h3>
+            <ul role="list" class="mt-5 space-y-5">
+
+              {{- range $index, $item := $leftItems -}}
+                {{ $target := $item.target | default "_self" }}
+                <li class="flow-root">
+                  <a href="{{ $item.link }}" target="{{ $target }}" class="-m-3 flex items-center rounded-md p-3 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-50">
+                    {{ partial "heroicons/icon" (dict "name" $item.icon.svg "color" $item.icon.color) -}}
+                    <span class="ml-4">{{ $item.title }}</span>
+                  </a>
+                </li>
+              {{- end }}
+
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-md text-gray-700">{{ $middleTitle }}</h3>
+            <ul role="list" class="mt-5 space-y-5">
+
+              {{- range $index, $item := $middleItems }}
+                <li class="flow-root">
+                  <a href="{{ $item.link }}" class="-m-3 flex items-center rounded-md p-3 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-50">
+                    {{ partial "heroicons/icon" (dict "name" $item.icon.svg "color" $item.icon.color) -}}
+                    <span class="ml-4">{{ $item.title }}</span>
+                  </a>
+                </li>
+              {{- end }}
+
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 py-8 px-6 sm:py-12 lg:px-8 xl:pl-12">
+          {{ partial "navbar/resources-blogs" . -}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

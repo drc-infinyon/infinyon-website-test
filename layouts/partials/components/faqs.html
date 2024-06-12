@@ -1,0 +1,36 @@
+{{- $faqs := .faqs }}
+
+<div class="mx-auto max-w-7xl pb-16 lg:pb-5 px-6 lg:px-8">
+  <div class="mx-auto max-w-4xl divide-y">
+    <dl class="space-y-6 divide-y">
+
+      {{- range $faqs.items }}
+        {{- if ne .hidden true }}
+          <div x-data="{ openTab: false}" class="pt-6">
+            <dt>
+              <button type="button" @click="openTab = !openTab" class="flex w-full items-start justify-between text-left" aria-controls="faq-0" aria-expanded="false">
+                <span class="font-semibold leading-7">
+                  {{ .question | markdownify }}
+                </span>
+                <span class="ml-6 flex h-7 items-center">
+                  <svg x-show="openTab === false" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  <svg x-show="openTab === true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                  </svg>
+                </span>
+              </button>
+            </dt>
+            <dd x-show="openTab === true" class="mt-2 pl-5 pr-12" id="faq-0">
+              <p class="text-base leading-7">
+                {{ .answer | markdownify }}
+              </p>
+            </dd>
+          </div>
+        {{ end -}}
+      {{ end -}}
+
+    </dl>
+  </div>
+</div>

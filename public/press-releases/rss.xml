@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>InfinyOn Inc. - Press Releases on InfinyOn</title>
+    <link>http://localhost:1315/press-releases/</link>
+    <description>Recent content in InfinyOn Inc. - Press Releases on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 30 Jun 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/press-releases/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>InfinyOn and MotherDuck Announce Strategic Partnership to Drive End-to-End Data Streaming and Analytics Pipelines</title>
+      <link>http://localhost:1315/press-releases/infinyon-duckdb-announcement/</link>
+      <pubDate>Fri, 30 Jun 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/press-releases/infinyon-duckdb-announcement/</guid>
+      <description>SANTA CLARA, CA &amp;ndash; Today, InfinyOn, a leading provider of real-time event stream processing, and MotherDuck, an industry pioneer in serverless data analytics, are excited to announce a strategic partnership designed to drive end-to-end streaming and analytics for real-time data.&#xA;The partnership underscores the commitment of both InfinyOn and MotherDuck to provide users with enhanced data flow capabilities and seamless integrations, enabling them to optimize their analytics workflows, reduce data friction, and unlock new levels of performance and scalability.</description>
+    </item>
+    <item>
+      <title>Klarian and InfinyOn Agree to Jointly Deliver Real-time Pipeline Monitoring</title>
+      <link>http://localhost:1315/press-releases/infinyon-klarian-announcement/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/press-releases/infinyon-klarian-announcement/</guid>
+      <description>SANTA CLARA, CA &amp;ndash; Klarian, an intelligent pipeline monitoring company, announces a strategic technology agreement with InfinyOn. The agreement with InfinyOn, a real-time event streaming company, will drive innovation into the energy sector with real-time data and actionable insights. Klarian has developed Digipipe, an end-to-end pipeline monitoring solution with a performance dashboard that integrates with InfinyOn, to stream, transform and load events in real-time.&#xA;Pipelines transport some of our most valuable natural resources.</description>
+    </item>
+    <item>
+      <title>InfinyOn Announces the Release of InfinyOn Cloud a Real-time Data Platform</title>
+      <link>http://localhost:1315/press-releases/infinyon-cloud-announcement/</link>
+      <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/press-releases/infinyon-cloud-announcement/</guid>
+      <description>SANTA CLARA, CA &amp;ndash; InfinyOn, a real-time event streaming company, announces the v0.10 beta release of the InfinyOn Cloud platform. Building an infrastructure for real-time event streaming is challenging, expensive to scale, and difficult to operate. InfinyOn Cloud provides a modern approach that reduces the cost and complexity of operating and managing real-time data pipelines.&#xA;Enterprises can bring real-time intelligence to data pipelines for Edge and Cloud use cases with InfinyOn Cloud.</description>
+    </item>
+    <item>
+      <title>InfinyOn Raises $5M to deliver a Unified Platform for Event Streaming and Real-time Data Transformation</title>
+      <link>http://localhost:1315/press-releases/funding-announcement/</link>
+      <pubDate>Mon, 24 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/press-releases/funding-announcement/</guid>
+      <description>SANTA CLARA, CA &amp;ndash; InfinyOn, a real-time event streaming company, raised a $5M round of seed funding, led by Gradient Ventures and Fly Ventures, with participation from Bessemer Venture Partners, TSVC, and others.&#xA;Real-time event streaming adoption is gaining momentum as an integral component of delivering exceptional customer experiences and enhanced operations. With products built on modern cloud-native architecture, InfinyOn seeks to become a trusted partner for organizations seeking to kick off and expand their data-in-motion journey.</description>
+    </item>
+    <item>
+      <title>InfinyOn Announces Postgres Connector for Fluvio &amp; InfinyOn Cloud</title>
+      <link>http://localhost:1315/press-releases/postgres-connector/</link>
+      <pubDate>Thu, 10 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/press-releases/postgres-connector/</guid>
+      <description>SANTA CLARA, CA &amp;ndash; InfinyOn, a real-time data streaming company, announced the launch of a new Postgres source and sink connectors for it’s open source Fluvio and InfinyOn Cloud platform. Postgres is a free and open-source relational database management system emphasizing extensibility and SQL compliance.&#xA;“There are many benefits that include using the same data stream to perform data replication, generate events, and send alerts in real-time such as “item Y has sold out”.</description>
+    </item>
+    <item>
+      <title>Using Real-Time Intelligence to Drive More Resilient Supply Chains</title>
+      <link>http://localhost:1315/press-releases/real-time-intelligence-for-more-resilient-supply-chains/</link>
+      <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/press-releases/real-time-intelligence-for-more-resilient-supply-chains/</guid>
+      <description>SANTA CLARA, CA &amp;ndash; With experts predicting that global supply chain disruptions will get worse before they get better, organizations are relying on their data teams to enable faster decision making and rapid response-to-market changes. Businesses need the insights to detect and react to challenges in real time so they can improve production planning, better manage inventory, and track the movement of goods more efficiently. They also need to ensure network reliability and seamless support for customers dealing with the frustrations of stock shortages and delivery delays.</description>
+    </item>
+    <item>
+      <title>InfinyOn Launches SmartModules for Real-time Streaming</title>
+      <link>http://localhost:1315/press-releases/smartmodules-real-time-streaming/</link>
+      <pubDate>Fri, 03 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/press-releases/smartmodules-real-time-streaming/</guid>
+      <description>SANTA CLARA, CA &amp;ndash; InfinyOn, a real-time data streaming company, announced the launch of SmartModules™ on it’s open source Fluvio and InfinyOn Cloud platform. SmartModules give architects, developers and data engineers the ability to perform inline computations on the data passing through the platform. Smart Connectors are a new feature released with SmartModules that enable customers to write custom logic to filter out irrelevant data before it gets sent over the network and persisted in a topic, saving on bandwidth and storage.</description>
+    </item>
+    <item>
+      <title>InfinyOn joins the Bytecode Alliance</title>
+      <link>http://localhost:1315/press-releases/infinyon-joins-bytecode-alliance/</link>
+      <pubDate>Tue, 20 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/press-releases/infinyon-joins-bytecode-alliance/</guid>
+      <description>SANTA CLARA, CA &amp;ndash; We are thrilled to announce that InfinyOn is now a member of the Bytecode Alliance (BA). An organization committed to establishing a capable, secure platform that allows application developers and service providers to confidently run untrusted code on any infrastructure, operating system, or device.&#xA;The BA is a vendor-neutral organization for building reusable WebAssembly engines and toolings. With industry-leading members such as Fastly, Intel, Google, Mozilla, and Microsoft, the BA fosters standards such as WebAssembly System Interface (WASI) to make it easier to embed WebAssembly in platforms such as Fluvio.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,13 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.2.5
+  name: my-http-sink
+  type: http-sink
+  topic: http-sink-topic
+  secrets:
+    - name: AUTHORIZATION_TOKEN
+http:
+  endpoint: "http://127.0.0.1/post"
+  headers:
+    - "Authorization: token ${{ secrets.AUTHORIZATION_TOKEN }}"
+    - "Content-Type: application/json"

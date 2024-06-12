@@ -1,0 +1,30 @@
+{{- $items := .content.items -}}
+
+<div class="grid grid-cols-1 gap-8 lg:gap-6 lg:grid-cols-2">
+
+  {{- range $items   }}
+  <div class=" px-6 py-5 flex items-center space-x-3">
+    <img class="w-20 h-20" src="{{ .image.src }}" atl="{{ .image.alt }}" />
+    <div class="pl-1"></div>
+    <div class="min-w-0">
+        <p class="text-xl font-bold tracking-wide text-white">
+          {{ .title }}
+        </p>
+        <p class="text-md text-gray-300">
+          {{ .description }}
+        </p>
+        {{ if .link -}}
+        <div class="mt-2">
+          <a 
+            class="text-indigo-400 text-md font-semibold focus:outline-none" 
+            href="{{ .link.ref }}" 
+          > 
+          {{ .link.label }}
+          </a>
+        </div>
+        {{- end }}
+    </div>
+  </div>
+  {{ end -}}
+
+</div>

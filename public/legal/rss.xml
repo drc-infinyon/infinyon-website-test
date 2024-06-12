@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Legal Documents on InfinyOn</title>
+    <link>http://localhost:1315/legal/</link>
+    <description>Recent content in Legal Documents on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1315/legal/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cookie Notice</title>
+      <link>http://localhost:1315/legal/cookies/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/legal/cookies/</guid>
+      <description>Overview This Cookie Policy (“Policy”) explains how Infinyon, Inc., and subsidiaries (collectively, “Infinyon”, “we”, “us” or “our”) use cookies and similar technologies to recognize you when you visit one of our websites, including any other media form, media channel, mobile website, or mobile application related or connected thereto provided or officially sponsored by Infinyon, or any other Infinyon websites that link to this Policy (collectively, the “Websites”).&#xA;This Policy explains what these technologies are and why we use them, as well as our users’ (“data subject”, “user”, “you” or “your”) rights to control our use of them.</description>
+    </item>
+    <item>
+      <title>Privacy Policy</title>
+      <link>http://localhost:1315/legal/privacy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/legal/privacy/</guid>
+      <description>Overview This Privacy Policy (“Privacy Policy”, “Policy”) explains how InfinyOn, Inc. (&amp;ldquo;InfinyOn&amp;rdquo;, “we”, “us” or “our”) collects, uses, shares, processes and protects personal information (“Personal Information”) relating to individuals (“you”, or “your”), who may use our websites or services, or when you otherwise interact with us. “You” may be a visitor to one of our websites, a user (“User”) of one or more of our services, a partner, a collaborator, or a customer (“Customer”).</description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>http://localhost:1315/legal/security/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/legal/security/</guid>
+      <description>Overview InfinyOn implements security controls designed to protect and secure customer data. Infinyon Cloud uses multiple security controls, including access control, strong authentication, logging and monitoring, and many others.&#xA;InfinyOn is committed to working with the user community and security experts to ensure our products are secure. We appreciate and are fully committed to investigating any vulnerability reported to us in the shortest amount of time.&#xA;Privacy InfinyOn is committed to being transparent about the data we handle and how we handle it.</description>
+    </item>
+    <item>
+      <title>User Agreement</title>
+      <link>http://localhost:1315/legal/user-agreement/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/legal/user-agreement/</guid>
+      <description>Your use of InfinyOn&amp;rsquo;s products and services, including the use of Infinyon Cloud Service (&amp;ldquo;Cloud Service&amp;rdquo;), Subscriptions to the deployed on-premise Fluvio Platform (together the Infinyon Cloud Service and Subscriptions are the &amp;ldquo;InfinyOn Products”), and Services (defined below) is governed by these terms of service (“Agreement”). “InfinyOn” means InfinyOn, Inc., a Delaware corporation located at 2445 Augustine Drive, Suite 249, Santa Clara, CA 95054, USA. “Your”, “You” and “Customer” are used interchangeably throughout the Agreement and have the same meaning.</description>
+    </item>
+  </channel>
+</rss>

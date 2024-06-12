@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>InfinyOn | Documentation on InfinyOn</title>
+    <link>http://localhost:1315/videos/</link>
+    <description>Recent content in InfinyOn | Documentation on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Mar 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/videos/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>InfinyOn MQTT to Postgres in 10 mins</title>
+      <link>http://localhost:1315/videos/mqtt-to-postgres/</link>
+      <pubDate>Wed, 08 Mar 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/mqtt-to-postgres/</guid>
+      <description>The modern data stack today is way too complicated. Learn how to build time-sensitive data applications in just a few minutes using InfinyOn Cloud. (16 minutes)</description>
+    </item>
+    <item>
+      <title>Real-time Pipeline Monitoring for the Energy Sector</title>
+      <link>http://localhost:1315/videos/real-time-pipeline-monitoring/</link>
+      <pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/real-time-pipeline-monitoring/</guid>
+      <description>View our most webinar with James Stuart-Bruges, Head of Product for Klarian, Ben Cleary, CTO for Klarian, and Alexander Mikalev, Sr. Solutions Architect for InfinyOn. (37 minutes)</description>
+    </item>
+    <item>
+      <title>DuckCon 2023 (Lightning Talks) - Integrating DuckDB with Fluvio</title>
+      <link>http://localhost:1315/videos/duckcon-2023-duckdb-fluvio/</link>
+      <pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/duckcon-2023-duckdb-fluvio/</guid>
+      <description>View our most recent lightining talk with InfinyOn CTO, Sehyo Chang at DuckCon 2023. (8 minutes)</description>
+    </item>
+    <item>
+      <title>IoT Streaming Analytics with Real-time Data</title>
+      <link>http://localhost:1315/videos/iot-streaming-analytics/</link>
+      <pubDate>Wed, 30 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/iot-streaming-analytics/</guid>
+      <description>This webinar will provide a step-by-step process on how to build real-time data pipelines that include inline transformations to structure and format IoT sensor data. Details include how to:&#xA;• Start your cloud environment&#xA;• Create a topic to store IoT data&#xA;• Get data into InfinyOn Cloud with an inbound connector&#xA;• Transform IoT data in real-time using a SmartModule&#xA;• Create an outbound connector to a SQL database</description>
+    </item>
+    <item>
+      <title>MQTT to Postgres Use Case from Klarian</title>
+      <link>http://localhost:1315/videos/mqtt-to-postgres-use-case/</link>
+      <pubDate>Mon, 31 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/mqtt-to-postgres-use-case/</guid>
+      <description>Ben Cleary, the Head of Technology for Klarian explains the problems he was trying to solve when building out their Digipipe Platform that allows users to monitor their oil and gas pipelines in real time.&#xA;Klarian captures data from multiple sources (sensors or systems), then processes and analyzes it to find meaningful insights, generating actions to give users the information needed to make better decisions.&#xA;InfinyOn Cloud, a fully managed Fluvio service, was selected by Klarian for event stream processing and real-time data transformation.</description>
+    </item>
+    <item>
+      <title>How to Stream Clean Data to a Kafka Topic with Fluvio</title>
+      <link>http://localhost:1315/videos/stream-clean-data-to-kafka-with-fluvio/</link>
+      <pubDate>Fri, 19 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/stream-clean-data-to-kafka-with-fluvio/</guid>
+      <description>This demo covers how to install Fluvio opensource software, how to start a Fluvio cluster, how to start a lockal Kafka developement environment, and how to apply a SmartModule in order to stream clean data to a Kafka topic.</description>
+    </item>
+    <item>
+      <title>Enhance your Kafka Infrastructure with Fluvio</title>
+      <link>http://localhost:1315/videos/enhance-your-kafka-infrastructure-with-fluvio/</link>
+      <pubDate>Tue, 16 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/enhance-your-kafka-infrastructure-with-fluvio/</guid>
+      <description>This webinar shows the power of Fluvio for real-time event streaming and data transformation. View the Kafka vs. Fluvio session to learn:&#xA;• What are the major differences between the platforms&#xA;• Why companies are leveraging Fluvio to compliment Kafka&#xA;• How to stream clean data to a Kafka topic without microservices or ETL tools</description>
+    </item>
+    <item>
+      <title>KubeCon Cloud Native WASM Day Tech Talk</title>
+      <link>http://localhost:1315/videos/kubecon-cloud-native-wasm-day/</link>
+      <pubDate>Mon, 23 May 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/kubecon-cloud-native-wasm-day/</guid>
+      <description>Are you looking to build a more efficient and cost-effective data stack for your organization? Don&amp;rsquo;t miss out on our speaking session at KubeCon featuring the CTO of InfinyOn. Discover how Fluvio, the open-source project, leverages WASM technology to create a distributed stream platform that removes the barrier between data and compute, resulting in a new type of data stack that can be deployed anywhere with hyper-efficiency.&#xA;During this session, you will learn about WASM-based SmartModules and its benefits in solving various use cases.</description>
+    </item>
+    <item>
+      <title>Rust in 100 Seconds</title>
+      <link>http://localhost:1315/videos/rust-in-100-seconds/</link>
+      <pubDate>Fri, 01 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/rust-in-100-seconds/</guid>
+      <description>InfinyOn Cloud is built on Rust which is blazingly fast and memory-efficent. It has the simplicity of high-level languages (Go, Python), but the control of low-level languages (C, C++). With no runtime or garbage collector, it can power performance-critical services, run on embedded devices, and easily integrate with other languages. Rust has a rich type system and ownership model guarantee memory-safety and thread-safety — enabling you to eliminate many classes of bugs at compile-time.</description>
+    </item>
+    <item>
+      <title>Introduction to Fluvio, The Programmable Platform for Data in Motion</title>
+      <link>http://localhost:1315/videos/introduction-to-fluvio/</link>
+      <pubDate>Thu, 24 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/introduction-to-fluvio/</guid>
+      <description>Fluvio is an open-source data streaming platform with in-line computation capabilities. It&amp;rsquo;s distributed stream processing with redundancy and failover, prevents data loss and minimize downtime. Programmable stream processing is used to clean, transform, correlate, and derive insights from data in real-time. Fluvio’s performance, scalability, deployment flexibility, and programmability allow building the data-in-motion infrastructure of the future.&#xA;View this introduction to Fluvio session to learn -&#xA;• Why developers are choosing Fluvio over Kafka, Pulsar and Flink</description>
+    </item>
+    <item>
+      <title>Why Real-Time Data Matters</title>
+      <link>http://localhost:1315/videos/why-real-time-data-matters/</link>
+      <pubDate>Tue, 25 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/why-real-time-data-matters/</guid>
+      <description>Data and Analytics leaders across all industries are striving for real-time services to improve operations, delight customers, and gain a competitive edge. Real-time data offers a range of benefits for organizations of any size. According to Gartner, businesses must use stream processing to meet their needs for continuous intelligence and real-time analytics.&#xA;To take advantage of the growing availability of real-time streaming data, organizations are reengineering how they make decisions by implementing event stream processing.</description>
+    </item>
+    <item>
+      <title>Real-time Data Streaming | Helsinki Bus Demo</title>
+      <link>http://localhost:1315/videos/helsinki-bus-demo/</link>
+      <pubDate>Mon, 13 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/videos/helsinki-bus-demo/</guid>
+      <description>This demo shows the power of InfinyOn Cloud for real-time data streaming. We combine 2 real-time data sources from the Helsinki public transit system and predict arrival times for buses.</description>
+    </item>
+  </channel>
+</rss>

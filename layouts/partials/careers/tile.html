@@ -1,0 +1,39 @@
+{{- $title := .Param "title" -}}
+{{- $description := .Param "description" -}}
+{{- $link := .Param "slug" -}}
+{{- $jobLocation := .Param "job.location" -}}
+{{- $jobCategory := .Param "job.category" -}}
+<article class="mx-auto max-w-xl p-5 flex flex-col group border rounded-xl shadow-lg ring-1 ring-magenta-150 hover:ring-magenta-300">
+    <div class="flex-auto relative text-left">
+      <h3 class="mt-3 text-lg font-semibold leading-6 text-magenta-400">
+        <a href="{{ $link }}">
+          <span class="absolute inset-0"></span>
+          {{ $title }}
+        </a>
+      </h3>
+      <div class="flex flex-col gap-2 mt-4 ml-2">
+        <div class="flex">
+          {{ partial "heroicons/svgs/map-pin-full" (dict "class" "w-6 h-6 text-magenta-400") -}}
+          <span class="ml-2 text text-gray-600">
+            {{- $jobLocation -}}
+          </span>
+        </div>
+        <div class="flex">
+          {{ partial "heroicons/svgs/clock-full" (dict "class" "w-6 h-6 text-magenta-400") -}}
+          <span class="ml-2 text text-gray-600">
+            {{- $jobCategory -}}
+          </span>
+        </div>   
+      </div>   
+      <p class="my-4 text-base leading-6 text-gray-500">
+        {{- $description -}}
+      </p>
+    </div>
+    <div class="py-4">
+      <a href="{{ $link }}">
+        <button class="w-full max-w-md py-2.5 bg-white hover:ring-2 text-magenta-300 border border-magenta-300 rounded-lg shadow group-hover:bg-magenta-400  group-hover:text-white">
+          Learn More
+        </button>  
+      </a>
+    </div>
+</article>

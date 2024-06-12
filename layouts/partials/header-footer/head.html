@@ -1,0 +1,16 @@
+{{- $isDevelopment := false -}}
+{{- if in (string .Site.BaseURL) "localhost" -}}
+    {{ $isDevelopment = true }}
+{{- end -}}
+
+  <title>{{ .Title }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+
+  {{- if $isDevelopment -}}  
+    <script defer src="/js/alpine_3_11_1.js"></script>
+  {{- else -}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js"></script>
+  {{- end }}

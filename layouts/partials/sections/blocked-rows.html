@@ -1,0 +1,15 @@
+{{- $bg_color := .styling.page_bg_color_1 -}}
+{{- $title := .content.title -}}
+{{- $subtitle := .content.subtitle -}}
+
+<div class="{{ $bg_color }} pt-16 pb-32">
+  <div class="max-w-md sm:max-w-3xl lg:max-w-7xl mx-auto">
+
+    <div class="pb-12">
+      {{ partial "components/title" (dict "title" $title "subtitle" $subtitle) }}
+    </div>
+
+    {{ partial "components/blocked-rows" . }}
+
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{{- $found_page := false -}}
+{{- range where .Pages ".Params.hidden" "ne" true -}}
+    {{- if ne $found_page true -}}
+        {{- $found_page = true -}}
+        {{- partial "header-footer/head-metadata.html" . -}}
+    {{- end -}}
+{{- end -}}

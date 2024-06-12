@@ -1,0 +1,20 @@
+{{- $title := "Infinyon" -}}
+{{- if .Param "title" -}}
+  {{- $title = .Param "title" -}}
+{{- end }}
+{{- $description := site.Params.description -}}
+{{- if .Param "description" -}}
+    {{- $description = .Param "description" -}}
+{{- end -}}
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $description }}" />
+{{- if .Param "img" -}}
+  {{- $img := print .Site.BaseURL (.Param "img") }}
+  <meta property="og:image" content="{{ $img }}">
+  <meta name="twitter:site" content="@InfinyOn">
+  <meta name="twitter:image:src" content="{{ $img }}" />
+  {{- if .Param "twitter-card" }}
+  <meta name="twitter:card" content="{{ .Param "twitter-card" }}" />
+  {{- end }}
+{{- end }}

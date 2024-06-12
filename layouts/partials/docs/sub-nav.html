@@ -1,0 +1,17 @@
+<!-- Mobile Version -->
+<div class="flex lg:hidden border-b border-gray-200 bg-white" x-data="{ open: false }" x-cloak>
+  <div class="ml-6">
+      {{ partial "docs/side-bar-mobile" . -}}
+  </div>
+
+  <div 
+      class="flex items-center gap-x-6 bg-white py-5 shadow-sm hover:cursor-pointer z-60"
+      x-show="!open" @click="open = ! open"
+  >
+    <button type="button" class="-m-2.5 p-2.5 text-gray-700">
+        <span class="sr-only">Open sidebar</span>
+        {{ partial "heroicons/icon" (dict "name" "book-open" "class" "w-6 h-6 flex content-center") -}}
+    </button>
+    <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">Docs</div>
+  </div>
+</div>

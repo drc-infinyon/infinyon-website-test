@@ -1,0 +1,14 @@
+section: "before-after-img"
+content:
+  before: 
+    title: "Stuck with a bloated data stack?"
+    description: "If you are struggling to manage a bloated data stack with multiple tools glued together, infrstructure management overhead, slow development velocity - We have lived through this pain and want to help you optimize your data stack."
+    image:
+      src: "/assets/main/infinyon-before.svg"
+      alt: "Kafka, Flink, Airflow - data pipeline spagetti"
+  after: 
+    title: "Realize the benefits of a unified data platform!"
+    description: "Roll-out end-to-end data flows in minutes with composable configurations. Create custom flows with development kits. Deliver continuous value with your data by adopting asynchronous event driven architecture without the infrastructure overhead."
+    image:
+      src: "/assets/main/infinyon-after.svg"
+      alt: "InfinyOn data streaming pipeline"

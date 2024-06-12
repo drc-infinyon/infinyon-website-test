@@ -1,0 +1,15 @@
+# JOLT: JSON Language for Transformations
+transforms:
+  - uses: infinyon/jolt@0.3.0
+    with:
+      spec:
+        - operation: remove
+          spec:
+            id: ""
+        - operation: shift
+          spec:
+            "*": "data.&0"
+        - operation: default
+          spec:
+            data:
+              source: "http-connector"

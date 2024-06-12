@@ -1,0 +1,132 @@
+{{- $bg_color := .styling.page_bg_color_mono -}}
+{{- $reCAPTCHA_key := .reCAPTCHA_key -}}
+{{- $title := .content.title -}}
+{{- $subtitle := .content.subtitle -}}
+{{- $metadata := .content.metadata -}}
+{{- $btn := .content.form.button -}}
+{{- $fields := .content.form.fields -}}
+{{- $success := .content.form.route.success }}
+{{- $error := .content.form.route.error }}
+
+<div class="{{ $bg_color }} py-24">
+  
+  <div class="pb-8 px-2">
+    {{ partial "components/title-form" (dict "title" $title "subtitle" $subtitle) }}
+  </div>
+
+  <div class="flex flex-col justify-center px-6 lg:px-8">
+
+    <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6" name="request_form" id="request_form">
+
+        {{- range $fields }}
+          {{- if eq .field "input" }}
+            {{ partial "form/input" . }}
+          {{- else if eq .field "combobox" }}
+            {{ partial "form/combobox" . }}
+          {{- else if eq .field "textarea" }}
+            {{ partial "form/textarea" . }}
+          {{- end }}
+        {{- end }}
+
+        {{- range $metadata }}
+          {{- range $key, $val := . -}}
+            <input type="hidden" id="{{ $key }}" name="{{ $key }}" value="{{ $val }}"> 
+          {{- end }}
+        {{ end }}
+        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+        
+        <div class="pt-4">
+          <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+            {{ $btn.label }}
+          </button>
+        </div>
+      </form>
+
+      <p class="text-gray-500 pt-4 text-sm">
+        <small>This site is protected by reCAPTCHA and the Google <a class="underline" href="https://policies.google.com/privacy">Privacy Policy</a> and <a class="underline" href="https://policies.google.com/terms">Terms of Service</a> apply.</small>
+      </p>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success_modal" class="hidden">
+    <div class="relative z-20">
+      {{ partial "modals/success" (dict "parent_id" "success_modal" "text" $success.text "route_page" $success.link) -}}
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div id="error_modal" class="hidden">
+    <div class="relative z-20">
+      {{ partial "modals/error" (dict "parent_id" "error_modal" "route_page" $error.link) -}}
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SUBMIT_URL = "/api/v0/submit";
+
+let request_form = document.getElementById('request_form');  
+let success_modal = document.getElementById('success_modal');
+let error_modal = document.getElementById('error_modal');
+let error_message = document.getElementById('error_message');
+
+// attach event handlers
+request_form.addEventListener('submit', requestFormHandler);
+document.addEventListener('keydown', escapeKeyHandler);
+
+// modal form handles getcaptcha and submits event
+function requestFormHandler(event) {
+  event.preventDefault();
+
+  // generate repcature before passing it on.
+  grecaptcha.ready(function() {
+    grecaptcha.execute('{{$reCAPTCHA_key}}', {action: 'submit'}).then(function(token) {
+      document.getElementById('g-recaptcha-response').value = token;
+
+      // read form data
+      var data = {};
+      const formData = new FormData(request_form);
+      formData.forEach((value, key) => data[key] = value);
+
+      // submit
+      console.log(data);
+      submitData(data);
+    });
+  });
+}
+
+// Submit data to webhook
+function submitData(data){
+  var request = new XMLHttpRequest();
+  
+  //register method called after data has been sent method is executed
+  request.addEventListener("load", handleSubmitReponse);
+  request.open("POST", SUBMIT_URL, true);
+  request.send(JSON.stringify(data)); 
+
+  // reset forms
+  request_form.reset();
+}
+
+// handle submit response
+function handleSubmitReponse () {
+  if (this.status === 200) {
+    success_modal.className = "block";
+  } else {
+    error_message.innerHTML = this.responseText;
+    error_modal.className = "block";
+  }
+}
+
+  // close dialog box if escape key is pressed
+  function escapeKeyHandler(event) {
+    if (event.key === 'Escape') {
+      success_modal.className = "hidden";
+      error_modal.className = "hidden";
+    }
+  }
+
+</script>

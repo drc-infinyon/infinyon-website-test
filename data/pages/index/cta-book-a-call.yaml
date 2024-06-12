@@ -1,0 +1,7 @@
+section: "call-to-action"
+content:
+  title: "Simplify your data stack"
+  description: "Struggling with the performance and cost challenges of the modern data stack?</br></br>We have the solution to the data plumbing problem! Find out how InfinyOn can help you simplify your data stack and accelerate your data transformation journey."
+  button:
+    label: "Get Started Now"
+    ref: "/request/ss-early-access/"

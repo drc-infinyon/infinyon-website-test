@@ -1,0 +1,11 @@
+{{- $title := .title -}}
+{{- $subtitle := .subtitle -}}
+
+<div class="relative flex items-center">
+  <div class="flex-grow border-t border-4 border-gray-200"></div>
+  <span class="mx-10 text-3xl font-extrabold text-white">{{ $title }}</span>
+  <div class="flex-grow border-t border-4 border-gray-200"></div>
+</div>
+{{ if $subtitle -}}
+<h3 class="pt-2 text-white text-1xl font-normal tracking-wider">{{ $subtitle }}</h3>
+{{ end -}}

@@ -1,0 +1,18 @@
+{{- $title := .content.title -}}
+{{- $description := .content.description -}}
+{{- $src := .content.image.src -}}
+{{- $alt := .content.image.alt -}}
+
+<div class="pb-8 px-6">
+  {{ partial "components/title" (dict "title" $title) }}
+</div>
+
+<div class="pb-12 px-6 text-lg text-gray-300 max-w-6xl mx-auto">
+  {{ $description }}
+</div>
+
+<div class="flow-root">
+  <div class="p-5 mx-1 lg:mx-20 rounded-xl lg:rounded-2xl">
+    <img src="{{ $src }}" class="rounded-md" alt="{{ $alt }}">
+  </div>
+</div>

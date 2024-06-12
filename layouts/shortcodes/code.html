@@ -1,0 +1,15 @@
+{{- $file := .Get "file" -}}
+{{- $copy := .Get "copy" | default false -}}
+{{- $copyFirstLine := .Get "copyFirstLine" | default false -}}
+{{- $lang := .Get "lang" | default "bash" -}}
+
+{{- $content := "" -}}
+{{- if $copy -}}
+    {{- $content = (println "%copy%") -}}
+{{- else if $copyFirstLine -}}
+    {{- $content = (println "%copy first-line%") -}}
+{{- end -}}
+{{- $content = (println $content "```" $lang ) -}}
+{{- $content = (println $content (os.ReadFile $file)) -}}
+{{- $content = (println $content "```") -}}
+{{ $content | markdownify }}

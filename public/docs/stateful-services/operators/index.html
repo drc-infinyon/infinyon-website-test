@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script>
+    <title>Operator Definitions</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"><script defer src="/js/alpine_3_11_1.js"></script>
+
+  </head>
+  <body>
+    
+<div class="relative isolate flex items-center gap-x-6 overflow-hidden bg--100 py-2.5 px-6 sm:px-3.5 sm:before:flex-1 bg-indigo-300">
+  <div class="flex flex-auto items-center gap-y-2 gap-x-4">
+    <p class="text-sm leading-6 text-gray-900">
+      <strong class="font-semibold">Stateful Services (private release)</strong>
+      <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+      Build composable event-driven data pipelines in minutes.
+    </p>
+    <a href="/request/ss-early-access" class="flex-none rounded-full bg-gray-900 py-1 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+      Request access <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</div><div id="content">
+      <header id="header" class="sticky top-0 z-20">
+        <div 
+  x-data="{ isOpen: false, menuOpen: '', showBorder: false }"
+  @scroll.window="showBorder = (document.querySelector('#header').getBoundingClientRect().top <= 0 && window.pageYOffset > 2 ) ? true : false"
+  :class="{ 'border-b border-gray-700' : showBorder}"
+>
+  <div class="bg-magenta-900 pt-4 pb-4">
+    <nav class="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
+      <div class="flex flex-1 items-center">
+        <div class="flex w-full items-center justify-between md:w-auto">
+          <a href="/">
+            <span class="sr-only">InfinyOn</span>
+            <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+          </a>
+
+          <div class="-mr-2 flex items-center md:hidden">
+            <button 
+              @click="isOpen = !isOpen" 
+              type="button" 
+              class="focus-ring-inset inline-flex items-center justify-center rounded-md bg-magenta-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white" aria-expanded="false"
+              >
+              <span class="sr-only">Open main menu</span>
+              
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.4" stroke="white" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>                  
+          </div>
+        </div>
+
+        <div class="hidden space-x-8 md:ml-10 md:flex">
+              
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Use Cases</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-8 py-7 bg-slate-50" aria-labelledby="solutions-heading">
+          <ul role="list" class="space-y-5">
+              <li class="flow-root">
+                <a href="/clickstream" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+</svg><span class="ml-4">Clickstream Analytics</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/iot" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+</svg><span class="ml-4">IoT Mirroring</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/stateful-streaming" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+</svg>
+<span class="ml-4">Stateful Streaming</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+  
+</div>    
+            
+<a href="/docs" class="text-base text-white hover:text-gray-300  underline underline-offset-8 decoration-1" class="">Docs</a>    
+            
+<a href="/blog" class="text-base text-white hover:text-gray-300 " class="">Blog</a>    
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Resources</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-16 py-8 grid grid-cols-2 gap-24 bg-slate-50" aria-labelledby="solutions-heading">
+
+          <div>
+            <h3 class="text-md text-gray-700">Company</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/about" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+</svg><span class="ml-4">About</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/careers" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+</svg><span class="ml-4">Careers</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/press-releases" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+</svg><span class="ml-4">Press</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-md text-gray-700">Resources</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/resources" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+</svg><span class="ml-4">Articles</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/webinars" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+</svg><span class="ml-4">Webinars</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="https://www.youtube.com/@infinyon/videos" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+</svg><span class="ml-4">Videos</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+  
+</div>    
+                
+            </div>
+
+      </div>
+      
+      <div class="hidden md:flex md:items-center md:space-x-6">
+            
+          
+        <a href="https://infinyon.cloud?utm_campaign=global%20cloud%20link&amp;utm_source=website&amp;utm_medium=global%20button&amp;utm_term=infinyon%20cloud&amp;utm_content=cloud-registration" class="inline-flex items-center rounded-md px-4 py-1.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600">Cloud Login</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="absolute inset-x-0 top-0 px-2 origin-top transform transition md:hidden">
+  <div x-show="isOpen" x-cloak x-transition:enter="duration-150 ease-out" x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="duration-100 ease-in"
+    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+    class="overflow-hidden rounded-lg bg-slate-50 shadow-lg ring-1 ring-black ring-opacity-5">
+
+    <div class="flex items-center justify-between px-5 pt-4 pb-2 bg-magenta-900">
+      <div>
+        <a href="/">
+          <span class="sr-only">InfinyOn</span>
+          <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        </a>
+      </div>
+      <div class="-mr-2">
+        <button type="button" @click="isOpen = !isOpen"
+          class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+          <span class="sr-only">Close menu</span>
+          
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-5 pb-6 max-h-screen -mb-16 overflow-y-auto">
+      <div class="mb-16 space-y-1 px-2">
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Use Cases</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/clickstream"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Clickstream Analytics</a>
+                  
+                    <a href="/iot"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">IoT Mirroring</a>
+                  
+                    <a href="/stateful-streaming"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Stateful Streaming</a>
+                  </div>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Documentation</p> 
+              <a href="/docs"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Docs</a>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Blog Articles</p> 
+              <a href="/blog"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Blog</a>
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Resources</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/about"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">About</a>
+                  
+                    <a href="/careers"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Careers</a>
+                  
+                    <a href="/press-releases"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Press</a>
+                  
+                    <a href="/resources"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Articles</a>
+                  
+                    <a href="/webinars"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Webinars</a>
+                  
+                    <a href="https://www.youtube.com/@infinyon/videos"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Videos</a>
+                  </div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+  
+<div class="flex lg:hidden border-b border-gray-200 bg-white" x-data="{ open: false }" x-cloak>
+  <div class="ml-6">
+      <template x-if="open">
+  
+  <div class="absolute left-0 -mt-16 -ml-4 z-20 content-start lg:hidden h-screen overflow-y-scroll" role="dialog" aria-modal="true">
+
+    
+    <div class="fixed inset-0 bg-gray-900/80" 
+      x-on:click="open = false"
+      x-transition:enter="duration-200 ease-out"
+      x-transition:enter-start="opacity-0 translate-y-1"
+      x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="duration-100 ease-in"
+      x-transition:leave-start="opacity-100 translate-y-0"
+      x-transition:leave-end="opacity-0 translate-y-1"
+    >
+    </div>
+
+    <div class="sticky inset-0 flex"
+      @keyup.escape.window="open = false"
+    >
+      
+      <div class="relative flex w-full max-w-xs flex-1" x-transition:enter="duration-200 ease-out"
+        x-transition:enter-start="opacity-0 translate-y-1"
+        x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="duration-100 ease-in"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-1">
+
+        
+        <div class="absolute left-56 left-full -mt-3 ml-3 flex w-16 justify-center pt-5">
+          <button type="button" class="p-1 bg-white border border-gray-200" @click="open = !open">
+            <span class="sr-only">Close sidebar</span>
+            <svg class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="bg-white pt-2 pl-5 pr-2">
+          
+
+
+
+
+
+
+<div class="ml-1 mr-2">
+  
+  <nav id="docs-nav" class="flex flex-col justify-start grow">
+    
+    <div>
+        <div class="hover:cursor-pointer" onclick="window.location.href = '/docs'">
+        <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800">
+          Quick Start
+        </div>
+      </div>
+
+    
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/guides\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Guides
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/tutorials\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Tutorials
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/cli\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Cloud CLI
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+          
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/stateful-services\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 text-indigo-600 ">
+                    Stateful Services (<em>preview</em>)
+                  </div>
+                    <ul class="pl-2" id="sub-menu-1">                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/getting-started/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Getting Started
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/data-pipeline-file/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Data Pipeline File
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/ssdk/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                SSDK (ssdk)
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 border-l-2 border-indigo-400 bg-slate-50 text-indigo-600 font-medium pointer-events-none">
+                            <a href="/docs/stateful-services/operators/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Operators
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/states/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                States
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/adaptors/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Adaptors
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/merge/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Merge
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/split/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Split
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/environment-variables/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Environment Variables
+                              </button>
+                            </a>
+                          </li>                     
+                        </ul>
+                  </li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/smartmodules\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Certified SmartModules
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/connectors\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Cloud Connectors
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/resources\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Resources
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+  </nav>
+</div></div>
+      </div>
+    </div>
+
+  </div>
+</template></div>
+
+  <div 
+      class="flex items-center gap-x-6 bg-white py-5 shadow-sm hover:cursor-pointer z-60"
+      x-show="!open" @click="open = ! open"
+  >
+    <button type="button" class="-m-2.5 p-2.5 text-gray-700">
+        <span class="sr-only">Open sidebar</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 flex content-center">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+</svg>
+</button>
+    <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">Docs</div>
+  </div>
+</div>
+      </header>
+<main id="docs-main" class="min-h-screen">
+  <div class="mx-auto max-w-7xl" 
+  x-data="{ open: false }"
+  x-cloak
+>
+ 
+  
+  <div class="lg:flex">
+    
+    <div class="flex-none my-4 hidden lg:inline-flex">
+      
+
+
+
+
+
+
+<div class="ml-1 mr-2">
+  
+  <nav id="docs-nav" class="flex flex-col justify-start grow">
+    
+    <div>
+        <div class="hover:cursor-pointer" onclick="window.location.href = '/docs'">
+        <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800">
+          Quick Start
+        </div>
+      </div>
+
+    
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/guides\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Guides
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/tutorials\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Tutorials
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/cli\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Cloud CLI
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+          
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/stateful-services\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 text-indigo-600 ">
+                    Stateful Services (<em>preview</em>)
+                  </div>
+                    <ul class="pl-2" id="sub-menu-1">                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/getting-started/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Getting Started
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/data-pipeline-file/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Data Pipeline File
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/ssdk/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                SSDK (ssdk)
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 border-l-2 border-indigo-400 bg-slate-50 text-indigo-600 font-medium pointer-events-none">
+                            <a href="/docs/stateful-services/operators/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Operators
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/states/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                States
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/adaptors/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Adaptors
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/merge/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Merge
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/split/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Split
+                              </button>
+                            </a>
+                          </li>                     
+                        <li class="ml-4 border-l border-gray-300 hover:bg-slate-100 text-slate-600">
+                            <a href="/docs/stateful-services/environment-variables/" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                Environment Variables
+                              </button>
+                            </a>
+                          </li>                     
+                        </ul>
+                  </li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/smartmodules\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Certified SmartModules
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/connectors\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Cloud Connectors
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+        
+        <ul role="list">
+            <li class="py-2">
+
+              
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '\/docs\/resources\/'">
+                  <div class="pl-3 leading-8 hover:bg-slate-100 btext-slate-800 ">
+                    Resources
+                  </div></li>
+              </ul>
+                
+            </li>
+          </ul>
+  </nav>
+</div></div>
+
+    <div class="flex-none w-1 hidden lg:inline-flex border-gray-200 border-r"></div>
+
+    
+    <div class="docs shrink pl-5 pr-5 sm:pl-10">
+      
+
+<div class="prose lg:max-w-screen-md xl:max-w-4xl max-w-screen-lg">
+  <h1 class="pt-8 lg:pt-12">
+    Operator Definitions
+  </h1></div>
+
+
+  <div class="blog pt-6 prose prose-quoteless prose-zing prose-md shrink-0 lg:max-w-screen-md xl:max-w-4xl max-w-screen-lg">
+    <p>Operators are primitive APIs that enable developers to customize their data. There are two types of operators:</p>
+<div id="aof"><a name="basic-operatorsbasic-operators" id="anchor">&nbsp;</a><h4 onclick="location.href='#basic-operatorsbasic-operators';"><a href="#basic-operatorsbasic-operators" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><strong><a href="#basic-operators">Basic Operators</a></strong></h4></div>
+<ul>
+<li><a href="#filter">filter</a></li>
+<li><a href="#map">map</a></li>
+<li><a href="#map">filter-map</a></li>
+<li><a href="#flat-map">flat-map</a></li>
+</ul>
+<div id="aof"><a name="window-operatorswindow-operators" id="anchor">&nbsp;</a><h4 onclick="location.href='#window-operatorswindow-operators';"><a href="#window-operatorswindow-operators" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><strong><a href="#window-operators">Window Operators</a></strong></h4></div>
+<ul>
+<li><a href="#assign-timestamp">assign-timestamp</a></li>
+<li><a href="#assign-key">assign-key</a></li>
+<li><a href="#update-state">update-state</a></li>
+<li><a href="#flush">flush</a>
+<ul>
+<li><a href="#aggregate">aggregate</a></li>
+</ul>
+</li>
+</ul>
+<div id="aof"><a name="state-operatorsstate-operators" id="anchor">&nbsp;</a><h4 onclick="location.href='#state-operatorsstate-operators';"><a href="#state-operatorsstate-operators" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><strong><a href="#state-operators">State Operators</a></strong></h4></div>
+<p>Checkout <a href="../states">States section</a> for additional information.</p>
+<div id="aof"><a name="basic-operators" id="anchor">&nbsp;</a><h2 onclick="location.href='#basic-operators';"><a href="#basic-operators" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a>Basic Operators</h2></div>
+<p>Basic operators may look familiar, as they were previously defined in SmartModules. These operators perform simple operations and may be used independently or chained in composite operations.</p>
+<div id="aof"><a name="filter" id="anchor">&nbsp;</a><h3 onclick="location.href='#filter';"><a href="#filter" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>filter</code></h3></div>
+<p>The filter operator takes a record and returns a boolean value. The return value tells the system to drop or pass the record to the next operator:</p>
+<ul>
+<li><code>true</code> - pass the record to the next operator.</li>
+<li><code>false</code> - drop the record.</li>
+</ul>
+<p>An inline <code>filter</code> operator is defined as follows:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">filter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    fn only_errors(log: LogRecord) -&gt; Result&lt;bool, String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      match log.level {
+</span></span></span><span class="line"><span class="cl"><span class="sd">        &#34;ERROR&#34; =&gt; Ok(true),
+</span></span></span><span class="line"><span class="cl"><span class="sd">        _ =&gt; Ok(false)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>In this example, the operator filters out all records with a level other than ERROR.</p>
+<div id="aof"><a name="map" id="anchor">&nbsp;</a><h3 onclick="location.href='#map';"><a href="#map" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>map</code></h3></div>
+<p>The map operator takes an input record, applies a transformation, and then forwards the modified record to the next operator.</p>
+<p>An inline <code>map</code> operator is defined as follows:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">map     </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    fn sentence_to_uppercase(input: String) -&gt; Result&lt;String, String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      Ok(input.to_uppercase())
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>In this example, the operator transforms each string to uppercase.</p>
+<div id="aof"><a name="filter-map" id="anchor">&nbsp;</a><h3 onclick="location.href='#filter-map';"><a href="#filter-map" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>filter-map</code></h3></div>
+<p>The filter-map operator combines a filter and a map operation; it takes a record and returns a mapped record or none. The return value tells the system to pass the records it receives to the next operator:</p>
+<ul>
+<li><code>Some(Record)</code> - pass the record to the next operator.</li>
+<li><code>None</code> - do nothing.</li>
+</ul>
+<p>An inline <code>filter-map</code> operator is defined as follows:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">filter-map</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    fn long_sentence_to_uppercase(input: String) -&gt; Result&lt;Option&lt;String&gt;, String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      if input.len() &gt; 10 {
+</span></span></span><span class="line"><span class="cl"><span class="sd">        Ok(Some(input.to_uppercase()))
+</span></span></span><span class="line"><span class="cl"><span class="sd">      } else {
+</span></span></span><span class="line"><span class="cl"><span class="sd">        Ok(None)
+</span></span></span><span class="line"><span class="cl"><span class="sd">      }
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>In this example, the operator transforms sentences longer than 10 characters to uppercase.</p>
+<div id="aof"><a name="flat-map" id="anchor">&nbsp;</a><h3 onclick="location.href='#flat-map';"><a href="#flat-map" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>flat-map</code></h3></div>
+<p>The flat-map operator splits records into an array of records and then forwards each record to the next operator.</p>
+<p>An inline <code>flat-map</code> operator is defined as follows:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">flat-map</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    fn split_sentence(sentence: String) -&gt; Result&lt;Vec&lt;String&gt;, String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      Ok(sentence.split_whitespace().map(String::from).collect())
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>In this example, the operator splits sentences into words.</p>
+<div id="aof"><a name="window-operators" id="anchor">&nbsp;</a><h2 onclick="location.href='#window-operators';"><a href="#window-operators" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a>Window Operators</h2></div>
+<p>Window operators address a well-defined stream processing problem described in depth by the <a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/43864.pdf">&ldquo;The Dataflow Model&rdquo;</a> whitepaper. A window operation turns data streaming records into a group of finite records, also known as bounded context, defined by the window size computed by a watermark operation. Fluvio performs a window processing operation by chaining multiple operators to assign timestamps, group them by key, and apply custom operations.</p>
+<p>While there are several types of windows, and Fluvio will eventually implement all of them, this preview will focus on two: <a href="#tumbling-window">tumbling window</a> and <a href="#sliding-window">sliding window</a>.</p>
+<p><strong>Tumbling windows</strong> are equal-sized, continuous and <code>non-overlapping</code> windows. Each record is present in exaclty one window.</p>
+<img src="/docs/images/stateful-services/ss-tumbling-window.svg" alt="Tumbling Windows"  style="display:block;margin:0 auto;" width="600">
+<p><strong>Sliding windows</strong> are equal-sized, continuous and <code>overlapping</code> windows. Each record may be present in one or more window.</p>
+<img src="/docs/images/stateful-services/ss-sliding-window.svg" alt="Sliding Windows"  style="display:block;margin:0 auto;" width="600">
+<br />
+
+<div class="mb-3"><aside class="callout caution">
+    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.1" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+    </svg>  
+    <div class="content">
+ <strong>Sliding windows</strong> is in development targetted for the next release.
+</div></aside></div>
+<p>For example, you would configure a tumbling window with a 10-second size as follows:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">window</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tumbling</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span></code></pre></div><p>Window processing operation is a configuration setting rather than an operator.</p>
+<div id="aof"><a name="assign-timestamp" id="anchor">&nbsp;</a><h3 onclick="location.href='#assign-timestamp';"><a href="#assign-timestamp" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>assign-timestamp</code></h3></div>
+<p>The assign-timestamp operator lets you choose a timestamp for the watermark. Watermark maps records to windows and controls when the window will flush.</p>
+<p>The following example shows how to update the timestamp from the record metadata:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">assign-timestamp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    fn assign_timestamp(user_event: UserEvent, event_time: i64) -&gt; Result&lt;i64, String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      Ok(event_time)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>Assuming the user_event record has a <code>timestamp</code> field, the following example shows how to update the timestamp from the record value:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">assign-timestamp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    fn assign_timestamp(user_event: UserEvent, event_time: i64) -&gt; Result&lt;i64, String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      Ok(user_event.timestamp)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>The <code>assign_timestamp</code> operation is mandatory in window processing, as it helps assign records to specific windows.</p>
+<div id="aof"><a name="assign-key" id="anchor">&nbsp;</a><h3 onclick="location.href='#assign-key';"><a href="#assign-key" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>assign-key</code></h3></div>
+<p>The assign-key operation takes streams of records and assigns them a key. Records assigned to the same key are processed together.</p>
+<img src="/docs/images/stateful-services/ss-assign-key.svg" alt="Window assign-key operation"  style="display:block;margin:0 auto;" width="600">
+<p>The following example shows how to use assign-key operator to group cars by their color:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">assign-key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    fn key_by_color(car: Car) -&gt; Result&lt;String, String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      Ok(car.color)
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>While the assign-key operator can partition any data stream, it is most useful in window processing operations.</p>
+<div id="aof"><a name="update-state" id="anchor">&nbsp;</a><h3 onclick="location.href='#update-state';"><a href="#update-state" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>update-state</code></h3></div>
+<p>The update-state operation takes a record and updates a state object. When used in a window operation, the system automatically retrieves the state value that matches the record key.</p>
+<img src="/docs/images/stateful-services/ss-aggregate-op.svg" alt="Window aggregate operation"  style="display:block;margin:0 auto;" width="600">
+<p>The following example shows how to use update-state to count cars:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">types</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">car</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">object</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">u32</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">states</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">car-count</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">key-value</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">properties</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">u32</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">process</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      fn count_cars(_car: Car) -&gt; Result&lt;(), String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">        car_count().increment(1);
+</span></span></span><span class="line"><span class="cl"><span class="sd">        Ok(())
+</span></span></span><span class="line"><span class="cl"><span class="sd">      }</span><span class="w">      
+</span></span></span></code></pre></div><p>The <code>update-state</code> operator retrieves the state object <code>car_count()</code> and increments its value by one.</p>
+<div id="aof"><a name="flush" id="anchor">&nbsp;</a><h3 onclick="location.href='#flush';"><a href="#flush" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>flush</code></h3></div>
+<p>The flush section sits in parallel with the transforms section in a window operation. This section informs the system watermark where to send the state content when the window closes. The flush operator works in tandem with the <a href="#aggregate"><code>aggregate</code></a> operator to compute the result.</p>
+<div id="aof"><a name="aggregate" id="anchor">&nbsp;</a><h4 onclick="location.href='#aggregate';"><a href="#aggregate" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a><code>aggregate</code></h4></div>
+<p>The <code>aggregate</code> operator takes the full content of a window and performs the final computation before sending the result to the sink. The following example shows how to apply an aggregate function to sort the cars by color:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">types</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">car</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">object</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">u32</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cars</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">list</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">items</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">car</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">states</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">car-count</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">key-value</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">properties</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">u32</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">flush</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">aggregate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    fn sort_by_color(car_count: CarCount) -&gt; Result&lt;Cars, String&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      let mut kv = car_count;
+</span></span></span><span class="line"><span class="cl"><span class="sd">      kv.sort_by(|a, b| a.value.cmp(&amp;b.value));
+</span></span></span><span class="line"><span class="cl"><span class="sd">      kv.reverse();
+</span></span></span><span class="line"><span class="cl"><span class="sd">      Ok(kv.iter().map( | entry | Car{ word: entry.key.clone(), count: entry.value }).collect())
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">    
+</span></span></span></code></pre></div><p>The <code>aggregate</code> operator reads all <code>car-count</code> key/value partitions, sorts them by value, and returns a list of cars sorted from highest to lowest.</p>
+<div id="aof"><a name="references" id="anchor">&nbsp;</a><h3 onclick="location.href='#references';"><a href="#references" id="link">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+  </span>  
+</a>References</h3></div>
+<ul>
+<li><a href="/docs/stateful-services/data-pipeline-file/">Data Pipeline File</a></li>
+</ul>
+
+  </div>
+
+<div class="pt-12"></div>
+
+<script src="/js/copy-code.js"></script></div>
+  </div>
+</div></main>
+    </div>
+    <footer class="bg-gray-900" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8">
+    <div class="lg:grid lg:grid-cols-10 lg:gap-8">
+
+      
+      <div class="lg:col-span-2 space-y-6">
+        <img class="h-7 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        <p class="text-sm leading-6 text-gray-300"></p>
+        <div class="flex space-x-6">
+            <a href="https://github.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">GitHub</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+            <a href="https://twitter.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">Twitter</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+</svg>
+            </a>
+            <a href="https://linkedin.com/company/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">linkedin</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
+  <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+</svg>
+            </a>
+            <a href="https://discordapp.com/invite/bBG2dTz" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">discord</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true"
+    viewBox="0 0 640 512">
+    <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z" />
+</svg>
+            </a>
+            <a href="https://www.youtube.com/@infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">YouTube</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+        </div>
+      </div>
+
+      
+      <div class="lg:col-span-8">
+        <div class="mt-16 lg:mt-0 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Cloud</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/infinyon-cloud" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Cloud
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/signup" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Sign Up
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/login" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Login
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Product</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Platform
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Hub
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Connectors
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webhooks
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    SmartModules
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Event Streams
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Stateful Streams
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Solutions</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/iot" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    IoT Aggregation
+                </a>
+                </li>
+                <li>
+                  <a href="/clickstream" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Website Monitoring
+                </a>
+                </li>
+                <li>
+                  <a href="/" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Microservices Event Bridge
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">About</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/about" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Company
+                </a>
+                </li>
+                <li>
+                  <a href="/careers" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Careers
+                </a>
+                </li>
+                <li>
+                  <a href="/resources" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Articles
+                </a>
+                </li>
+                <li>
+                  <a href="/press-releases" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    News
+                </a>
+                </li>
+                <li>
+                  <a href="/webinars" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webinars
+                </a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@infinyon/videos" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Videos
+                </a>
+                </li>
+                <li>
+                  <a href="/blog" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Blog
+                </a>
+                </li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="mt-8 border-t border-white/10 pt-4 text-center">
+      <div class="text-center text-xs text-gray-400">
+        
+        <span><a href="/legal/privacy">Privacy Policy</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/security">Security</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/user-agreement">Terms and Conditions</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/cookies">Cookie Notice</a></span>
+          
+      </div>
+      <p class="text-xs leading-5 text-gray-400">&copy; <span id="year"></span> InfinyOn, Inc. All rights reserved.</p>
+      <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+      </script>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+</html>

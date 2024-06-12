@@ -1,0 +1,29 @@
+section: "pyramid-4layer"
+content:
+  title: "Ditch the duct tape data stack"
+  subtitle: "Each additional tool in your stack..."
+  items:
+    - title:
+        keyword: "Reduce"
+        text: "the value of data."
+      image:
+        src: "/assets/main/revenue-burn.png"
+        alt: "Reduce the value of data"
+    - title:
+        keyword: "Consume"
+        text: "extra resources."
+      image:
+        src: "/assets/main/battery-warning.svg"
+        alt: "Consume extra resources"
+    - title:
+        keyword: "Add"
+        text: "extra layers to integrate."
+      image:
+        src: "/assets/main/stacked-layers.png"
+        alt: "Add extra layers of integrate."
+    - title:
+        keyword: "Increase"
+        text: "operational complexity."
+      image:
+        src: "/assets/main/giant-complexity.png"
+        alt: "Increase operational complexity"

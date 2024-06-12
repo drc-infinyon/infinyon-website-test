@@ -1,0 +1,71 @@
+{{- $menu := .name -}}
+{{- $col1Title := .content.col1.title -}}
+{{- $col1Items := .content.col1.items -}}
+{{- $col2Title := .content.col2.title -}}
+{{- $col2Items := .content.col2.items -}}
+<div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>{{ $menu }}</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-16 py-8 grid grid-cols-2 gap-24 bg-slate-50" aria-labelledby="solutions-heading">
+
+          <div>
+            <h3 class="text-md text-gray-700">{{ $col1Title }}</h3>
+            <ul role="list" class="mt-4 space-y-6">
+
+              {{- range $index, $item := $col1Items -}}
+                {{ $target := $item.target | default "_self" }}
+                <li class="flow-root">
+                  <a href="{{ $item.link }}" target="{{ $target }}" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    {{ partial "heroicons/icon" (dict "name" $item.icon.svg "color" $item.icon.color) -}}
+                    <span class="ml-4">{{ $item.title }}</span>
+                  </a>
+                </li>
+              {{- end }}
+
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-md text-gray-700">{{ $col2Title }}</h3>
+            <ul role="list" class="mt-4 space-y-6">
+
+              {{- range $index, $item := $col2Items }}
+                <li class="flow-root">
+                  <a href="{{ $item.link }}" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    {{ partial "heroicons/icon" (dict "name" $item.icon.svg "color" $item.icon.color) -}}
+                    <span class="ml-4">{{ $item.title }}</span>
+                  </a>
+                </li>
+              {{- end }}
+
+            </ul>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+  
+</div>

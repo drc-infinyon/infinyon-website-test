@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script>
+    <title>Real-time Streaming Analytics with Fluvio, DeepCausality, and Rust</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"><script defer src="/js/alpine_3_11_1.js"></script>
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Real-time Streaming Analytics with Fluvio, DeepCausality, and Rust" />
+  <meta property="og:description" content="real time streaming analytics with fluvio, deepcausality, and rust" />
+  <meta property="og:image" content="http://localhost:1315/blog/images/fluvio-deep-causality-banner.png">
+  <meta name="twitter:site" content="@InfinyOn">
+  <meta name="twitter:image:src" content="http://localhost:1315/blog/images/fluvio-deep-causality-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  </head>
+  <body>
+    
+<div class="relative isolate flex items-center gap-x-6 overflow-hidden bg--100 py-2.5 px-6 sm:px-3.5 sm:before:flex-1 bg-indigo-300">
+  <div class="flex flex-auto items-center gap-y-2 gap-x-4">
+    <p class="text-sm leading-6 text-gray-900">
+      <strong class="font-semibold">Stateful Services (private release)</strong>
+      <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+      Build composable event-driven data pipelines in minutes.
+    </p>
+    <a href="/request/ss-early-access" class="flex-none rounded-full bg-gray-900 py-1 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+      Request access <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</div><div id="content">
+      <header id="header" class="sticky top-0 z-20">
+        <div 
+  x-data="{ isOpen: false, menuOpen: '', showBorder: false }"
+  @scroll.window="showBorder = (document.querySelector('#header').getBoundingClientRect().top <= 0 && window.pageYOffset > 2 ) ? true : false"
+  :class="{ 'border-b border-gray-700' : showBorder}"
+>
+  <div class="bg-magenta-900 pt-4 pb-4">
+    <nav class="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
+      <div class="flex flex-1 items-center">
+        <div class="flex w-full items-center justify-between md:w-auto">
+          <a href="/">
+            <span class="sr-only">InfinyOn</span>
+            <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+          </a>
+
+          <div class="-mr-2 flex items-center md:hidden">
+            <button 
+              @click="isOpen = !isOpen" 
+              type="button" 
+              class="focus-ring-inset inline-flex items-center justify-center rounded-md bg-magenta-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white" aria-expanded="false"
+              >
+              <span class="sr-only">Open main menu</span>
+              
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.4" stroke="white" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>                  
+          </div>
+        </div>
+
+        <div class="hidden space-x-8 md:ml-10 md:flex">
+              
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Use Cases</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-8 py-7 bg-slate-50" aria-labelledby="solutions-heading">
+          <ul role="list" class="space-y-5">
+              <li class="flow-root">
+                <a href="/clickstream" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+</svg><span class="ml-4">Clickstream Analytics</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/iot" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+</svg><span class="ml-4">IoT Mirroring</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/stateful-streaming" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+</svg>
+<span class="ml-4">Stateful Streaming</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+  
+</div>    
+            
+<a href="/docs" class="text-base text-white hover:text-gray-300 " class="">Docs</a>    
+            
+<a href="/blog" class="text-base text-white hover:text-gray-300  underline underline-offset-8 decoration-1" class="">Blog</a>    
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Resources</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-16 py-8 grid grid-cols-2 gap-24 bg-slate-50" aria-labelledby="solutions-heading">
+
+          <div>
+            <h3 class="text-md text-gray-700">Company</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/about" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+</svg><span class="ml-4">About</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/careers" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+</svg><span class="ml-4">Careers</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/press-releases" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+</svg><span class="ml-4">Press</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-md text-gray-700">Resources</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/resources" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+</svg><span class="ml-4">Articles</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/webinars" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+</svg><span class="ml-4">Webinars</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="https://www.youtube.com/@infinyon/videos" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+</svg><span class="ml-4">Videos</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+  
+</div>    
+                
+            </div>
+
+      </div>
+      
+      <div class="hidden md:flex md:items-center md:space-x-6">
+            
+          
+        <a href="https://infinyon.cloud?utm_campaign=global%20cloud%20link&amp;utm_source=website&amp;utm_medium=global%20button&amp;utm_term=infinyon%20cloud&amp;utm_content=cloud-registration" class="inline-flex items-center rounded-md px-4 py-1.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600">Cloud Login</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="absolute inset-x-0 top-0 px-2 origin-top transform transition md:hidden">
+  <div x-show="isOpen" x-cloak x-transition:enter="duration-150 ease-out" x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="duration-100 ease-in"
+    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+    class="overflow-hidden rounded-lg bg-slate-50 shadow-lg ring-1 ring-black ring-opacity-5">
+
+    <div class="flex items-center justify-between px-5 pt-4 pb-2 bg-magenta-900">
+      <div>
+        <a href="/">
+          <span class="sr-only">InfinyOn</span>
+          <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        </a>
+      </div>
+      <div class="-mr-2">
+        <button type="button" @click="isOpen = !isOpen"
+          class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+          <span class="sr-only">Close menu</span>
+          
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-5 pb-6 max-h-screen -mb-16 overflow-y-auto">
+      <div class="mb-16 space-y-1 px-2">
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Use Cases</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/clickstream"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Clickstream Analytics</a>
+                  
+                    <a href="/iot"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">IoT Mirroring</a>
+                  
+                    <a href="/stateful-streaming"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Stateful Streaming</a>
+                  </div>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Documentation</p> 
+              <a href="/docs"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Docs</a>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Blog Articles</p> 
+              <a href="/blog"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Blog</a>
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Resources</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/about"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">About</a>
+                  
+                    <a href="/careers"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Careers</a>
+                  
+                    <a href="/press-releases"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Press</a>
+                  
+                    <a href="/resources"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Articles</a>
+                  
+                    <a href="/webinars"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Webinars</a>
+                  
+                    <a href="https://www.youtube.com/@infinyon/videos"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Videos</a>
+                  </div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+      </header>
+<main>
+  <div class="flex flex-1 items-start overflow-hidden max-w-7xl mx-auto py-6">
+  <main class="flex-1 overflow-y-auto">
+    <section aria-labelledby="primary-heading" class="flex min-w-0 flex-1 flex-col">
+      <div class="mx-5">
+        <div class="mb-6">
+          <nav class="flex" aria-label="Breadcrumb">
+
+  <ol role="list" class="flex items-center space-x-1">
+    <li>
+      <svg class="h-5 w-5 flex-shrink-0 text-magenta-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+      </svg>
+    </li>
+    <li>
+      <a href="/blog" class="text-base text-magenta-200 hover:underline">Blog</a>
+    </li>
+  </ol>
+  <div class="grow"></div>
+
+  <div class="flex flex-row mr-5 items-end text-gray-500">
+    <div class="flex items-center text-base  hidden sm:inline-flex whitespace-nowrap">
+      <svg class="mr-1.5 h-5 x-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>      
+      Read Time: 37 minutes
+    </div>
+    <div class="flex items-center text-base ml-4">
+      <svg class="mr-1.5 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+      </svg>
+      February 16, 2024
+    </div>
+  </div>
+
+</nav></div>
+        <div class="mb-6">
+          <h1 class="text-2xl md:text-3xl font-semibold font-md tracking-tight tracking-wide leading-tight bg-gradient-to-r from-magenta-800 to-magenta-300 inline-block text-transparent bg-clip-text">
+  Real-time Streaming Analytics with Fluvio, DeepCausality, and Rust
+</h1></div>
+        <div class="w-full lg:block hidden">
+          <img class="mx-auto aspect-[19/10] rounded-lg lg:h-80" src="/blog/images/fluvio-deep-causality-banner.png" alt="Real-time Streaming Analytics with Fluvio, DeepCausality, and Rust">
+        </div>
+        <div class="block lg:hidden mt-4">
+          <div class="flex flex-row">
+            <div class="ml-4">
+              <div class="flex flex-col">
+  <img src="https://avatars.githubusercontent.com/marvin-hansen" alt="Marvin Hansen" class="h-16 w-16 rounded-full bg-gray-100">
+  <div class="text-base leading-6 pt-2">
+    <p class="font-semibold text-gray-900">
+      <a href="https://github.com/marvin-hansen">
+        Marvin Hansen
+      </a>
+    </p>
+    <p class="text-sm text-gray-600">
+      Contributor, InfinyOn
+    </p>
+  </div>
+</div>
+</div>
+            <div class="grow"></div>
+            <div class="flex flex-col mr-4 sm:mr-10">
+              <h5 class="text-base text-gray-500">SHARE ON</h5>
+              <div class="mt-1 pt-2">
+                <div class="flex flex-row">
+  <div class="pr-2 hover:brightness-75">
+    <a class="twitter" title="Share on Twitter"
+        href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2024%2f02%2ffluvio-deep-causality-rs&text=Real-time%20Streaming%20Analytics%20with%20Fluvio%2c%20DeepCausality%2c%20and%20Rust"
+        target="_blank">
+        <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#00aced"></circle>
+  <path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="button reddit" title="Share on Reddit"
+      href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2024%2f02%2ffluvio-deep-causality-rs&title=Real-time%20Streaming%20Analytics%20with%20Fluvio%2c%20DeepCausality%2c%20and%20Rust&text=real%20time%20streaming%20analytics%20with%20fluvio%2c%20deepcausality%2c%20and%20rust"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#ff4500"></circle>
+  <path d="m 52.8165,31.942362 c 0,-2.4803 -2.0264,-4.4965 -4.5169,-4.4965 -1.2155,0 -2.3171,0.4862 -3.128,1.2682 -3.077,-2.0247 -7.2403,-3.3133 -11.8507,-3.4782 l 2.5211,-7.9373 6.8272,1.5997 -0.0102,0.0986 c 0,2.0281 1.6575,3.6771 3.6958,3.6771 2.0366,0 3.6924,-1.649 3.6924,-3.6771 0,-2.0281 -1.6575,-3.6788 -3.6924,-3.6788 -1.564,0 -2.8968,0.9758 -3.4357,2.3443 l -7.3593,-1.7255 c -0.3213,-0.0782 -0.6477,0.1071 -0.748,0.4233 L 32,25.212062 c -4.8246,0.0578 -9.1953,1.3566 -12.41,3.4425 -0.8058,-0.7446 -1.8751,-1.2104 -3.0583,-1.2104 -2.4905,0 -4.5152,2.0179 -4.5152,4.4982 0,1.649 0.9061,3.0787 2.2389,3.8607 -0.0884,0.4794 -0.1462,0.9639 -0.1462,1.4569 0,6.6487 8.1736,12.0581 18.2223,12.0581 10.0487,0 18.224,-5.4094 18.224,-12.0581 0,-0.4658 -0.0493,-0.9248 -0.1275,-1.377 1.4144,-0.7599 2.3885,-2.2304 2.3885,-3.9406 z m -29.2808,3.0872 c 0,-1.4756 1.207,-2.6775 2.6894,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 -1.4824,0 -2.6894,-1.2002 -2.6894,-2.6758 z m 15.4037,7.9373 c -1.3549,1.3481 -3.4816,2.0043 -6.5008,2.0043 l -0.0221,-0.0051 -0.0221,0.0051 c -3.0209,0 -5.1476,-0.6562 -6.5008,-2.0043 -0.2465,-0.2448 -0.2465,-0.6443 0,-0.8891 0.2465,-0.2465 0.6477,-0.2465 0.8942,0 1.105,1.0999 2.9393,1.6337 5.6066,1.6337 l 0.0221,0.0051 0.0221,-0.0051 c 2.6673,0 4.5016,-0.5355 5.6066,-1.6354 0.2465,-0.2465 0.6477,-0.2448 0.8942,0 0.2465,0.2465 0.2465,0.6443 0,0.8908 z m -0.3213,-5.2615 c -1.4824,0 -2.6877,-1.2002 -2.6877,-2.6758 0,-1.4756 1.2053,-2.6775 2.6877,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="linkedin" title="Share on LinkedIn"
+      href="https://www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2024%2f02%2ffluvio-deep-causality-rs&title=Real-time%20Streaming%20Analytics%20with%20Fluvio%2c%20DeepCausality%2c%20and%20Rust&summary=real%20time%20streaming%20analytics%20with%20fluvio%2c%20deepcausality%2c%20and%20rust"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#007fb1"></circle>
+  <path d="M20.4,44h5.4V26.6h-5.4V44z M23.1,18c-1.7,0-3.1,1.4-3.1,3.1c0,1.7,1.4,3.1,3.1,3.1 c1.7,0,3.1-1.4,3.1-3.1C26.2,19.4,24.8,18,23.1,18z M39.5,26.2c-2.6,0-4.4,1.4-5.1,2.8h-0.1v-2.4h-5.2V44h5.4v-8.6 c0-2.3,0.4-4.5,3.2-4.5c2.8,0,2.8,2.6,2.8,4.6V44H46v-9.5C46,29.8,45,26.2,39.5,26.2z" fill="white">
+  </path>
+</svg></a>
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="ycombinator" title="Share on Y Combinator"
+      href="https://news.ycombinator.com/submitlink?u=http%3a%2f%2flocalhost%3a1315%2fblog%2f2024%2f02%2ffluvio-deep-causality-rs&t=Real-time%20Streaming%20Analytics%20with%20Fluvio%2c%20DeepCausality%2c%20and%20Rust&text=real%20time%20streaming%20analytics%20with%20fluvio%2c%20deepcausality%2c%20and%20rust"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <circle cx="128" cy="128" r="125" fill="#FB651E"></circle>
+	<path d="M119.373653,144.745813 L75.43296,62.4315733 L95.5144533,62.4315733 L121.36192,114.52416 C121.759575,115.452022 122.2235,116.413008 122.753707,117.407147 C123.283914,118.401285 123.747838,119.428546 124.145493,120.48896 C124.410597,120.886615 124.609422,121.251127 124.741973,121.582507 C124.874525,121.913886 125.007075,122.212123 125.139627,122.477227 C125.802386,123.802744 126.39886,125.095105 126.929067,126.354347 C127.459274,127.613589 127.923198,128.773399 128.320853,129.833813 C129.381268,127.580433 130.541078,125.1614 131.80032,122.57664 C133.059562,119.99188 134.351922,117.307747 135.67744,114.52416 L161.92256,62.4315733 L180.612267,62.4315733 L136.27392,145.739947 L136.27392,198.826667 L119.373653,198.826667 L119.373653,144.745813 Z" fill="white">
+  </path>
+</svg></a>
+  </div>
+</div></div>
+              <div class="mt-1 pt-2">
+                <div class="github">
+  <a href="https://gitHub.com/infinyon/fluvio/stargazers/"><img src="https://img.shields.io/github/stars/infinyon/fluvio?style=social" alt="GitHub stars"></a>
+</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="blog mt-8 lg:max-w-5xl max-w-7xl prose prose-quoteless prose-zing prose-md">
+          <h2 id="real-time-streaming-analytics-with-fluvio-deepcausality-and-rust">Real-time Streaming Analytics with Fluvio, DeepCausality, and Rust</h2>
+<p>This blog was published in collaboration with Marvin Hansen and Deep Causality.</p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#why">Why?</a>
+<ul>
+<li><a href="#why-this-project">Why this project?</a></li>
+<li><a href="#why-fluvio">Why Fluvio?</a></li>
+<li><a href="#why-deepcausality">Why DeepCausality?</a></li>
+</ul>
+</li>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#qd-communication-protocol">QD Communication Protocol</a></li>
+<li><a href="#qd-gateway">QD Gateway</a>
+<ul>
+<li><a href="#service-configuration">Service Configuration</a></li>
+<li><a href="#client-handling">Client handling</a></li>
+<li><a href="#data-handling">Data handling</a></li>
+<li><a href="#query-vs-fetch-data">Query vs. Fetch Data</a></li>
+</ul>
+</li>
+<li><a href="#qd-client">QD Client</a></li>
+<li><a href="#sbe-message-encoding">SBE Message Encoding</a></li>
+<li><a href="#symbol-master-symdb">Symbol Master (SYMDB)</a></li>
+<li><a href="#real-time-analytics">Real-Time Analytics</a>
+<ul>
+<li><a href="#the-model">The Model</a></li>
+<li><a href="#the-context">The Context</a></li>
+<li><a href="#applied-contextual-causal-inference">Applied Contextual Causal Inference</a></li>
+</ul>
+</li>
+<li><a href="#what-was-left-out">What was left out?</a></li>
+<li><a href="#future-of-real-time-data-processing-in-fluvio">Future of Real-Time Data Processing in Fluvio</a></li>
+<li><a href="#future-of-deepcausality">Future of DeepCausality</a></li>
+<li><a href="#reflection">Reflection</a></li>
+<li><a href="#next-steps">Next Steps</a></li>
+<li><a href="#about">About</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p><strong><a href="https://app.heymaven.com/discover/31935">Discuss this blog post on Maven</a>, the world’s first serendipity network.</strong></p>
+<p>Much of my work gravitates around quantitative research of financial markets, for the most part working with custom-developed tools. When I started looking at risk management in the fast-moving crypto market, I wanted to try some new techniques based on the DeepCausality crate. Also, the recent <a href="https://www.sec.gov/news/statement/gensler-statement-spot-bitcoin-011023">SEC approval of Bitcoin ETFs</a> made it clear that crypto is here to stay, and that’s just the perfect excuse to dive deep into quantitative research on crypto markets. All I needed was a backtesting facility to replay all trades from all markets and listen in to an exchange.</p>
+<p>I built just that for 700 markets listed on the Kraken exchange, with nearly one billion rows of trade data. For the impatient engineer, feel free to go to <a href="https://github.com/deepcausality-rs/fluvio-examples">check out the project on GitHub</a>. The system is built with Fluvio as a message system and uses the DeepCausality crate for real-time analytics. Fluvio is built from the ground up for real-time event processing, thus is an obvious choice. DeepCausality is a blazingly fast computational causality library for Rust, capable of running tens of thousands of inferences per second on a laptop at microsecond latency.</p>
+<p>I limited this project’s scope to building an end-to-end real-time data streaming system with a causal inference example mainly to showcase the whole picture without getting lost in any particular details. I believe any seasoned engineer can figure out the details when needed. Also, this system is not meant for 24/7 operation although it already contains a few sanity checks, observability, and error propagation. It is meant purely for educational purpose and to showcase what can be done already today with Rust, Fluvio, and DeepCausality with a sneak peak into the future at the end of this post.</p>
+<h2 id="why">Why?</h2>
+<h3 id="why-this-project">Why this project?</h3>
+<p>Market data streaming systems come with some distinct requirements:</p>
+<ol>
+<li>Market replay is always message-based, so you use event-driven architecture.</li>
+<li>As a result of that, error handling is also event-based.</li>
+<li>The database must support fetch or pagination to stream queries continuously.</li>
+</ol>
+<p>When you develop real-time systems that do risk assessments, measure volatility, or monitor VAR (Value at risk), you will probably explore many new ideas during the initial research. Next, you build these systems as closely to the actual market reality as you can. Therefore, you need a backtesting facility that replays the trade data as continuous streams, exactly as you would get them live from the exchange.</p>
+<p>However, building an event-based backtesting facility takes meaningful time and effort, and is rarely available as open source. There are several Python-based crypto libraries out there for live data streaming, placing orders on exchanges, or building trading bots, but nothing resembling an event-based backtesting facility. Despite its popularity in the blockchain and FinTech sphere, the Rust crate ecosystem offers surprisingly few solutions meaning I did not found an event based backtesting engine written in Rust during my initial research. While Rust may not give you a ready-to-use solution, it certainly provides handy building blocks for building a production-ready system.</p>
+<p>Therefore, it was time to roll up my sleeves and fill the gap. The catch is that the last time I worked on something similar, the entire system was written in Golang. That is to say, I started with zero experience with async message processing in Rust, let alone continuous async queries. Therefore, I started out this project mostly as a learning exercise to settle some questions I had about the Rust ecosystem. I wanted to know if there is a production ready message system written in Rust that can be used for this project, and if so, how well does it perform? Next, I was eager to learn how good Async works in practice. And the, it was largely unknown how well SBE message encoding would work with Rust given that Rust support was added only recently. Finally, I wanted to see how good Rust and cargo works in a mono-repo structure. A lot of questions had to be answered, and spoiler alert, I found answers to all of them and wrote the entire project in Rust.</p>
+<h3 id="why-fluvio">Why Fluvio?</h3>
+<p>Embracing the unfamiliar, I adopted Tokio as an async runtime, but then hit the next roadblock; I needed a fast and reliable message bus that wasn’t Kafka. You see, I have zero objection to deploying Kafka in a multi-million-dollar enterprise that can digest the infrastructure bill that comes with it, but when it comes to my own wallet, I want the best value for money. Kafka doesn’t cut it. Next, I had an idea: Why not make it a 100% Rust project and find a new message system that interacts nicely with Tokio Async and doesn’t cost a fortune in terms of infrastructure?</p>
+<p>In response to the new challenge, I’ve looked at various new message systems written in Rust. After seeing the good, the bad, and the ugly, I’d almost given up on messaging in Rust. Almost. On a last-ditch Google search, I found the Fluvio project that ticks all three boxes: It’s written in Rust, works with Async, and is cheaper- actually a lot cheaper- to operate than Kafka.</p>
+<p>Conventionally, for data streaming analytics, an existing Kafka deployment would be used together with Apache Spark or Flink to add real-time data analytics. For Kafka, the legacy JVM drives up most of the cost because, for any performance level, Java application requires more hardware, which is simply more expensive. Specifically, Kafka requires ~1 GB of RAM per partition, whereas Fluvio only requires ~50 MB of RAM per partition.</p>
+<p>When you use Rust and Fluvio, you accomplish real-time data streaming at a fraction of the operational cost. For example, one company migrated from Kafka to Fluvio and saw its annual cloud expenses <a href="https://infinyon.com/resources/cost-of-fluvio-vs-apache-kafka/">drop by nearly half a million dollars annually.</a></p>
+<h3 id="why-deepcausality">Why DeepCausality?</h3>
+<p>For real-time analytics, one would conventionally write Scala programs for Apache Spark or Flink, but an equal step operational cost is implied. Some industry practitioners report that the <a href="https://www.peerspot.com/questions/what-is-your-experience-regarding-pricing-and-costs-for-apache-spark">expenses required to operate Spark exceed 50% of the project budget.</a> In this case, the high cost isn’t so much driven by the JVM but rather by costly support contracts and, even more so, by expensive GPU hardware. A state-of-the-art A100 GPU can cost you $3800 per month, and at scale you need a lot of them, so your cloud bill balloons. Supposing you are already heavily invested in the Spark / Flink ecosystem, you could look closely at alternate GPU providers such as <a href="https://lambdalabs.com/service/gpu-cloud#pricing">Lambda Labs</a>, <a href="https://oblivus.com/pricing/">Oblivious</a>, or <a href="https://www.tensordock.com/">TensorDock</a> to lower your GPU bill.</p>
+<p>On the other hand, if you’re not invested in the Kafka/Spark/Flink ecosystem, you can explore the innovative Rust ecosystem to look for alternatives. Contemporary Ai comes in two categories: One is DeepLearning that gets all the headlines with capabilities of driving LLMs like ChatGPT. The other one is Computational Causality, which is lesser known, but drives the <a href="https://netflixtechblog.com/a-survey-of-causal-inference-applications-at-netflix-b62d25175e6f">success of streaming companies like Netflix</a>. More specifically, Netflix has built its successful recommendation engine based on three themes: <a href="https://www.slideshare.net/moustaki/time-context-and-causality-in-recommender-systems">Time, Context, and Causality</a>. While Netflix’ secret causality engine remains secret for the time being, computational causality has become available to the Rust ecosystem via the DeepCausality crate. DeepCauslity pioneers a new direction of computational causality and contributes three key novelties:</p>
+<ol>
+<li>
+<p>Context. You can add a context from which the causal model derives additional data. Since version 0.6, you can add multiple contexts. To my knowledge, that is the first causality library that provides built-in support for multiple contexts.</p>
+</li>
+<li>
+<p>Uniform conceptualization of dimensionality. A uniform conceptualization of space, time, spacetime, and data, all uniform and adjustable, enables the bulk of contextual expressiveness.</p>
+</li>
+<li>
+<p>Transparent composability. You can define causal relations as a singleton, multiple in a collection, or a hyper-graph. However, structurally, all three are encapsulated in a monoidic entity called Causaloid, which allows causal relations to be composed freely. In other words you can define causal relations as a collection of singeletons, store that collection in a graph, then put that entire graph as a node into another causal graph and then reason freely over single parts, selected sub-graphs or the entire graph. As a result, you can break down otherwise complex models into smaller parts and freely assemble them together. As we will see later, the composability extends even further to crates,</p>
+</li>
+</ol>
+<p>The <a href="https://deepcausality.com/docs/concepts/">DeepCausality context guide</a> elaborates on all three topics in more detail.</p>
+<p>With Rust, Fluvio, and DeepCausality selected, I was good to go. Next, let’s look at the project structure.</p>
+<h2 id="project-structure">Project Structure</h2>
+<p>The project follows <a href="https://matklad.github.io/2021/08/22/large-rust-workspaces.html">a handful of best practices for mono-repos</a> with the idea of scaling up the code base quickly. One critical practice is the declaration of internal dependencies in the workspace Cargo. config file, <a href="https://earthly.dev/blog/rust-monorepo/">as discussed in this blog post</a>. Another essential practice is to move shared modules into a separate crate. As a result, the project comprises of a fairly large number of crates (&gt; 20) relative to the small code size (~10K LoC). The underlying reason is that incremental compilation simply runs faster when modules are separated as crates. The most important crates of the project are:</p>
+<ul>
+<li>flv_cli/data_importer – A tool to import the Kraken data into the database.</li>
+<li>flv_clients
+<ul>
+<li>QD Client that connects to the data gateway.</li>
+<li>SYMDB Client that connects to the symbol master DB.</li>
+</ul>
+</li>
+<li>flv_common – Types and structs commonly used in all other crates.</li>
+<li>flv_components – Contains several components that provide a coherent functionality.</li>
+<li>flv_examples – Multiple code examples for streaming data.</li>
+<li>flv_proto – Proto buffer specification for the symbol master database service.</li>
+<li>flv_sbe – Simple Binary Encoding (SBE) specification, Rust bindings, and message types.</li>
+<li>flv_services – Contains the data gateway and the symbol master service.</li>
+<li>flv_specs – Contains various specifications and configurations.</li>
+</ul>
+<p>In addition to these crates, there are a few more relevant folders:</p>
+<ol>
+<li>data – Empty. Put the Kraken data here to import. Feel free to read the <a href="https://github.com/marvin-hansen/fluvio-examples/blob/main/doc/import_data.md">data import guide for details</a>.</li>
+<li>doc – Contains relevant project documentation written in Markdown.</li>
+<li>scripts – Bash scripts that are used by make. Read the <a href="https://github.com/marvin-hansen/fluvio-examples/blob/main/doc/install.md">install guide for details</a>.</li>
+<li>sql – SQL statements for exploring the data set.</li>
+<li>tools – Contains the SBE tool that generates the Rust bindings. Note, the Rust bindings are already in the repo, so you don’t need to use this tool. The SBE tool is only in the repo because it’s a patched version that irons out a few kinks in the default distribution. It’s safe to ignore unless you want to develop with the SBE format.</li>
+</ol>
+<p>With the project structure out of the way, let’s look at the architecture next.</p>
+<h2 id="architecture">Architecture</h2>
+<p>The architecture follows the gateway pattern, meaning applications do not connect to the database directly. Instead, each application creates a QD Client that connects to the QD Gateway. The gateway handles essential tasks such as login/logout of clients. Likewise, the mapping from symbols to unique IDs happens via the Symbol Master Database (SYMDB) service. An application connects via the SYMDB client to the symbol service, resolves symbols it wants to stream data, and then connects to the QD gateway to request data streaming for the resolved symbols.</p>
+<p><img src="/infinyon-website/content/blog/images/dc-streaming-architecture.png" alt="Architecture"></p>
+<h2 id="qd-communication-protocol">QD Communication Protocol</h2>
+<p>The communication between the QD client and gateway follows a simple protocol.</p>
+<ol>
+<li>The client sends a login message with its client ID to the gateway.</li>
+</ol>
+<ul>
+<li>A client error message gets returned if the client is already logged in.</li>
+<li>If the client is not yet known, the login process starts. Notice that the gateway only returns error messages but no login success messages which means it is the application’s responsibility to monitor the QD client for errors. If there is no error, it is safe to proceed.</li>
+</ul>
+<ol start="2">
+<li>
+<p>Once connected, the client can send a request for either trade data or sampled OHLCV data at a resolution defined in the request message.</p>
+<ul>
+<li>The gateway returns an error if the requested data is unavailable.</li>
+<li>If the data is available, the gateway starts the data streaming.</li>
+</ul>
+</li>
+<li>
+<p>When no further data is needed, the QD client is supposed to send a logout message to the gateway by calling the QD client’s close method. If this does not happen, the next login attempt with the same client ID will result in an error.</p>
+</li>
+</ol>
+<h2 id="qd-gateway">QD Gateway</h2>
+<p>The Quantitative Data Gateway (QDGW) is a gateway <a href="https://github.com/deepcausality-rs/fluvio-examples/tree/main/flv_services/qdgw/src">implemented as a Tokio microservice</a> that streams financial market data from a database to connected clients. The QDGW exposes a Fluvio topic for clients to connect to. Clients can send requests and receive responses over this topic, and it handles client login/logout and maintains a state of connected clients.</p>
+<p>The gateway processes clients’ requests for market data as trades or OHLCV bars by fetching the data from the database, serializing it into SBE messages, and streaming it to clients over their data channel. If there are issues processing a request, the gateway sends any error responses back over the control channel, and it maintains symbol metadata like symbol ID mappings, data types available, etc., to fulfill data requests correctly.</p>
+<h3 id="service-configuration">Service Configuration</h3>
+<p>The QDGW configures itself using the configuration manager based on the service specification defined in the service_spec crate. As you add more services to a system, managing service configuration becomes increasingly more complex, and configuration mistakes tend to occur more frequently.</p>
+<p>In response, I have developed a simple auto-configuration system to ensure each service self-configures correctly using a <a href="https://github.com/deepcausality-rs/fluvio-examples/blob/main/flv_components/config_manager/src/lib.rs">configuration manager</a>. The component reads the service specs from a crate and provides methods that give access to various configurations. In larger systems, service specifications would probably be stored in a database, which the configuration manager would read. Because each service is uniquely identified by an Enum ServiceID, the configuration manager ensures each one gets only the configuration specified for that service. With this system, it is easy to reconfigure the service by updating its specification in the service spec crate.</p>
+<h3 id="client-handling">Client handling</h3>
+<p>The gateway <a href="https://github.com/deepcausality-rs/fluvio-examples/blob/main/flv_services/qdgw/src/handle_client_login.rs">handles client login messages</a> by extracting the client ID and checking if the they are already logged in. If so, it returns an error. Otherwise, it logs the client in. During the login process, the gateway creates a data producer for the client’s data channel to which the data will be streamed. This allows the gateway service to securely stream data to channels that only the client can receive.</p>
+<h3 id="data-handling">Data handling</h3>
+<p>The gateway similarly handles data request messages. It extracts the client ID, verifies that the client is logged in, and if so, looks up the channel name to which the data will be sent. In case of an error, a message will be sent to the client’s error channel. If there is no error, the gateway starts the streaming process.</p>
+<h3 id="query-vs-fetch-data">Query vs. Fetch Data</h3>
+<p>Conventionally, one would query a database, collect the results in a collection, and then iterate through the collection and send out each row as a message. This may work for smaller setups to some degree, but some of the markets on Kraken have well over 50 million trades, so just the query alone would take some time. There is a risk of timeout and, certainly, excessive memory usage since the entire trade history would be loaded into memory before streaming to the client could start.</p>
+<p>Instead, it is preferable to fetch data as an SQL stream and process each row as it becomes available and stream immediately to the client. In the background, the database probably uses pagination and batches of results until all rows have been returned. Regardless of the details, the QD gateway uses fetch mainly to prevent timeouts and excessive memory usage for larger datasets. Specifically, memory usage is at least tenfold lower for using fetch on the database.</p>
+<p>However, the <a href="https://github.com/deepcausality-rs/fluvio-examples/tree/main/flv_components/db_query_manager/src">QueryManager</a> used by the QD gateway implements both query and fetch, so depending on the use case, it can do either. By observation, query allows for more sophisticated SQL queries but isn’t great at loading large datasets, whereas fetch excels at bulk data streaming, but only if the query is relatively simple and fast to execute.</p>
+<h2 id="qd-client">QD Client</h2>
+<p>The <a href="https://github.com/deepcausality-rs/fluvio-examples/blob/main/flv_clients/qd_client/src/lib/mod.rs">QD (Quantitative Data) client</a> is used to connect to the QD Gateway (QDGW) service to request and consume market data streams. Upon initialization, the QD client uses the Fluvio admin API to create client-specific topics that only the client knows. One crucial detail is that in Fluvio, only the admin API can create or delete topics, whereas the regular API cannot. In a production environment, the admin API can be secured with authentication, but in this project, I’ve skipped the security setup for simplicity. You create an admin API simply by calling the constructor:</p>
+<pre><code>    let admin = FluvioAdmin::connect().await.expect(&quot;Failed to connect to fluvio admin&quot;);
+</code></pre>
+<p>Once you have an admin API, you must construct a common request and a topic specification before sending the request to the cluster. You do that in two steps, as seen below.</p>
+<pre><code>async fn create_topic(admin: &amp;FluvioAdmin, topic_name: &amp;str) -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    // Define a new topic
+    let name = topic_name.to_string();
+    let dry_run = false;
+    let common_request = CommonCreateRequest { name, dry_run, ..Default::default() };
+
+    // Ok, specify the topic config
+    let topic_specs = TopicSpec::new_computed(1, 1, None);
+
+    // Create the topic
+    admin
+        .create_with_config(common_request, topic_specs)
+        .await
+        .expect(&quot;Failed to create topic&quot;);
+
+    Ok(())
+}
+</code></pre>
+<p>The delete API is a simple, you just pass in the name of the topic to the admin API.</p>
+<pre><code>async fn delete_topic(admin: &amp;FluvioAdmin, topic_name: &amp;str) -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    admin
+        .delete::&lt;TopicSpec&gt;(topic_name.to_string())
+        .await
+        .expect(&quot;Failed to delete topic&quot;);
+
+    Ok(())
+}
+</code></pre>
+<p>The full implementation of create and delete topic is available in the <a href="https://github.com/deepcausality-rs/fluvio-examples/blob/main/flv_clients/qd_client/src/lib/utils/flv_utils.rs">flv_utils file of the QD client</a>. The QD client dynamically creates its topics upon initialization. Next, the QD client initializes a connection to the Fluvio cluster. It then sends a ClientLogin message to the QDGW to log in.</p>
+<p>When the application calls a request data method, the QD client sends a data request message to the QDGW for either trades or OHLCV bars for a specific symbol. The QD client listens to its data channel topic for the responses from the gateway. The QDGW sends the requested data serialized as SBE messages. Error messages from the gateway are received over the client error channel. Sending a message in Fluvio is easy and follows the well-established producer/consumer pattern. For completeness, the send method of the QD client is shown below:</p>
+<pre><code> pub(crate) async fn send_message(&amp;self, buffer: Vec&lt;u8&gt;) -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+        // Send the message.
+        self. producer
+            .send(RecordKey::NULL, buffer)
+            .await
+            .expect(&quot;[QDClient/send_message]: Failed to send Done!&quot;);
+
+        // Flush the producer to ensure the message is sent instantly.
+        self. producer
+            .flush()
+            .await
+            .expect(&quot;[QDClient/send_message]: Failed to flush to message bus.&quot;);
+
+        Ok(())
+    }
+</code></pre>
+<p>Flush is called immediately because the QD client only sends a single message at a time and therefore the producer can flush immediately. If you were to send bulk data, Fluvio has a number of settings to optimize message batch and send from the producer, and you wouldn’t have to flush explicitly until you have the last message to send. Please consult the <a href="https://www.fluvio.io/docs/concepts/batching/">Fluvio documentation for more details on optimization</a>.</p>
+<p>One more detail: Fluvio usually sends key/value pair messages so that you can use the key to identify the message type. However, because SBE-encoded messages already have the message type fully accessible, each message is sent without a key, thus saving a few bytes on the wire.</p>
+<p>Upon shutdown, the QD client sends a ClientLogout message to the gateway to cleanly disconnect. It then deletes all previously generated client topics. See the <a href="https://github.com/deepcausality-rs/fluvio-examples/blob/main/flv_clients/qd_client/src/lib/mod.rs">close method in the QD client implementation for details</a>.<br>
+All messages exchanged between the QD gateway and the QD client are fixed-sized binary encoded SBE messages.</p>
+<h2 id="sbe-message-encoding">SBE Message Encoding</h2>
+<p>The Financial Information Exchange Standard (FIX) has glued the entire financial industry together for decades. Interestingly, until version 4.4, the FIX format was all text-based despite the well-known deficiencies of text processing in low latency systems. Simple Binary Encoding (SBE) is a modern FIX standard for binary message encoding and is optimized for low latency and deterministic performance. The official standard and full FIX schema can be downloaded from the <a href="https://www.fixtrading.org/standards/sbe/">FIX community</a>.</p>
+<p>It is well known that in message-based systems, throughput and latency depend on the message size, meaning a smaller message size usually results in lower latency and higher throughput. The average market on Kraken has well over a million recorded trades; therefore, message throughput matters. Performance benchmarks have shown that <a href="https://github.com/chronoxor/CppSerialization">SBE delivers among the smallest message sizes and the fastest serialization/deserialization</a> speed compared to other binary formats. The biggest difference, though, is between text-based JSON and SBE, in which SBE delivers a <a href="https://medium.com/@trunghuynh/json-protobuf-sbe-benchmark-the-byte-story-16840f763543">full order of magnitude more operations per microsecond</a>.</p>
+<p>For this project, a much smaller and simpler custom SBE schema was designed specifically for small message sizes. <a href="https://github.com/marvin-hansen/fluvio-examples/tree/main/flv_sbe/sbe_schema">See GitHub for the schema definition file</a>. In the custom SBE schema, the largest data message counts 40 bytes, and most control messages count less than 30 bytes in size, hence allowing for high throughput and low latency processing. Enums encoded as u8 integers were repeatedly used in the SBE schema to reduce message size. Furthermore, instead of using strings for ticker symbols, u16 integer IDs were used to reduce message size further. To map between ticker symbols and the numeric integer ID corresponding to a ticker, a symbol manager was added as a component, to easily look up IDs for symbols.</p>
+<p>Another trick is to avoid SBE Enums and instead use u8 fields with Rust Enums cast into u8. The idea of SBE Enums is to limit and specify the number of valid values. The problem is that you do the same thing in Rust already, and then you would have to map back and forth between SBE and Rust Enums. Therefore, in a Rust-only environment, it is safe to declare the SBE field as u8 and encode the Rust Enum as a u8 in SBE, and decode the SBE u8 as a Rust Enum. However, please don’t do this in a multilingual project where multiple programming languages exchange data via SBE because the counterpart is not guaranteed to process your raw u8 value correctly.</p>
+<p>Working with SBE is straightforward: you write an XML schema that describes your types and messages, run the SBE tool to generate the Rust bindings, and then define a proper Rust type with the added SBE encoding and decoding. The XML schema is necessary because SBE generates bindings for other programming languages, and XML was chosen as the lowest common denominator that works with every supported language and platform.</p>
+<h2 id="symbol-master-symdb">Symbol Master (SYMDB)</h2>
+<p>One challenge related to binary-encoded messages is how to map symbols to the corresponding numeric ID. During the data import, numeric IDs are assigned based on a first-come, first-served principle, so there is no particular order or system in place.</p>
+<p>For this project, a basic <a href="https://github.com/deepcausality-rs/fluvio-examples/tree/main/flv_services/symdb/src">symbol master service has been implemented</a> that maps the Kraken symbols to the corresponding numeric ID. This allows application developers to just pull a symbol list either from the database or directly from the Kraken API, select a set of symbols, and then use the symbol master to translate these symbols to numeric IDs as required for the message encoding. When SBE binary encoded data arrives at the QD client, then the same symbol master service enables the reverse translation of the numeric ID back to the corresponding symbol. For the scope of this project, this solution is sufficient and serves as a starting point to add more advanced functionality.</p>
+<p>There is a noticeable difference between regulated financial markets and crypto markets. In regulated financial markets, currency symbols and stock tickers have globally standardized unique IDs. In the still-young crypto industry, no standard exists with the implication that the same cryptocurrency is listed under different symbols on different exchanges. Because of this, a Zoo of half-baked solutions exists. One solution is to pick a commercial integration service provider, such as Kaiko or CoinAPI, and simply adopt their symbol mapping. This only works reliably if you subscribe to their paid data feed. Another solution is to use a public platform such as CoinMarketCap as a reference for symbol mapping. Usually, the public API allows you to download the symbol mapping, but that still leaves you with some integration work to map these back to actual exchange symbols.</p>
+<p>When you want to support more than one exchange, you need a symbol master service to look up exchange-specific symbols. Note, the API signature of the symbol service requires an exchange ID; therefore, extending the symbol master service to support multiple exchanges is fundamentally possible but requires some engineering work to implement.</p>
+<h2 id="real-time-analytics">Real-Time Analytics</h2>
+<p>Once a data-stream has been established, you receive SBE encoded messages of either trade data or OHLCV bars. Trade bars usually reflect the spot price at which the last order was matched in the order book. While OHLCV bars have lower resolution, they often serve a purpose to establish points of reference. In quantitative research, these are called pivot points, reflecting the reality that at that price level, the market tends to pivot and basically make a U-turn. Pivot points remain instrumental in risk management because in markets, once the price is past a pivot point, at least you know the expected U-turn didn’t happen, so you have a starting point to make an informed guess. To make this kind of assessment, you need a model. Remember, there are three ingredients to a successful model:</p>
+<ol>
+<li>Time</li>
+<li>Context</li>
+<li>Causality</li>
+</ol>
+<h3 id="the-model">The Model</h3>
+<p>For this project, a fictitious monthly breakout model has been invented and implemented that <a href="https://github.com/deepcausality-rs/fluvio-examples/tree/main/flv_examples/causal_model/src">showcase how to design real-time analytics that rely on temporal context to express causal relations</a>. Please understand that the model is entirely made up and was never empirically validated, meaning there is no way you should use this model on your trading account if you don’t want to go broke. Also, the purpose of this post isn’t about financial modeling but rather about showcasing how to apply causal models to real-time data streams in Rust. With that out of the way, let’s look at <a href="https://github.com/deepcausality-rs/fluvio-examples/blob/main/flv_examples/causal_model/src/model/model.rs">the actual model</a>:</p>
+<pre><code>use crate::prelude::{context_utils, CustomCausaloid, CustomContext, TimeIndexExt};
+use deep_causality::errors::CausalityError;
+use deep_causality::prelude::{Causaloid, NumericalValue};
+use rust_decimal::Decimal;
+
+/// Builds a custom [`Causaloid`] from a context graph.
+///
+/// Constructs a new [`Causaloid`] with the provided context graph,
+/// causaloid, author, description, etc.
+///
+/// The built model contains the full context graph and causaloid
+/// representing a causal model.
+///
+/// # Arguments
+///
+/// * `context` - Context graph to include in the model
+///
+/// # Returns
+///
+/// The built [`Causaloid`] .
+///
+pub fn build_causal_model&lt;'l&gt;(context: &amp;'l CustomContext&lt;'l&gt;) -&gt; CustomCausaloid&lt;'l&gt; {
+    let id = 42;
+    // The causal fucntion must be a function and not a closure because the function
+    // will be coercived into a function pointer later on, which is not possible with a closure.
+    let contextual_causal_fn = contextual_causal_function;
+    let description = &quot;Causal Model: Checks for a potential monthly long breakout&quot;;
+
+    // Constructs and returns the Causaloid.
+    Causaloid::new_with_context(id, contextual_causal_fn, Some(context), description)
+}
+
+fn contextual_causal_function&lt;'l&gt;(
+    obs: NumericalValue,
+    ctx: &amp;'l CustomContext&lt;'l&gt;,
+) -&gt; Result&lt;bool, CausalityError&gt; {
+    // Check if current_price data is available, if not, return an error.
+    if obs.is_nan() {
+        return Err(CausalityError(
+            &quot;Month Causaloid: Observation/current_price is NULL/NAN&quot;.into(),
+        ));
+    }
+
+    // Convert f64 to Decimal to avoid precision loss and make the code below more readable.
+    // Unwrap is safe because of the previous null check, we know that the current price is not null.
+    let current_price = Decimal::from_f64_retain(obs).unwrap();
+
+    // We use a dynamic index to determine the actual index of the previous or current month.
+    // Unwrap is safe here because the build_context function ensures that the current month is always initialized with a valid value.
+    let current_month_index = *ctx.get_current_month_index().unwrap();
+    let previous_month_index = *ctx.get_previous_month_index().unwrap();
+
+    // We use the dynamic index to extract the RangeData from the current and previous month.
+    let current_month_data = context_utils::extract_data_from_ctx(ctx, current_month_index)?;
+    let previous_month_data = context_utils::extract_data_from_ctx(ctx, previous_month_index)?;
+
+    // The logic below is obviously totally trivial, but it demonstrates that you can
+    // easily split an arbitrary complex causal function into multiple closures.
+    // With closures in place, the logic becomes straightforward, robust, and simple to understand.
+
+    // 1) Check if the previous month close is above the previous month open.
+    let check_previous_month_close_above_previous_open = || {
+        // Test if the previous month close is above the previous month open.
+        // This is indicative of a general uptrend and gives a subsequent breakout more credibility.
+        previous_month_data.close_above_open()
+    };
+
+    // 2) Check if the current price is above the previous months close price.
+    let check_current_price_above_previous_close = || {
+        // Test if the current price is above the previous months close price.
+        // gt = greater than &gt; operator
+        current_price.gt(&amp;previous_month_data.close())
+    };
+
+    // 3) Check if the current price is above the current month open price.
+    // This may seem redundant, but it safeguards against false positives.
+    let check_current_price_above_current_open = || {
+        // Test if the current price is above the current month open price.
+        current_price.gt(&amp;current_month_data.open())
+    };
+
+    // 4) Check if the current price exceeds the high level of the previous month.
+    let check_current_price_above_previous_high = || {
+        // Test if the current price is above the high price established in the previous month.
+        current_price.gt(&amp;previous_month_data.high())
+    };
+
+    // All checks combined:
+    //
+    // 1) Check if the previous month close is above the previous month open.
+    // 2) Check if the current price is above the previous months close price.
+    // 3) Check if the current price is above the current month open price.
+    // 4) Check if the current price exceeds the high level of the previous month.
+    if check_previous_month_close_above_previous_open()
+        &amp;&amp; check_current_price_above_previous_close()
+        &amp;&amp; check_current_price_above_current_open()
+        &amp;&amp; check_current_price_above_previous_high()
+    {
+        // If all conditions are true, then a monthly breakout is detected and return true.
+        Ok(true)
+    } else {
+        // If any of the conditions are false, then no breakout is detected and return false.
+        Ok(false)
+    }
+}
+</code></pre>
+<p>This model is as straightforward as it looks. To summarize its function:</p>
+<ol>
+<li>It defines the causal function that will check for the monthly breakout condition.</li>
+<li>The causal function takes the price observation and context as arguments.</li>
+<li>It uses the context to look up the current and previous month’s data nodes.</li>
+<li>The data is extracted from the node.</li>
+<li>The current price is compared to determine a potential monthly breakout. This takes four steps:
+<ul>
+<li>Check if the previous month’s close is above its open.</li>
+<li>Check if the current price is above the previous month’s close price.</li>
+<li>Check if the current price exceeds the current month’s open price.</li>
+<li>Check if the current price exceeds the high level of the previous month.</li>
+<li>If all four conditions are true, then a monthly breakout is detected and returns true.</li>
+</ul>
+</li>
+</ol>
+<p>At this point, it becomes evident why only certain analytics problems can be converted to causal models, whereas others that rely on predictions cannot. However, you will be amazed how many of those problems showcased in the model exist in the world. For example, IoT sensors monitoring pressure sensors at an industry facility for anomalies can be modeled in a very similar way. Conventionally, none of these problems are particularly hard to solve unless you deal with dynamic context or, worse, multiple contexts. In that case, DeepCausality with its support for multiple contexts brings a lot to the table.</p>
+<p>In the model code, I want to highlight the following five lines:</p>
+<pre><code>let current_month_index = *ctx.get_current_month_index().unwrap();
+let previous_month_index = *ctx.get_previous_month_index().unwrap();
+
+// We use the dynamic index to extract the RangeData from the current and previous month.
+let current_month_data = context_utils::extract_data_from_ctx(ctx, current_month_index)?;
+let previous_month_data = context_utils::extract_data_from_ctx(ctx, previous_month_index)?;
+</code></pre>
+<p>When you look at the <a href="https://docs.rs/deep_causality/latest/deep_causality/types/context_types/context_graph/struct.Context.html">DeepCausality context API specification</a>, it doesn’t contain the methods that get the current or previous month’s index. Instead, <a href="http://xion.io/post/code/rust-extension-traits.html">a type extension defines these custom methods</a>. In this particular case, the <a href="https://github.com/deepcausality-rs/fluvio-examples/blob/main/flv_examples/causal_model/src/extensions/time_index.rs">TimeIndexExt is written as a type extension with a default implementation</a> against the signature of a super trait implemented in the target type context. As a result, with a single import, you add new functionality to an external type. The <a href="https://github.com/jerry73204/iterator-ext">formidable iterator_ext crate uses a similar technique</a> to add more functionality to the standard iterator in Rust.</p>
+<p>With the TimeIndexExt extension in place, the model above works out of the box even though the DeepCausality crate only provides the building blocks. For convenience, the entire model, with its context builder, protocol, type extension, and actual causal model definition, has been put in a dedicated crate.</p>
+<p>That’s another particularity of DeepCausality models: they compose with standard tools such as Cargo so you can build large causal models from various building blocks in separate crates. Because of type extensibility, you may customize any aspect as needed as long as it links back to super traits implemented in the DeepCausality crate. If something is missing, feel free to open an issue or submit a pull request.</p>
+<h3 id="the-context">The Context</h3>
+<p>The context is a central piece of the model. It is the place where all related data are stored for the model.</p>
+<p>In <a href="https://deepcausality.com/docs/concepts/#context">DeepCausality, a context</a> can be static or dynamic, depending on the situation. The context structure is defined beforehand for a static context, whereas for a dynamic context, the structure is generated dynamically at runtime. Regardless of the specific structure, DeepCausality uses a hypergraph to internally represent arbitrary complex context structures.</p>
+<p>The hypergraph representation of context in DeepCausality conceptualizes time as a non-linear category of unknown structure with the requirement that it is also linearly expressible to adhere to the common interpretation of time linearity under the time arrow assumption. That way, both linear and non-linear time scenarios can be represented.</p>
+<p>Context provides either internal, external, or both types of variables to the causal model. Furthermore, whether variables are independent or dependent doesn’t matter because any dependent variable can be updated through change propagation via the adjustable protocol. In practice, that means you can derive context data from the data stream itself, from external sources, say Twitter sentiment, or any combination of internal and external data. By convention, for dynamic contexts, you update the context first before applying the model.</p>
+<p>For this project, a static context is generated that adds range data for the year and month of the incoming data. This is a significant simplification compared to the actual reality but necessary to reduce complexity. As stated in the introduction, geometric causality reduces arithmetic complexity by increasing structural complexity. Since there is nothing difficult about the model, the complexity must be elsewhere. And indeed, the structural complexity has been shifted into the context.</p>
+<p>Generating a context comes down to three steps:</p>
+<ol>
+<li>Load some data</li>
+<li>Transform data as necessary</li>
+<li>Build a context structure as required</li>
+</ol>
+<p>All three steps are highly depending on the project requirements. However, for this project, I chose to build a static temporal graph augmented with range data. You find the <a href="https://github.com/deepcausality-rs/fluvio-examples/blob/main/flv_examples/causal_model/src/context/build_context.rs">full code of the context generator is in the project repo.</a> The context graph is built by adding nodes for each month and year to the graph. By convention, a context graph starts with a root node, that is added as shown below.</p>
+<pre><code>    // == ADD ROOT ==//
+    let id = counter.increment_and_get();
+    let root = Root::new(id);
+    let root_node = Contextoid::new(id, ContextoidType::Root(root));
+    let root_index = g.add_node(root_node);
+</code></pre>
+<p>The root node is a special node that has no parents and serves a structural point of reverse when dynamically traversing large graphs. The root node links to each year represented as temporal node. The temporal nodes are added as shown below.</p>
+<pre><code>  // == ADD YEAR ==//
+    let time_scale = TimeScale::Year;
+    let elements = data.year_bars();
+    for data_bar in elements {
+        // Get year from bar
+        let year = data_bar.date_time().year();
+
+        // Augment OHLCV bar with time and data nodes
+        let (tempoid, dataoid) = context_utils::convert_ohlcv_bar_to_augmented(data_bar, time_scale);
+
+        // Create year time node
+        let key = counter.increment_and_get();
+        let time_node = Contextoid::new(key, ContextoidType::Tempoid(tempoid));
+        let year_time_index = g.add_node(time_node);
+
+        // Create year data node
+        let data_id = counter.increment_and_get();
+        let data_node = Contextoid::new(data_id, ContextoidType::Datoid(dataoid));
+        let year_data_index = g.add_node(data_node);
+        
+        // .. Indexing 
+        
+         // println!(&quot;{FN_NAME}: Linking root to year.&quot;);
+        g.add_edge(root_index, year_time_index, RelationKind::Temporal)
+            .expect(&quot;Failed to add edge between root and year.&quot;);
+
+        // println!(&quot;{FN_NAME}: Linking year to data.&quot;);
+        g.add_edge(year_data_index, year_time_index, RelationKind::Datial)
+            .expect(&quot;Failed to add edge between year and data&quot;);
+</code></pre>
+<p>The month nodes are added in a similar fashion. When designing a context, you should think about the data that you want and the context structure that you want to build. It’s best to draw the desired structure on a sheet of paper before implementing it. Lastly, by experience, you are going to spent more time on building and debugging context than building the model itself. Please pay meticulous attention to correct indexing of the context graph as this is what makes the the causal model work.</p>
+<h3 id="applied-contextual-causal-inference">Applied Contextual Causal Inference</h3>
+<p>In terms of applying the model to incoming data messages, it’s as simple as writing a standard event handler. The only meaningful difference is the particularity of SBE encoding. Because SBE is fixed-sized encoding, the position of the message ID in the byte array is always known upfront; therefore, you can extract the message ID without decoding the actual message. This is true for all primitive types in SBE, but for message ID it’s so convenient that it’s worth showing in action. From the XML schema, we know that message ID is always in the third position; here is how you extract and use the message ID for incoming data bars:</p>
+<pre><code>  pub fn handle_message_inference(&amp;self, message: Vec&lt;u8&gt;) -&gt; Result&lt;(), Box&lt;dyn Error + Send&gt;&gt; {
+        // The third byte of the buffer is always the message type.
+        let message_type = MessageType::from(message[2] as u16);
+
+        match message_type {
+            // Handle first trade bar
+            MessageType::FirstTradeBar =&gt; {
+                println!(&quot;{FN_NAME}: FirstTradeBar (Data stream Starts)&quot;);
+            }
+
+            MessageType::TradeBar =&gt; {
+                let trade_bar = SbeTradeBar::decode(message.as_slice()).unwrap();
+                // println!(&quot;{FN_NAME}: TradeBar: {:?}&quot;, trade_bar);
+
+                // println!(&quot;{FN_NAME}: Extract the price from the trade bar: {}&quot;, trade_bar.price().to_f64().unwrap());
+                let price = trade_bar.price().to_f64().unwrap();
+
+                println!(&quot;{FN_NAME}: Apply the causal model to the price for causal inference&quot;);
+                let res = self.model.verify_single_cause(&amp;price).unwrap_or_else(|e| {
+                    println!(&quot;{FN_NAME}: {}&quot;, e);
+                    false
+                });
+
+                // Print the result of the inference in case it detected a price breakout
+                if res {
+                    println!(&quot;DeepCausality: Detected Price Breakout!&quot;);
+                }
+            }
+
+            // Handle last trade bar
+            MessageType::LastTradeBar =&gt; {
+                println!(&quot;{FN_NAME}: LastTradeBar (Data stream stops)&quot;);
+            }
+            // Ignore all other message types
+            _ =&gt; {}
+        }
+        Ok(())
+    }
+}
+</code></pre>
+<p>This is it. Simplicity is the ultimate sophistication. You extract an integer, convert it to an Enum that tells you what kind of message to decode, then you pattern match over that Enum. When you get a TradeBar, you decode it, extract the current price, convert it (from Decimal) to f64, and pass it to the model.</p>
+<p>Everything here is standard Rust, including error handling, pattern matching, processing, and everything you find in the Rust book. By my internal measurements, the causal inference adds, at most, a single-digit microsecond latency to the message processing. You will never notice it if your real-time system operates at a millisecond level. Even if your system operates at a microsecond level, adding single-digit microseconds might be acceptable. When it’s not, you can still optimize the context with some clever lookup tables and probably get it faster.</p>
+<h2 id="what-was-left-out">What was left out?</h2>
+<p>Looking through the repo, you will unavoidably find things not mentioned in this post, simply because explaining the entire code base in a single blog post post is infeasible. However, I have good news for you because this project is exceptionally well-documented (just run <code>make doc</code>) and has plenty of unit tests. Browsing the code with the documentation and tests should help you understand whatever wasn’t mentioned in this post.</p>
+<p>I have deliberately skipped a general introduction to Rust because it’s not the focus of this post. It is assumed when you read about real-time causal inference in Rust that you already have some experience writing software in Rust. At this point, the internet provides an abundance of material to learn Rust; just use your favorite search engine to find the best Rust resources for you.</p>
+<p>I’ve omitted a general introduction to computational causality, mainly to keep the post readable. The DeepCausality project has <a href="https://deepcausality.com/docs/intro/">documentation that covers the basics and more</a>. For a gentle introduction to the field, read <a href="https://www.amazon.com/Book-Why-Science-Cause-Effect/dp/046509760X">“The Book of Why?” by Judea Pearl</a>, the grandfather of computational causality.</p>
+<p>Lastly, I have left out a general introduction to quantitative finance and market modeling to keep the post to a reasonable length. There are <a href="https://quant.stackexchange.com/questions/38862/what-are-the-quantitative-finance-books-that-we-should-all-have-in-our-shelves">several good books for any topic in quantitative finance</a>. My top three go-to recommendations are <a href="https://www.amazon.com/Financial-Modeling-fifth-Simon-Benninga-ebook/dp/B094WZN89D/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">Financial Modeling</a> by Simon Benninga, <a href="https://www.amazon.com/Financial-Modeling-fifth-Simon-Benninga-ebook/dp/B094WZN89D/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">Advances in Financial Machine Learning</a> by Marcos López, and <a href="https://www.amazon.com/Successful-Traders-Guide-Money-Management/dp/1119798809/ref=sr_1_1?crid=2B71YRG4W1UZ9&amp;keywords=unger+money+management&amp;qid=1707200749&amp;s=books&amp;sprefix=unger+money+manageme%2Cstripbooks-intl-ship%2C361&amp;sr=1-1">The Successful Trader’s Guide to Money Management</a> by Andre Unger.</p>
+<h2 id="future-of-real-time-data-processing-in-fluvio">Future of Real-Time Data Processing in Fluvio</h2>
+<p>One particularity you may encounter in real-time systems is the prevalence of the microservice pattern. While the project’s code examples all show client-side processing, you could equally put a causal model or any other form of processing into a microservice. At least, that is a common conception unless you already have a full Spark cluster deployment. The Fluvio project already supports smart modules that allow you to perform common stream processing tasks such as collecting, transforming, deduplicating, or dispatching messages within the Fluvio cluster. However, the second generation of stateful services takes that concept one step further and allows for composable event-driven data pipelines using web assembly modules. Access to <a href="https://infinyon.com/">stateful services is currently in private preview</a>, and I had chance to test it out. The technology is outstanding, and with those web assembly modules, you can replace a bunch of microservices. While the stateful service may take some time to mature, I am confident it will be on a similar quality level to the existing system. I recommend Fluvio as a message bus to cut the cloud bill and see how the stateful service evolves to see if your requirements can be met by the new paradigm. Like causal models, it won’t work for everything. Still, when it works, you will discover something truly intriguing that gives you capabilities previously thought unattainable. And you get it at an absurdly low operational cost.</p>
+<h2 id="future-of-deepcausality">Future of DeepCausality</h2>
+<p>Even though this project only scratched the surface of what DeepCausality can do, a few more features are planned. For once, a ticket is open to remove lifelines from the public API. When completed, the DeepCausality crate will work significantly better with concurrency code. Right now, these lifelines conflict with Tokio’s requirement that each task must own all its data to ensure thread safety. As a result, you cannot easily share a context between tasks via the usual Arc/Mutex wrapper, and therefore, async &amp; concurrent context updates are currently too cumbersome. The lifeline removal is only a refactoring task and should be done sooner rather than later.</p>
+<p>Modeling modular contextual causal propagation is an area that needs further exploration. Specifically, this means writing intermediate effects to the context of another downstream causal model, which then uses the updated context to reason further and writes its inferences into another downstream context. By implication, modular models result in modular reasoning, and at each stage, intermediate results remain encapsulated yet accessible to other models or monitoring systems. This approach is potent given that any of those models may have multiple contexts to feed into the causal model at each stage. The future of DeepCausality is evolving towards increasingly more advanced and sophisticated real-time causal inference.</p>
+<h2 id="reflection">Reflection</h2>
+<p>When I started with the project, several unknowns had to be answered. For once, it wasn’t clear if there was a production-ready messaging system written in Rust. That has been fully answered because Fluvio is certainly production-ready when it comes to messaging and even its initial version of Smart Modules works. During development I didn’t encounter any difficulties, and those few questions I had were quickly answered either from the documentation, the project Discord, or simply by looking into the source code.</p>
+<p>Another unknown that had to be considered was the quality of Rust Async at the moment, given its rapid evolution over the past few years. Using it confidently is a no-brainer because the Tokio ecosystem works out of the box, and for every possible situation that may come up, there is either documentation or some online question that has already been answered. On that topic, Prost is perhaps the fastest and easiest way to write gRPC services and it beats the GoLang ecosystem by a mile. It might not be the fastest implementation regarding total requests per second, but once you have your proto file, you have a functional gRPC server within 30 minutes, depending on how fast you can type. It’s really impressive and an excellent example of how much better the development experience can be in Rust.</p>
+<p>In addition, it wasn’t known how well SBE would work in tandem with Rust. Again, it was of no concern and they coordinated seamlessly. I just got things done. Fixed-sized binary formats are always a bit more verbose to work with, but the net gain in message throughput and latency you get due to smaller message sizes is well worth the effort.</p>
+<p>Lastly, there is Cargo on a mono-repo. Historically, I’ve adopted Bazel early on whenever it was clear from day one that the code base would grow very fast and multiple 10x increases could be expected. There is a strong argument for Bazel, and probably plenty against too, but once your project is past the first 50k LoC, the choices of build systems that can cope with rapidly growing code are limited. Alternatively, Cargo gives you much more breathing space before a hard decision has to be made. Specifically, building 20 Crates with Cargo is a breeze, and works way better than expected. I estimate that you may be able to kick the can further down the road by another 10X, so only when you hit a 100K LoC or about 200 crates do you have to think hard about Bazel, mainly to get your release build time down. That’s reassuring and refreshing compared to what I have experienced with other ecosystems. By the time you hit <a href="https://mmapped.blog/posts/17-scaling-rust-builds-with-bazel.html">500K LoC, you end up with Bazel anyway</a>.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Even though this project concluded, there would be a few steps more steps required to expand the QDGW into a fully-fledged quantitative data research system. First, the QD client needs some polishing so that it’s easier to use. As you can see in the code examples, programming the QD client with async processing isn’t as good as it could be.</p>
+<p>Them adding more advanced features like the ability to backtest risk assessment or trading strategies would be another next step. There are two ways to backtest risk assessment or trading strategies. One way is to track positions on the clients’ side, which is usually more straightforward to implement. This is great for getting started, especially for single-instrument strategies. However, it isn’t very realistic as it does not consider trading fees, slippage, and order splitting. None of these matter for smaller positions because small orders rarely get split, and slippage usually doesn’t amount to much compared to trading fees. The second way is to implement a virtual exchange that emulates the execution and fee schedule of a particular exchange. If the virtual exchange solely relies on trade data, it cannot consider slippage and order splitting so there is diminishing return. If it is implemented using order book replay, then it can emulate slippage and order splitting. Be aware that order book reconstruction requires some sophisticated engineering and full quote data.</p>
+<p>Lastly, a user interface for visualizing backtesting results would complete this project. UI in Rust remains one of the few areas where the ecosystem is still in its early days. There are a few great projects out there, such as Tauri, but I haven’t used it myself therefore I can’t comment on it.</p>
+<h2 id="about">About</h2>
+<p><a href="https://github.com/infinyon/fluvio">Fluvio</a> is an open-source data streaming platform with in-line computation capabilities. Apply your custom programs to aggregate, correlate, and transform data records in real time as they move over the network. Read more on the <a href="https://www.fluvio.io/">Fluvio website</a>.</p>
+<p><a href="https://deepcausality.com/">DeepCausality</a> is a hyper-geometric computational causality library that enables fast and deterministic context-aware causal reasoning in Rust. Learn more about DeepCausality on <a href="https://github.com/deepcausality-rs/deep_causality">GitHub</a> and join the <a href="https://lists.lfaidata.foundation/g/DeepCausality-announce">DeepCausality-Announce Mailing List</a>.</p>
+<p>The <a href="https://lfaidata.foundation/">LF AI &amp; Data Foundation</a> supports an open artificial intelligence (AI) and data community, and drive open source innovation in the AI and data domains by enabling collaboration and the creation of new opportunities for all the members of the community. For more information, please visit <a href="https://lfaidata.foundation/">lfaidata.foundation</a>.</p>
+<p>The author, Marvin Hansen, is the director of <a href="https://emet-labs.com/">Emet-Labs</a>, a FinTech research company specializing in applying computational causality to financial markets. He is the author and maintainer of the DeepCausality project. <a href="https://app.heymaven.com/profile/385">Connect on Maven</a>, the worlds first serendipity network.</p>
+<p>You can contact us through <a href="https://github.com/infinyon/fluvio/discussions">Github Discussions</a> or <a href="https://discordapp.com/invite/bBG2dTz">our Discord</a> if you have any questions or comments, we welcome any early feedback about <code>fvm</code>.</p>
+
+        </div>      
+      </div>
+
+    </section>
+  </main> 
+
+  <aside class="hidden mx-5 w-72 overflow-y-auto lg:block py-6">
+  <article class="flex flex-col items-start px-4">
+
+    <h2 class="text-sm text-gray-500 tracking-widest">
+      SHARE ON
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-4 w-5/6" />
+    <div class="w-full mx-auto pb-4">
+      <div class="flex flex-row">
+  <div class="pr-2 hover:brightness-75">
+    <a class="twitter" title="Share on Twitter"
+        href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2024%2f02%2ffluvio-deep-causality-rs&text=Real-time%20Streaming%20Analytics%20with%20Fluvio%2c%20DeepCausality%2c%20and%20Rust"
+        target="_blank">
+        <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#00aced"></circle>
+  <path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="button reddit" title="Share on Reddit"
+      href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2024%2f02%2ffluvio-deep-causality-rs&title=Real-time%20Streaming%20Analytics%20with%20Fluvio%2c%20DeepCausality%2c%20and%20Rust&text=real%20time%20streaming%20analytics%20with%20fluvio%2c%20deepcausality%2c%20and%20rust"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#ff4500"></circle>
+  <path d="m 52.8165,31.942362 c 0,-2.4803 -2.0264,-4.4965 -4.5169,-4.4965 -1.2155,0 -2.3171,0.4862 -3.128,1.2682 -3.077,-2.0247 -7.2403,-3.3133 -11.8507,-3.4782 l 2.5211,-7.9373 6.8272,1.5997 -0.0102,0.0986 c 0,2.0281 1.6575,3.6771 3.6958,3.6771 2.0366,0 3.6924,-1.649 3.6924,-3.6771 0,-2.0281 -1.6575,-3.6788 -3.6924,-3.6788 -1.564,0 -2.8968,0.9758 -3.4357,2.3443 l -7.3593,-1.7255 c -0.3213,-0.0782 -0.6477,0.1071 -0.748,0.4233 L 32,25.212062 c -4.8246,0.0578 -9.1953,1.3566 -12.41,3.4425 -0.8058,-0.7446 -1.8751,-1.2104 -3.0583,-1.2104 -2.4905,0 -4.5152,2.0179 -4.5152,4.4982 0,1.649 0.9061,3.0787 2.2389,3.8607 -0.0884,0.4794 -0.1462,0.9639 -0.1462,1.4569 0,6.6487 8.1736,12.0581 18.2223,12.0581 10.0487,0 18.224,-5.4094 18.224,-12.0581 0,-0.4658 -0.0493,-0.9248 -0.1275,-1.377 1.4144,-0.7599 2.3885,-2.2304 2.3885,-3.9406 z m -29.2808,3.0872 c 0,-1.4756 1.207,-2.6775 2.6894,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 -1.4824,0 -2.6894,-1.2002 -2.6894,-2.6758 z m 15.4037,7.9373 c -1.3549,1.3481 -3.4816,2.0043 -6.5008,2.0043 l -0.0221,-0.0051 -0.0221,0.0051 c -3.0209,0 -5.1476,-0.6562 -6.5008,-2.0043 -0.2465,-0.2448 -0.2465,-0.6443 0,-0.8891 0.2465,-0.2465 0.6477,-0.2465 0.8942,0 1.105,1.0999 2.9393,1.6337 5.6066,1.6337 l 0.0221,0.0051 0.0221,-0.0051 c 2.6673,0 4.5016,-0.5355 5.6066,-1.6354 0.2465,-0.2465 0.6477,-0.2448 0.8942,0 0.2465,0.2465 0.2465,0.6443 0,0.8908 z m -0.3213,-5.2615 c -1.4824,0 -2.6877,-1.2002 -2.6877,-2.6758 0,-1.4756 1.2053,-2.6775 2.6877,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="linkedin" title="Share on LinkedIn"
+      href="https://www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2024%2f02%2ffluvio-deep-causality-rs&title=Real-time%20Streaming%20Analytics%20with%20Fluvio%2c%20DeepCausality%2c%20and%20Rust&summary=real%20time%20streaming%20analytics%20with%20fluvio%2c%20deepcausality%2c%20and%20rust"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#007fb1"></circle>
+  <path d="M20.4,44h5.4V26.6h-5.4V44z M23.1,18c-1.7,0-3.1,1.4-3.1,3.1c0,1.7,1.4,3.1,3.1,3.1 c1.7,0,3.1-1.4,3.1-3.1C26.2,19.4,24.8,18,23.1,18z M39.5,26.2c-2.6,0-4.4,1.4-5.1,2.8h-0.1v-2.4h-5.2V44h5.4v-8.6 c0-2.3,0.4-4.5,3.2-4.5c2.8,0,2.8,2.6,2.8,4.6V44H46v-9.5C46,29.8,45,26.2,39.5,26.2z" fill="white">
+  </path>
+</svg></a>
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="ycombinator" title="Share on Y Combinator"
+      href="https://news.ycombinator.com/submitlink?u=http%3a%2f%2flocalhost%3a1315%2fblog%2f2024%2f02%2ffluvio-deep-causality-rs&t=Real-time%20Streaming%20Analytics%20with%20Fluvio%2c%20DeepCausality%2c%20and%20Rust&text=real%20time%20streaming%20analytics%20with%20fluvio%2c%20deepcausality%2c%20and%20rust"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <circle cx="128" cy="128" r="125" fill="#FB651E"></circle>
+	<path d="M119.373653,144.745813 L75.43296,62.4315733 L95.5144533,62.4315733 L121.36192,114.52416 C121.759575,115.452022 122.2235,116.413008 122.753707,117.407147 C123.283914,118.401285 123.747838,119.428546 124.145493,120.48896 C124.410597,120.886615 124.609422,121.251127 124.741973,121.582507 C124.874525,121.913886 125.007075,122.212123 125.139627,122.477227 C125.802386,123.802744 126.39886,125.095105 126.929067,126.354347 C127.459274,127.613589 127.923198,128.773399 128.320853,129.833813 C129.381268,127.580433 130.541078,125.1614 131.80032,122.57664 C133.059562,119.99188 134.351922,117.307747 135.67744,114.52416 L161.92256,62.4315733 L180.612267,62.4315733 L136.27392,145.739947 L136.27392,198.826667 L119.373653,198.826667 L119.373653,144.745813 Z" fill="white">
+  </path>
+</svg></a>
+  </div>
+</div></div>
+
+    <h2 class="mt-4 text-sm text-gray-500 tracking-widest">
+      AUTHOR
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-4 w-5/6" />
+
+    <div class="w-full mx-auto flex flex-col items-start">
+      <div class="flex flex-col">
+  <img src="https://avatars.githubusercontent.com/marvin-hansen" alt="Marvin Hansen" class="h-16 w-16 rounded-full bg-gray-100">
+  <div class="text-base leading-6 pt-2">
+    <p class="font-semibold text-gray-900">
+      <a href="https://github.com/marvin-hansen">
+        Marvin Hansen
+      </a>
+    </p>
+    <p class="text-sm text-gray-600">
+      Contributor, InfinyOn
+    </p>
+  </div>
+</div>
+</div>
+
+    <h2 class="mt-8 text-sm text-gray-500 tracking-widest">
+      FLUVIO OSS
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-6 w-5/6" />
+    <div class="github">
+  <a href="https://gitHub.com/infinyon/fluvio/stargazers/"><img src="https://img.shields.io/github/stars/infinyon/fluvio?style=social" alt="GitHub stars"></a>
+</div>
+<h2 class="mt-12 text-sm text-gray-500 tracking-widest">
+  INFINYON CLOUD
+</h2>
+<hr class="border-b-0 border-gray-200 w-full mt-3 pb-3" />
+<div class="mt-2 py-5 w-full rounded-md bg-gradient-to-r from-magenta-800 to-magenta-400">
+  <a href="https://infinyon.cloud/signup">
+  <h3 class="text-base font-semibold text-pink-400 text-center">
+    Accelerated Onboarding
+  </h3>
+  <div class="pt-1 flex flex-row">
+    <div class="flex flex-col w-4/6 justify-center">
+      <h5 class="text-xs text-gray-100 pl-3">
+         Sign-up for personalized assistance from dedicated InfinyOn architect.
+      </h5>
+    </div>
+    <div class="flex flex-col mt-2 mr-2 h-20 w-20 rounded-md bg-black items-center justify-center">
+      <h5 class="text-base leading-5 font-bold text-neon-300 w-16 break-words text-center">
+        Free $3000
+      </h5>
+        <h6 class="text-xxs text-gray-100 pt-1">
+          2000 credits
+        </h6>
+    </div>
+  </div>
+  </a>
+</div></article>
+</aside></div>
+
+<script src="/js/copy-code.js"></script></main>
+    </div>
+    <footer class="bg-gray-900" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8">
+    <div class="lg:grid lg:grid-cols-10 lg:gap-8">
+
+      
+      <div class="lg:col-span-2 space-y-6">
+        <img class="h-7 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        <p class="text-sm leading-6 text-gray-300"></p>
+        <div class="flex space-x-6">
+            <a href="https://github.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">GitHub</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+            <a href="https://twitter.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">Twitter</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+</svg>
+            </a>
+            <a href="https://linkedin.com/company/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">linkedin</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
+  <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+</svg>
+            </a>
+            <a href="https://discordapp.com/invite/bBG2dTz" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">discord</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true"
+    viewBox="0 0 640 512">
+    <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z" />
+</svg>
+            </a>
+            <a href="https://www.youtube.com/@infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">YouTube</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+        </div>
+      </div>
+
+      
+      <div class="lg:col-span-8">
+        <div class="mt-16 lg:mt-0 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Cloud</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/infinyon-cloud" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Cloud
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/signup" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Sign Up
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/login" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Login
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Product</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Platform
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Hub
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Connectors
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webhooks
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    SmartModules
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Event Streams
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Stateful Streams
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Solutions</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/iot" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    IoT Aggregation
+                </a>
+                </li>
+                <li>
+                  <a href="/clickstream" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Website Monitoring
+                </a>
+                </li>
+                <li>
+                  <a href="/" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Microservices Event Bridge
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">About</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/about" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Company
+                </a>
+                </li>
+                <li>
+                  <a href="/careers" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Careers
+                </a>
+                </li>
+                <li>
+                  <a href="/resources" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Articles
+                </a>
+                </li>
+                <li>
+                  <a href="/press-releases" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    News
+                </a>
+                </li>
+                <li>
+                  <a href="/webinars" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webinars
+                </a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@infinyon/videos" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Videos
+                </a>
+                </li>
+                <li>
+                  <a href="/blog" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Blog
+                </a>
+                </li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="mt-8 border-t border-white/10 pt-4 text-center">
+      <div class="text-center text-xs text-gray-400">
+        
+        <span><a href="/legal/privacy">Privacy Policy</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/security">Security</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/user-agreement">Terms and Conditions</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/cookies">Cookie Notice</a></span>
+          
+      </div>
+      <p class="text-xs leading-5 text-gray-400">&copy; <span id="year"></span> InfinyOn, Inc. All rights reserved.</p>
+      <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+      </script>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<template x-if="open">
+  <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+  <div class="absolute left-0 -mt-16 -ml-4 z-20 content-start lg:hidden h-screen overflow-y-scroll" role="dialog" aria-modal="true">
+
+    <!-- Off-canvas menu backdrop, show/hide based on off-canvas menu state. -->
+    <div class="fixed inset-0 bg-gray-900/80" 
+      x-on:click="open = false"
+      x-transition:enter="duration-200 ease-out"
+      x-transition:enter-start="opacity-0 translate-y-1"
+      x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="duration-100 ease-in"
+      x-transition:leave-start="opacity-100 translate-y-0"
+      x-transition:leave-end="opacity-0 translate-y-1"
+    >
+    </div>
+
+    <div class="sticky inset-0 flex"
+      @keyup.escape.window="open = false"
+    >
+      <!-- Off-canvas menu, show/hide based on off-canvas menu state. -->
+      <div class="relative flex w-full max-w-xs flex-1" x-transition:enter="duration-200 ease-out"
+        x-transition:enter-start="opacity-0 translate-y-1"
+        x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="duration-100 ease-in"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-1">
+
+        <!-- Close button, show/hide based on off-canvas menu state. -->
+        <div class="absolute left-56 left-full -mt-3 ml-3 flex w-16 justify-center pt-5">
+          <button type="button" class="p-1 bg-white border border-gray-200" @click="open = !open">
+            <span class="sr-only">Close sidebar</span>
+            <svg class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="bg-white pt-2 pl-5 pr-2">
+          {{ partial "docs/side-bar.html" . -}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>

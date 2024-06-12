@@ -1,0 +1,27 @@
+{
+  "name": "InfinyOn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:css": "npx tailwindcss -i assets/input.css -o static/css/styles.css -w",
+    "dev:hugo": "./hugo-start.sh",
+    "dev": "run-p dev:*",
+    "build:css": "NODE_ENV=production npx tailwindcss -i assets/input.css -o static/css/styles.css -m",
+    "cf:deploy": "wrangler deploy",
+    "cf:start": "wrangler dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.4",
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "@tailwindcss/typography": "^0.5.9",
+    "npm-run-all": "^4.1.5",
+    "postcss-import": "^15.1.0",
+    "tailwindcss": "^3.2.7",
+    "wrangler": "^3.8.0"
+  }
+}

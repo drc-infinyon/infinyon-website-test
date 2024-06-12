@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>InfinyOn Inc. - Webinars on InfinyOn</title>
+    <link>http://localhost:1315/webinars/</link>
+    <description>Recent content in InfinyOn Inc. - Webinars on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Mar 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/webinars/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Real-time Pipeline Monitoring for the Energy Sector</title>
+      <link>http://localhost:1315/webinars/https/register.gotowebinar.com/register/5351212469941392217/</link>
+      <pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/webinars/https/register.gotowebinar.com/register/5351212469941392217/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Best practices for building real-time data pipelines with transformations</title>
+      <link>http://localhost:1315/webinars/https/register.gotowebinar.com/register/413196898453812054/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/webinars/https/register.gotowebinar.com/register/413196898453812054/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>IoT Streaming Analytics with Real-time Data</title>
+      <link>http://localhost:1315/webinars/https/register.gotowebinar.com/register/1655064493983483404/</link>
+      <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/webinars/https/register.gotowebinar.com/register/1655064493983483404/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Enhance your Kafka Infrastructure with Fluvio</title>
+      <link>http://localhost:1315/webinars/https/register.gotowebinar.com/register/7829882206451748624/</link>
+      <pubDate>Tue, 16 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/webinars/https/register.gotowebinar.com/register/7829882206451748624/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>How to power event-driven mobile applications with InfinyOn Cloud</title>
+      <link>http://localhost:1315/webinars/https/register.gotowebinar.com/register/1230486975204092688/</link>
+      <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/webinars/https/register.gotowebinar.com/register/1230486975204092688/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Real-time Event Streaming and Data Transformation for Financial Services</title>
+      <link>http://localhost:1315/webinars/https/register.gotowebinar.com/register/4870730280061351695/</link>
+      <pubDate>Tue, 12 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/webinars/https/register.gotowebinar.com/register/4870730280061351695/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Introduction to Fluvio, The Programmable Platform for Data in Motion</title>
+      <link>http://localhost:1315/webinars/https/register.gotowebinar.com/register/2865428877366707468/</link>
+      <pubDate>Thu, 24 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/webinars/https/register.gotowebinar.com/register/2865428877366707468/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Why Real-time Data Matters</title>
+      <link>http://localhost:1315/webinars/https/register.gotowebinar.com/register/5284910811222538255/</link>
+      <pubDate>Tue, 25 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/webinars/https/register.gotowebinar.com/register/5284910811222538255/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

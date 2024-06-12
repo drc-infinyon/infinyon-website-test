@@ -1,0 +1,9 @@
+{{ define "head-meta" }}
+  {{ partial "blog/list/first-blog-metadata.html" .ctx }}
+{{- end }}
+
+{{ define "main" }}
+<main>
+  {{ partial "blog/list/index.html" .ctx -}}
+</main>
+{{- end }}

@@ -1,0 +1,8 @@
+{{- $partialName := (printf "heroicons/svgs/%s" .name) -}}
+{{- $class := .class | default "w-6 h-6" -}}
+{{- if .color -}}
+    {{- $class =  printf "%s %s" $class .color -}}
+{{- end -}}
+{{ if fileExists (printf "layouts/partials/%s.html" $partialName) -}}
+    {{ partial $partialName (dict "class" $class) -}}
+{{ end -}}

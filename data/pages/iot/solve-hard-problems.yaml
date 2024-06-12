@@ -1,0 +1,26 @@
+section: "cards-with-images"
+content:
+  title:  "Solve hard problems in edge analytics"
+  use_color: true
+  items:
+    - title: 
+        keyword: "Protect"
+        text: "<br/> Edge Devices"
+      image:
+        src: "/assets/main/protect-white.png"
+        alt: "protect edge devices"
+      description: "Leverage advanced caching, mirroring, and buffering capabilities to protect your devices"
+    - title: 
+        keyword: "Prevent"
+        text: "<br/>Data Loss"
+      image:
+        src: "/assets/main/prevent-dataloss-light.png"
+        alt: "prevent data loss"
+      description: "Leverage the low footprint single binary solution to ensure that you keep all your data"
+    - title: 
+        keyword: "Integrate"
+        text: "<br/> Edge & Cloud"
+      image:
+        src: "/assets/main/integrate-edge-cloud-light.png"
+        alt: "integrate edge & cloud"
+      description: "Use a single platform to connect your edge data sources and your cloud data lake."

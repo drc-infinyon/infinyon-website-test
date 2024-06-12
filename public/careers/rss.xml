@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>InfinyOn | Careers on InfinyOn</title>
+    <link>http://localhost:1315/careers/</link>
+    <description>Recent content in InfinyOn | Careers on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1315/careers/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Head of Product Management (Global)</title>
+      <link>http://localhost:1315/careers/head-of-product-management/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/head-of-product-management/</guid>
+      <description>Role We’re looking for self-motivated team members who crave a challenge and feel energized to roll up their sleeves and help realize InfinyOn’s enormous potential. Chart your own path and take healthy risks as we solve big problems together.&#xA;InfinyOn Cloud, built on Fluvio OSS, delivers a complete end-to-end event streaming experience via a Software as a Service (SaaS) model. Moving data multiple times between databases, microservices, and analytics tools is expensive and complicated.</description>
+    </item>
+    <item>
+      <title>Senior Rust Engineer - Cloud Web UI</title>
+      <link>http://localhost:1315/careers/cloud-ui-engineer-senior-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/cloud-ui-engineer-senior-level/</guid>
+      <description>Role We are looking for a passionate senior Rust frontend engineer to build our cloud offering. Your contributions will help us fulfill our mission to enable organizations to accelerate the adoption of real-time intelligent data services.&#xA;In this role, you will be crafting a beautiful and intuitive user interface for our web applications to enable users to move data in real-time. You will be solving many engineering challenges, such as optimizing data streams for browser stack, building powerful but simple user interfaces to control data movement, and converting data streams into real-time visualization.</description>
+    </item>
+    <item>
+      <title>Senior UI/UX Designer</title>
+      <link>http://localhost:1315/careers/ui-ux-senior-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/ui-ux-senior-level/</guid>
+      <description>Role We are looking for a passionate senior UI/UX designer for our cloud offering. Your contributions will help us fulfill our mission to enable organizations to accelerate the adoption of real-time intelligent data services.&#xA;In this role, you will be designing beautiful and intuitive user interfaces for our web applications to enable users to move data in real-time. You will be solving many design challenges, such as onboarding users of varying levels of expertise in data streaming architecture.</description>
+    </item>
+    <item>
+      <title>Software Engineer (Cloud Services)</title>
+      <link>http://localhost:1315/careers/cloud-engineer-mid-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/cloud-engineer-mid-level/</guid>
+      <description>Role We are looking for an extraordinary Rust engineer passionate about building reliable and scalable infrastructure for real-time data streaming. Your contributions will help us fulfill our mission to enable organizations to accelerate the adoption of intelligent data services without maintaining the infrastructure.&#xA;In this role, you will be working in every part of the infrastructure stack all the way from writing storage and network components, extending the control plane to building a UI dashboard.</description>
+    </item>
+    <item>
+      <title>Sr. Rust Cloud Software Engineer</title>
+      <link>http://localhost:1315/careers/cloud-engineer-senior-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/cloud-engineer-senior-level/</guid>
+      <description>Role We seek a Senior Rust engineer with a startup mentality to construct the next generation of real-time cloud data infrastructure. You will collaborate with a team of talented engineers across global locations to design and operate the highest reliable and scalable real-time data stack. You are skilled in turning cutting-edge technologies such as Rust, Kubernetes, and WebAssembly into simple, user-friendly products. As a Cloud software engineer, you will be working in every part of the stack, from writing low-level networking code to building high-performance distributed services.</description>
+    </item>
+    <item>
+      <title>Sr. Rust Software Engineer (Infrastructure)</title>
+      <link>http://localhost:1315/careers/infrastructure-engineer-senior-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/infrastructure-engineer-senior-level/</guid>
+      <description>Role We are looking for a Rust expert passionate about building reliable and scalable infrastructure for real-time data streaming. If you are passionate about Rust and want to contribute to the next generation open-source distributed systems that will change the way we develop scalable apps, you are in the right place. You will be turning cutting edge ideas like event streaming, WebAssembly, and Serverless into a self-service platform. Checkout our open source project fluvio.</description>
+    </item>
+    <item>
+      <title>Sr. Software Engineer (Connectors)</title>
+      <link>http://localhost:1315/careers/connectors-engineer-senior-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/connectors-engineer-senior-level/</guid>
+      <description>Role We are looking for a connector engineer to develop both open source and cloud connectors using our revolutionary SmartConnector technology, which is built on top of WebAssembly and real-time fluvio streaming technology.&#xA;Responsibilities Build and maintain source and destination connectors using Rust. Responsible for the entire connector lifecycle from inception, development, testing, operations, and support. Engage with both open source and cloud communities. Contribute and help shape the Connector roadmap.</description>
+    </item>
+    <item>
+      <title>Developer Advocate</title>
+      <link>http://localhost:1315/careers/developer-advocate-mid-senior-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/developer-advocate-mid-senior-level/</guid>
+      <description>Role We are looking for a developer advocate to spread the word about Fluvio, a high-performance data streaming platform written in Rust. As a Developer Advocate, you&amp;rsquo;ll work closely with our third-party developers on developing the Fluvio community. You must thrive on new challenges as you&amp;rsquo;ll seldom face the same problem two days in a row. You are frequent public speaker and active on social media.&#xA;Responsibilities Plan and coordinate webinars and meetups to showcase the Fluvio platform.</description>
+    </item>
+    <item>
+      <title>Solutions Architect</title>
+      <link>http://localhost:1315/careers/solutions-architect/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/careers/solutions-architect/</guid>
+      <description>Role We are looking for a solutions architect to partner as a technical advisor to the sales team organiztion. You will work very closely with the product management, marketing and engineering teams and serve as a vital product advocate in front of prospects, customers, and the wider Data Streaming communities.&#xA;You will be a trusted advisor to InfinyOn prospects and customers as they undertake technical demos, design and development of their end-to-end solution, be conversant with the current state and future roadmap of Fluvio in open source and be able to identify known issues and inform them of upcoming fixes or workarounds.</description>
+    </item>
+  </channel>
+</rss>

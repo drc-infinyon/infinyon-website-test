@@ -1,0 +1,13 @@
+{{ $label := .Get 0 }}
+
+<div x-data="{ modal: false, toggle_modal() { this.modal = !this.modal; } }">
+    <button type="button"
+        class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        @click="toggle_modal()" x-effect="console.log(modal)">
+        {{ $label }}
+    </button>
+
+    <div x-show="modal" x-cloak>
+        {{- partial "components/modal-demo" (dict "dialogId" "contentBtn" "title" $label "source" .Page.Title) -}}
+    </div>
+</div>

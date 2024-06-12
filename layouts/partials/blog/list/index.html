@@ -1,0 +1,18 @@
+{{- $header := .Params.header -}}
+{{- $description := .Params.description -}}
+<div class="py-16">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight tracking-wide leading-tight text-indigo-800 sm:text-4xl">{{ $header }}</h2>
+      <p class="mt-2 text-lg leading-8 text-gray-700">{{ $description }}</p>
+    </div>
+    <div class="mx-auto mt-16 grid grid-cols-1 gap-y-16 gap-x-12 px-2 sm:px-10 lg:gap-x-20 lg:px-20 xl:px-0 lg:grid-cols-2 xl:gap-x-12 xl:gap-y-12 xl:grid-cols-3">
+      {{ range .Pages.ByDate.Reverse }}
+      {{- $notHidden := ne (.Params.hidden | default false) true -}}
+      {{- if $notHidden -}}
+        {{ partial "blog/list/tile.html" . -}}
+      {{- end -}}
+    {{ end }}      
+    </div>
+  </div>
+</div> 

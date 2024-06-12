@@ -1,0 +1,8 @@
+{{- $section := .section -}}
+{{- $page := .page }}
+{{- $underline := " underline underline-offset-8 decoration-1" }}
+{{ $active := "" -}}
+{{ if eq $section (.page.identifier | lower) -}}            
+  {{ $active = $underline -}}
+{{ end -}}
+<a href="{{ .page.url }}" class="text-base text-white hover:text-gray-300 {{ $active }}" class="">{{ .page.name }}</a>

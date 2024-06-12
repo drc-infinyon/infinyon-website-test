@@ -1,0 +1,10 @@
+section: "quote-single"
+content:
+  title: "Technology Leaders Experience"
+  user: 
+    name: "Ben Cleary"
+    title: "CTO of Klarian"
+  image:
+    src: "/assets/users/Ben-Cleary.jpg"
+    alt: "CTO of Klarian"
+  quote: "By adopting InfinyOn Cloud, we've transformed our engineering velocity and eliminated the roadblocks and delays associated with traditional systems and services, empowering our teams to focus on innovation and growth."

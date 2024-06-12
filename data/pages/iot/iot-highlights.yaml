@@ -1,0 +1,28 @@
+section: "boxes-and-image"
+content: 
+  title:  "Testing 2 columns"
+  sections:
+    - title: "This the title/description of this section, which can be as short or as long as desired."
+      direction: "ltr"
+      image:
+        src: "/assets/sample-hero-img.svg"
+        alt: "Image description goes here"
+      items:
+        - title: "Title for Item One"
+          description: "This is is description of item 1, which can be as short or as long as desirable."
+        - title: "Title for Item Two"
+          description: "This is is description of item 2, which can be as short or as long as desirable."
+        - title: "Title for Item Three"
+          description: "This is is description of item 3, which can be as short or as long as desirable."
+    - title: "This the title/description of this section, which can be as short or as long as desired."
+      direction: "rtl"
+      image:
+        src: "/assets/sample-hero-img.svg"
+        alt: "Image description goes here"
+      items:
+        - title: "Title for Item One"
+          description: "This is is description of item 1, which can be as short or as long as desirable."
+        - title: "Title for Item Two"
+          description: "This is is description of item 2, which can be as little or as long as desirable."
+        - title: "Title for Item Three"
+          description: "This is is description of item 3, which can be as little or as long as desirable."

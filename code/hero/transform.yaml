@@ -1,0 +1,26 @@
+transforms:
+  - uses: infinyon/jolt@0.3.0
+    with:
+      spec:
+        - operation: shift
+          spec:
+            payload:
+              VP:
+                veh: "vehicle"
+                spd: "speed"
+  - uses: infinyon/json-sql@0.2.1
+    with:
+      mapping:
+        table: "speed"
+        map-columns:
+          "lat":
+          "vehicle":
+            json-key: "vehicle"
+            value:
+              type: "int"
+              required: true
+          "speed":
+            json-key: "speed"
+            value:
+              type: "float"
+              required: true

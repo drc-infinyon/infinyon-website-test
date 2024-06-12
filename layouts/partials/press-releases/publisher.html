@@ -1,0 +1,57 @@
+{{- $title := (.Param "title") | safeHTML -}}
+{{- $description := (.Param "description") | safeHTML -}}
+{{- $url := absURL (.Param "url") | safeHTML -}}
+{{- $date := .Param "date" -}}
+{{- $pubText := .Param "publisher.text" -}}
+{{- $pubLink := .Param "publisher.link" -}}
+{{- $author := .Param "author.github" -}}
+{{- $name := .Param "author.name" -}}
+{{- $fluvio := .Site.Data.globals.fluvio -}}
+{{- $InfinyOnCoud := .Site.Data.globals.infinyonCloud -}}
+{{- $socialClass := "text-magenta-400 hover:text-magenta-600" -}}
+<div class="flex flex-row lg:flex-col">
+
+  <div class="font-av text-gray-700">
+    <div class="font-semibold leading-7">
+      {{- time.Format "January 2, 2006" $date | upper -}}
+    </div>
+
+    <div class="text-gray-500">
+      {{- time.Format "9:04 PM GMT" $date -}}
+    </div>
+
+    <div class="text-av pt-2 text-magenta-400">
+      <a href ="{{ $pubLink }}" class="hover:underline decoration-1 underline-offset-2" target="_blank">
+        <div class="flex flex-row gap-1 whitespace-nowrap">
+          {{ $pubText }}
+          {{ partial "heroicons/svgs/arrow-top-right-on-rectangle" (dict "class" "w-5 h-5") -}}
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="grow"></div>
+  <div class="flex gap-2 pt-6 mr-10 lg:mr-0">
+    <a class="{{ $socialClass }}" title="Share on Twitter"
+      href="https://twitter.com/intent/tweet?url={{ $url }}&text={{ $title }}"
+      target="_blank">
+      {{ partial "heroicons/svgs/circled/twitter" (dict "fill" "currentColor") -}}
+    </a>
+    <a class="{{ $socialClass }}" title="Share on LinkedIn"
+      href="https://www.linkedin.com/shareArticle?url={{ $url }}&title={{ $title }}&summary={{ $description }}"
+      target="_blank">
+      {{ partial "heroicons/svgs/circled/linkedin" (dict "fill" "currentColor") -}}
+    </a>
+    <a class="{{ $socialClass }}" title="Share on Y Combinator"
+      href="https://news.ycombinator.com/submitlink?u={{ $url }}&t={{ $title }}&text={{ $description }}"
+      target="_blank">
+      {{ partial "heroicons/svgs/circled/ycombinator" (dict "fill" "currentColor") -}}
+    </a>
+    <a class="{{ $socialClass }}" title="Share on Reddit"
+      href="https://www.reddit.com/submit?url={{ $url }}&title={{ $title }}&text={{ $description }}"
+      target="_blank">
+      {{ partial "heroicons/svgs/circled/reddit" (dict "fill" "currentColor") -}}
+    </a>
+  </div>
+
+</div>

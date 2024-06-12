@@ -1,0 +1,17 @@
+{{- $section := .Section -}}
+<div class="bg-white">
+  <div class="mx-auto w-full">
+    <div class="px-6 mt-8 mb-10">
+      <div class="mx-auto max-w-4xl prose prose-quoteless prose-zing prose-md">
+        {{ .Content }}
+
+        <p class="pt-3">
+          <a href="{{ref . $section}}">
+            << Return to <span class="capitalize">{{ $section }}</span>
+          </a>
+        </p>
+
+      </div> 
+    </div>
+  </div>
+</div>

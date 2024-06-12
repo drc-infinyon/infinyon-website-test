@@ -1,0 +1,7 @@
+section: "call-to-action"
+content:
+  title: "Level Up Your Data Platform"
+  description: "1 - Deliver continuous intelligence with focus on business challenges.</br>2 - Implement real-time event driven architecture on ONE platform.</br>3 - Enjoy the freedom from infrastructure management hell.</br>4 - Drive higher returns on your data investment."
+  button:
+    label: "Book a Discovery Session"
+    ref: "/request/book-a-call"

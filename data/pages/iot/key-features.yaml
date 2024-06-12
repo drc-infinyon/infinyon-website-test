@@ -1,0 +1,36 @@
+section: "key-features"
+content: 
+  title:  "Benefits you get"
+  items:
+    - title: "Lightweight Streaming"
+      description: "Run a single ~14 Mb Fluvio binary on ARMv7 chips, even on edge devices with only 256 MB of memory. It is a powerful, robust solution that scales seamlessly."
+      image:
+        src: "/assets/main/lightweight-light.png"
+        alt: "lightweight data streaming platform"      
+      link:
+        ref: "/docs/guides/iot-mirroring-local/"
+        label: "Try it on Raspberry Pi"
+    - title: "Advanced Caching"
+      description: "Don't lose any past data even if your edge device loses power with advanced caching on edge device cluster. And eliminate memory exceptions too."
+      image:
+        src: "/assets/main/advanced-caching-light.png"
+        alt: "advanced caching"      
+      link:
+        ref: "/docs/guides/iot-mirroring-cloud/"
+        label: "Experience Advanced Caching"
+    - title: "Automatic Sync"
+      description: "Experience continuous data connectivity between edge and cloud. Retrieve all edge data, even during network downtimes, with automated synchronization."
+      image:
+        src: "/assets/main/auto-sync-light.png"
+        alt: "automatic synchronization"      
+      link:
+        ref: "/docs/guides/iot-mirroring-cloud/"
+        label: "Experience Mirroring"
+    - title: "Intelligent Processing"
+      description: "Process edge data with wasm based in-flight transformations, filters, and enrichments. Integrate edge and cloud analytics on a single platform."
+      image:
+        src: "/assets/main/intelligent-processing-light.png"
+        alt: "intelligent processing"      
+      link:
+        ref: "/docs/guides/iot-mirroring-cloud/"
+        label: "Try Cloud Data Flow"

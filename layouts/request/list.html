@@ -1,0 +1,14 @@
+{{ define "head-meta" }}
+  {{- $reCAPTCHA_key := .env.reCAPTCHA_key -}}
+  <script src="https://www.google.com/recaptcha/api.js?render={{ $reCAPTCHA_key }}"></script>
+{{- end }}
+
+{{ define "main" }}
+  {{- $styling := .ctx.Site.Data.styling -}}
+  {{- $content := .ctx.Param "content" -}}
+  {{- $reCAPTCHA_key := .env.reCAPTCHA_key -}}
+
+  <main>
+    {{ partial "request/signup-form" (dict "content" $content "styling" $styling "reCAPTCHA_key" $reCAPTCHA_key) }}
+  </main>
+{{- end }}

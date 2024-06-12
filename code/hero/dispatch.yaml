@@ -1,0 +1,10 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.1.0
+  name: md-helsinki
+  type: duckdb-sink
+  topic: helsinki
+  secrets:
+    - name: MD_TOKEN
+duckdb:
+  url: "md:?token=${{ secrets.MD_TOKEN }}"

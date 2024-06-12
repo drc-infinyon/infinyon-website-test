@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud Connectors on InfinyOn</title>
+    <link>http://localhost:1315/docs/connectors/</link>
+    <description>Recent content in Cloud Connectors on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1315/docs/connectors/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DuckDB Connector</title>
+      <link>http://localhost:1315/docs/connectors/duckdb/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/connectors/duckdb/</guid>
+      <description>Data Direction Inbound Outbound ❌ ✅ DuckDb connector is experimental.&#xA;Outbound Connector The DuckDB Sink connector reads records from Fluvio topic, applies configured transformations, and sends new records to the SQL database (via INSERT statements).&#xA;SQL Model to DuckDB types mapping The DuckDB Sink connector expects the data in Fluvio SQL Model in JSON format. In order to work with different data formats or data structures.&#xA;The following table shows the mapping between SQL Model and DuckDB types:</description>
+    </item>
+    <item>
+      <title>Graphite Connector</title>
+      <link>http://localhost:1315/docs/connectors/graphite/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/connectors/graphite/</guid>
+      <description>Data Direction Inbound Outbound ❌ ✅ Outbound Connector The Graphite Sink connector reads records from Fluvio topic and sends them to the configured Graphite&amp;rsquo;s Metric using the PlainText approach.&#xA;Configuration This connectors establishes a TCP Stream against the specified host on Graphite, records are sent as UTF-8 encoded strings following Graphite&amp;rsquo;s PlainText format.&#xA;The following example connector configuration can be used to send records to the Graphite&amp;rsquo;s Metric weather.temperature.ca.sandiego, the Graphite&amp;rsquo;s TCP server address is specified on the addr field.</description>
+    </item>
+    <item>
+      <title>HTTP Connector</title>
+      <link>http://localhost:1315/docs/connectors/http/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/connectors/http/</guid>
+      <description>Data Direction Inbound Outbound ✅ ✅ Inbound Connector Read HTTP Responses given input HTTP request configuration options and interval x and produces them to Fluvio topics.&#xA;Supports HTTP/1.0, HTTP/1.1, HTTP/2.0 protocols.&#xA;See docs here. Tutorial for HTTP to SQL Pipeline.&#xA;Configuration Option default type description interval 10s String Interval between each HTTP Request. This is in the form of &amp;ldquo;1s&amp;rdquo;, &amp;ldquo;10ms&amp;rdquo;, &amp;ldquo;1m&amp;rdquo;, &amp;ldquo;1ns&amp;rdquo;, etc. method GET String GET, POST, PUT, HEAD endpoint - String HTTP URL endpoint headers - Array&amp;lt;String&amp;gt; Request header(s) &amp;ldquo;Key:Value&amp;rdquo; pairs body - String Request body e.</description>
+    </item>
+    <item>
+      <title>Kafka Connector</title>
+      <link>http://localhost:1315/docs/connectors/kafka/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/connectors/kafka/</guid>
+      <description>Data Direction Inbound Outbound ✅ ✅ Inbound Connector This is a connector for taking data from a Kafka topic and sending to a Fluvio topic.&#xA;Configuration Opt default type description url - String The url for the kafka connector topic - String The kafka topic partition 0 Integer The kafka partition group fluvio-kafka-source String The kafka consumer group Example:&#xA;apiVersion: 0.1.0 meta: version: 0.2.5 name: my-kafka-connector type: kafka-source topic: kafka-topic create-topic: true kafka: url: &amp;#34;my.</description>
+    </item>
+    <item>
+      <title>MQTT Connector</title>
+      <link>http://localhost:1315/docs/connectors/mqtt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/connectors/mqtt/</guid>
+      <description>Data Direction Inbound Outbound ✅ ❌ Inbound Connector Reads record from MQTT topic and writes to Fluvio topic.&#xA;Supports MQTT V3.1.1 and V5 protocols.&#xA;Guide for MQTT to SQL Pipeline.&#xA;Configuration Option default type description timeout 60s Duration mqtt broker connect timeout in seconds and nanoseconds url - SecretString MQTT url which includes schema, domain, port and credentials such as username and password. topic - String mqtt topic to subscribe and source events from client_id UUID V4 String mqtt client ID.</description>
+    </item>
+    <item>
+      <title>SQL Connector</title>
+      <link>http://localhost:1315/docs/connectors/sql/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/connectors/sql/</guid>
+      <description>Data Direction Inbound Outbound ❌ ✅ Outbound Connector The SQL Sink connector reads records from Fluvio topic, applies configured transformations, and sends new records to the SQL database (via INSERT statements).&#xA;Supported databases PostgreSQL SQLite Data types Model PostgreSQL SQLite Bool BOOL BOOLEAN Char CHAR INTEGER SmallInt SMALLINT, SMALLSERIAL, INT2 INTEGER Int INT, SERIAL, INT4 INTEGER BigInt BIGINT, BIGSERIAL, INT8 BIGINT, INT8 Float REAL, FLOAT4 REAL DoublePrecision DOUBLE PRECISION, FLOAT8 REAL Text VARCHAR, CHAR(N), TEXT, NAME TEXT Bytes BYTEA BLOB Numeric NUMERIC REAL Timestamp TIMESTAMP DATETIME Date DATE DATE Time TIME TIME Uuid UUID BLOB, TEXT Json JSON, JSONB TEXT Transformations The SQL Sink connector expects the data in Fluvio SQL Model in JSON format.</description>
+    </item>
+  </channel>
+</rss>

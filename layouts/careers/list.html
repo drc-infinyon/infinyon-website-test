@@ -1,0 +1,6 @@
+{{ define "main" }}
+<main>
+  {{ partial (printf "components/%s.html" (.ctx.Param "hero.component")) .ctx -}}
+  {{ partial "careers/positions.html" .ctx -}}
+</main>
+{{- end }}

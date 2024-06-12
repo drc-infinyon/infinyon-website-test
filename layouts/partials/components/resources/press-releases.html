@@ -1,0 +1,25 @@
+{{- $title := .title -}}
+{{- $description := .description -}}
+{{- $category := .item.Param "category" | default "article" -}}
+{{- $icon := .item.Param "icon" | default "newspaper" -}}
+{{- $date := .item.Param "date" -}}
+{{- $link := .item.Param "slug" -}}
+
+<dt class="text-base lg:col-span-3">
+  <div class="text-av leading-7 text-gray-700">
+    {{ time.Format "January 2, 2006" $date | upper}}
+  </div>
+  <div class="text-xs text-gray-400 leading-5">
+    {{ partial (printf "heroicons/svgs/%s.html" $icon) (dict "class" "w-5 h-5 float-left") -}}
+    <span class="ml-1"> {{ $category | upper }} </span>
+  </div>
+</dt>
+
+<dd class="lg:col-span-9 mt-4 lg:mt-0">
+  <a href="{{ $link }}" class="text-lg leading-7 text-magenta-400 hover:underline decoration-1 underline-offset-2">
+    {{- $title -}}
+  </a>
+  <p class="mt-1 text-base tracking-wide leading-7 text-gray-500">
+    {{- $description -}}
+  </p>
+</dd>

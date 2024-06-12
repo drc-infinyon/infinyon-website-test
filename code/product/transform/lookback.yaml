@@ -1,0 +1,6 @@
+# Look at last 10 records.
+# Filter out based based on your custom business logic.
+transforms:
+  - uses: infinyon/fluvio-smartmodule-filter-lookback@0.1.0
+    lookback:
+      last: 10

@@ -1,0 +1,22 @@
+section: "quotes-3blocks"
+content:
+  title: "What data practitioners say"
+  items:
+  - name: "Artem"
+    title: "Data Platform Architect"
+    image:
+      src: "/assets/users/artem-bw.jpg"
+      alt: "CEO and Author"
+    quote: "I would love a unified solution without the memory limitations of JVM based tools."
+  - name: "Joao"
+    title: "Cloud Infrastructure Architect"
+    image:
+      src: "/assets/users/joao-bw.jpg"
+      alt: "Cloud Architect"
+    quote: "It was awesome to see the CLI experience. That's like a million times better than Kafka. I think it's uncomfortable how much better it is than the Kafka."
+  - name: "Jowanza"
+    title: "Data Practitioner, CEO, Author"
+    image:
+      src: "/assets/users/jowanza.jpg"
+      alt: "CEO and Author"
+    quote: "The event based approach without babysitting a bunch of point solutions is the way I want to build."

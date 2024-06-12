@@ -1,0 +1,17 @@
+{{- $bg_color := .styling.page_bg_color_2 -}}
+{{- $title := .content.title -}}
+{{- $subtitle := .content.subtitle -}}
+
+<div class="{{ $bg_color }} py-24">
+  <div class="max-w-xl sm:max-w-3xl lg:max-w-7xl mx-auto">
+
+    <div class="pb-8">
+      {{ partial "components/title" (dict "title" $title "subtitle" $subtitle) }}
+    </div>
+
+    <div class="px-5">
+      {{ partial "components/key-features"  (dict "content" .content "styling" .styling) }}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,189 @@
+{{- $url := .Get "url" }}
+<script type="text/javascript" src= '/js/pdf-js/build/pdf.js'></script>
+
+<div class="mx-auto max-w-xl md:max-w-3xl lg:max-w-4xl pt-2">
+  <div class="flex flex-col">
+    <div class="inline-flex">
+      <button id="prev" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-magenta-700 rounded-l hover:bg-magenta-400 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        {{ partial "heroicons/svgs/prev" (dict "class" "w-5 h-5 mr-2") -}}
+        Prev
+      </button>
+      <button id="next" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-magenta-700 border-0 border-l border-gray-700 rounded-r hover:bg-magenta-400 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          Next
+          {{ partial "heroicons/svgs/next" (dict "class" "w-5 h-5 ml-2") -}}
+      </button>
+      <div class="ml-2 pt-2 text-gray-600 grow">
+        Page: <span id="page_num"></span> / <span id="page_count"></span>
+      </div>
+      <div>
+        <button
+          class="inline-flex px-4 py-2 text-sm font-medium text-white bg-magenta-700 rounded hover:bg-magenta-400 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          onClick="window.location.href='{{ $url }}'"
+        >
+        {{ partial "heroicons/svgs/arrow-download-tray" (dict "class" "w-5 h-5 mr-2") -}}
+        Download
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mt-4" id="paginator"></div>
+
+  <div id="embed-pdf-container">
+      <div id="loadingWrapper">
+        <div id="loading"></div>
+      </div>
+      <canvas class="mx-auto max-w-xl md:max-w-3xl lg:max-w-4xl shadow-md border border-gray-100" id="the-canvas"></canvas>
+  </div>
+  
+</div>
+
+<script type="text/javascript">
+window.onload = function() {
+// If absolute URL from the remote server is provided, configure the CORS
+// header on that server.
+var url = "{{ $url }}";
+
+var hidePaginator = '{{ .Get "hidePaginator" }}' === "true";
+var hideLoader = '{{ .Get "hideLoader" }}' === "true";
+var selectedPageNum = parseInt('{{ .Get "renderPageNum" }}') || 1;
+
+// Loaded via <script> tag, create shortcut to access PDF.js exports.
+var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+// The workerSrc property shall be specified.
+pdfjsLib.GlobalWorkerOptions.workerSrc = "{{.Site.BaseURL}}" + 'js/pdf-js/build/pdf.worker.js';
+
+// Change the Scale value for lower or higher resolution.
+var pdfDoc = null,
+    pageNum = selectedPageNum,
+    pageRendering = false,
+    pageNumPending = null,
+    scale = 3,
+    canvas = document.getElementById('the-canvas'),
+    ctx = canvas.getContext('2d'),
+    paginator = document.getElementById("paginator"),
+    loadingWrapper = document.getElementById('loadingWrapper');
+
+
+// Attempt to show paginator and loader if enabled
+showPaginator();
+showLoader();
+
+/**
+ * Get page info from document, resize canvas accordingly, and render page.
+ * @param num Page number.
+ */
+function renderPage(num) {
+  pageRendering = true;
+
+  // Using promise to fetch the page
+  pdfDoc.getPage(num).then(function(page) {
+    var viewport = page.getViewport({scale: scale});
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    // Render PDF page into canvas context
+    var renderContext = {
+      canvasContext: ctx,
+      viewport: viewport
+    };
+    var renderTask = page.render(renderContext);
+
+    // Wait for rendering to finish
+    renderTask.promise.then(function() {
+      pageRendering = false;
+      showContent();
+      
+      if (pageNumPending !== null) {
+        // New page rendering is pending
+        renderPage(pageNumPending);
+        pageNumPending = null;
+      }
+    });
+  });
+
+  // Update page counters
+  document.getElementById('page_num').textContent = num;
+}
+
+/**
+ * Hides loader and shows canvas
+ */
+function showContent() {
+  loadingWrapper.style.display = 'none';
+  canvas.style.display = 'block';
+}
+
+/**
+ * If we haven't disabled the loader, show loader and hide canvas
+ */
+function showLoader() {
+  if(hideLoader) return
+  loadingWrapper.style.display = 'flex';
+  canvas.style.display = 'none';
+}
+
+/**
+ * If we haven't disabled the paginator, show paginator
+ */
+function showPaginator() {
+  if(hidePaginator) return
+  paginator.style.display = 'block';
+}
+
+/**
+ * If another page rendering in progress, waits until the rendering is
+ * finished. Otherwise, executes rendering immediately.
+ */
+function queueRenderPage(num) {
+  if (pageRendering) {
+    pageNumPending = num;
+  } else {
+    renderPage(num);
+  }
+}
+
+/**
+ * Displays previous page.
+ */
+function onPrevPage() {
+  if (pageNum <= 1) {
+    return;
+  }
+  pageNum--;
+  queueRenderPage(pageNum);
+}
+document.getElementById('prev').addEventListener('click', onPrevPage);
+
+/**
+ * Displays next page.
+ */
+function onNextPage() {
+  if (pageNum >= pdfDoc.numPages) {
+    return;
+  }
+  pageNum++;
+  queueRenderPage(pageNum);
+}
+document.getElementById('next').addEventListener('click', onNextPage);
+
+/**
+ * Asynchronously downloads PDF.
+ */
+pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+  pdfDoc = pdfDoc_;
+  var numPages = pdfDoc.numPages;
+  document.getElementById('page_count').textContent = numPages;
+  
+  // If the user passed in a number that is out of range, render the last page.
+  if(pageNum > numPages) {
+    pageNum = numPages
+  }
+
+  // Initial/first page rendering
+  renderPage(pageNum);
+});
+}
+
+</script>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Certified SmartModules on InfinyOn</title>
+    <link>http://localhost:1315/docs/smartmodules/</link>
+    <description>Recent content in Certified SmartModules on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1315/docs/smartmodules/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jolt</title>
+      <link>http://localhost:1315/docs/smartmodules/jolt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/smartmodules/jolt/</guid>
+      <description>Jolt provides JSON to JSON transformation&#xA;This is a map-type SmartModule that transforms JSON records leveraging Fluvio Jolt library, which has its own DSL (Domain Specific Language) to remove the need for coding simple transformations.&#xA;The transformations in Jolt are a set of operations that are sequentially performed over incoming records.&#xA;-&amp;gt; Jolt only works on JSON text records.&#xA;There are three main types of operations:&#xA;Shift - move the field from one location to another Default - specify a default value for the field, if not present Remove - delete the field from the object There can be a mix and match of transformations applied at the same time.</description>
+    </item>
+    <item>
+      <title>JSON to SQL Mapping</title>
+      <link>http://localhost:1315/docs/smartmodules/json-sql/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/smartmodules/json-sql/</guid>
+      <description>This is a map-type SmartModule that converts arbitrary JSON records into SQL model, which is a self-describing representation of SQL INSERT statements. This SmartModule is intended to be used in [SQL Sink Connector][sql-sink-connector], to execute a command in a SQL database.&#xA;Mapping The mapping between incoming JSON records and the resulting SQL record is defined in the configuration of the SmartModule in the mapping init parameter. Let&amp;rsquo;s look at the example:</description>
+    </item>
+    <item>
+      <title>Regex</title>
+      <link>http://localhost:1315/docs/smartmodules/regex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/smartmodules/regex/</guid>
+      <description>This is a filter-type SmartModule that tests the input record against a provided regular expression. The record is returned if there is a match.&#xA;Usage example &amp;lt;TODO: Make this example use only fluvio&amp;gt;&#xA;First, we need to download it to our cluster:&#xA;%copy first-line%&#xA;$ fluvio hub download infinyon/regex-filter@0.1.0 Second, we create a file transform.yaml defining our regular expression:&#xA;%copy%&#xA;# transform.yaml transforms: - uses: infinyon/regex-filter@0.1.0 with: regex: &amp;#34;[Cc]at&amp;#34; Let&amp;rsquo;s use smdk test to see it in action:</description>
+    </item>
+    <item>
+      <title>ArrayMap Json</title>
+      <link>http://localhost:1315/docs/smartmodules/array-map-json/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/smartmodules/array-map-json/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Deduplication</title>
+      <link>http://localhost:1315/docs/smartmodules/dedupe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/smartmodules/dedupe/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Github Stars &#43; Forks Changes</title>
+      <link>http://localhost:1315/docs/smartmodules/stars-forks-changes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/smartmodules/stars-forks-changes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Json Formatter</title>
+      <link>http://localhost:1315/docs/smartmodules/json-formatter/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/smartmodules/json-formatter/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RSS to Json</title>
+      <link>http://localhost:1315/docs/smartmodules/rss-json/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/smartmodules/rss-json/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

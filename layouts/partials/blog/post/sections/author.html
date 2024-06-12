@@ -1,0 +1,17 @@
+{{- $author := .Params.author.github -}}
+{{- $name := .Params.author.name -}}
+{{- $title := .Params.author.title | default "Contributor" -}}
+{{- $company := .Params.author.company | default "InfinyOn" -}}
+<div class="flex flex-col">
+  <img src="https://avatars.githubusercontent.com/{{ $author }}" alt="{{ $name }}" class="h-16 w-16 rounded-full bg-gray-100">
+  <div class="text-base leading-6 pt-2">
+    <p class="font-semibold text-gray-900">
+      <a href="https://github.com/{{$author}}">
+        {{ $name }}
+      </a>
+    </p>
+    <p class="text-sm text-gray-600">
+      {{ $title }}, {{ $company }}
+    </p>
+  </div>
+</div>

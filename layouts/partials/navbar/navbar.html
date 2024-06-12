@@ -1,0 +1,72 @@
+{{- $section := .Section -}}
+{{- $underline := " underline underline-offset-8 decoration-1" -}}
+{{- $button_bg_color := .Site.Data.styling.button_bg_color -}}
+{{- $InfinyOnCoud := .Site.Data.globals.infinyonCloud -}}
+{{- $searchEnabled := .Site.Data.globals.searchEnabled -}}
+<div 
+  x-data="{ isOpen: false, menuOpen: '', showBorder: false }"
+  @scroll.window="showBorder = (document.querySelector('#header').getBoundingClientRect().top <= 0 && window.pageYOffset > 2 ) ? true : false"
+  :class="{ 'border-b border-gray-700' : showBorder}"
+>
+  <div class="bg-magenta-900 pt-4 pb-4">
+    <nav class="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
+      <div class="flex flex-1 items-center">
+        <div class="flex w-full items-center justify-between md:w-auto">
+          <a href="/">
+            <span class="sr-only">InfinyOn</span>
+            <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+          </a>
+
+          <div class="-mr-2 flex items-center md:hidden">
+            <button 
+              @click="isOpen = !isOpen" 
+              type="button" 
+              class="focus-ring-inset inline-flex items-center justify-center rounded-md bg-magenta-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white" aria-expanded="false"
+              >
+              <span class="sr-only">Open main menu</span>
+              <!-- Heroicon name: outline/bars-3 -->
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.4" stroke="white" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>                  
+          </div>
+        </div>
+
+        <div class="hidden space-x-8 md:ml-10 md:flex">
+          {{ range .Site.Data.menu.left -}}
+            {{ $hidden := .hidden | default false }}    
+            {{ if ne $hidden true -}}
+              {{if eq .type "menu-1col" -}}
+                {{ partial "navbar/menu-1col" . -}}
+              {{ else if eq .type "menu-2col" -}}
+                {{ partial "navbar/menu-2col" . -}}
+              {{ else if eq .type "tabular" -}}
+                  {{ partial "navbar/menu-tabular" . -}}
+              {{ else if eq .type "resources" -}}
+                  {{ partial "navbar/menu-resources" . -}}
+              {{ else -}}
+                  {{ partial "navbar/menu-item" (dict "section" $section "page" .) -}}
+              {{ end -}}
+            {{ end -}}
+          {{ end -}}
+        </div>
+
+      </div>
+      
+      <div class="hidden md:flex md:items-center md:space-x-6">
+        {{ range .Site.Data.menu.right -}}
+          {{ $hidden := .hidden | default false }}    
+          {{ if ne $hidden true -}}
+            {{ partial "navbar/menu-item" (dict "section" $section "page" .) -}}
+            {{ end -}}          
+          {{ end -}}
+        {{- if $searchEnabled -}}
+          {{ partial "components/search/search-bar" -}}
+        {{- end }}
+        <a href="{{ $InfinyOnCoud }}" class="inline-flex items-center rounded-md px-4 py-1.5 text-sm font-semibold text-white {{ $button_bg_color }}">Cloud Login</a>
+      </div>
+    </nav>
+  </div>
+
+  {{ partial "navbar/navbar-mobile" . }}
+</div>

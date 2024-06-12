@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorials on InfinyOn</title>
+    <link>http://localhost:1315/docs/tutorials/</link>
+    <description>Recent content in Tutorials on InfinyOn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1315/docs/tutorials/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use InfinyOn Cloud Cluster</title>
+      <link>http://localhost:1315/docs/tutorials/infinyon-cloud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/infinyon-cloud/</guid>
+      <description>InfinyOn Cloud is managed through the Fluvio CLI via the fluvio-cloud plugin distributed by default by the installation script.&#xA;Let&amp;rsquo;s create an InfinyOn Cloud account and login using the Fluvio CLI:&#xA;1. Create an InfinyOn Cloud account SignUp for a free account here: InfinyOn Cloud - Signup&#xA;You need an InfinyOn Cloud account to:&#xA;start a managed Fluvio cluster download SmartModules and Connectors from InfinyOn Hub 2. Install Fluvio CLI Use the following curl commad to download fluvio CLI:</description>
+    </item>
+    <item>
+      <title>Install Fluvio Cluster in Docker</title>
+      <link>http://localhost:1315/docs/tutorials/docker-installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/docker-installation/</guid>
+      <description>Installing Fluvio on Docker requires two containers, one for the Streaming Controller (SC) and the other for the Streaming Processing Unit (SPU).&#xA;Prerequisites Docker &amp;amp; Docker Compose We used Colima, but any Docker environment will do. Fluvio CLI Install fvm and follow the instructions:&#xA;%copy first-line%&#xA;$ curl -fsS https://hub.infinyon.cloud/install/install.sh | bash You are all set; let&amp;rsquo;s get started.&#xA;Start Fluvio Cluster To start a fluvio cluster, we&amp;rsquo;ll need to perform the following steps:</description>
+    </item>
+    <item>
+      <title>Data Streaming Basics</title>
+      <link>http://localhost:1315/docs/tutorials/streaming-basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/streaming-basics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SmartModule Basics</title>
+      <link>http://localhost:1315/docs/tutorials/smartmodule-basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/smartmodule-basics/</guid>
+      <description>This tutorial assumes that fluvio is installed, and logged-in to InfinyOn Cloud. Follow the Quick Start to get set up.&#xA;SmartModules are the basic building blocks for transformations in Fluvio, allowing users to define custom functions for processing or transforming streaming data. They provide a flexible way to tailor data handling to meet particular needs, enhancing Fluvio&amp;rsquo;s capabilities.&#xA;See list of available SmartModules %copy first-line%&#xA;$ fluvio hub sm list SMARTMODULE Visibility infinyon-labs/array-map-json@0.</description>
+    </item>
+    <item>
+      <title>Build your own SmartModules</title>
+      <link>http://localhost:1315/docs/tutorials/smartmodule-development/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/smartmodule-development/</guid>
+      <description>This tutorial expects you to already have the Fluvio CLI installed, and InfinyOn Cloud set up. If neither of these is the case, please follow the instructions here!&#xA;There are four main steps for this tutorial:&#xA;Installing the SmartModule Development Kit CLI, smdk Generating a SmartModule project Testing the SmartModule behavior with inputs Loading the SmartModule into a cluster SmartModules SmartModules are user defined functions set to run on and modify the inputs/outputs to a Fluvio database.</description>
+    </item>
+    <item>
+      <title>Webhook Basics</title>
+      <link>http://localhost:1315/docs/tutorials/webhook-basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/webhook-basics/</guid>
+      <description>This tutorial assumes that fluvio is installed, and logged-in to InfinyOn Cloud. Follow the Quick Start to get set up.&#xA;Webhooks are special connectors with an associated external url. Users can send data to their topics via a HTTP POST request.&#xA;Create a Webhook via CLI Copy this example Webhook config file and save it as example-webhook.yaml&#xA;%copy%&#xA;# example-webhook.yaml meta: name: my-webhook topic: my-webhook-topic # optional webhook: outputParts: full outputType: json Create the webhook using the example config file</description>
+    </item>
+    <item>
+      <title>Hub Basics</title>
+      <link>http://localhost:1315/docs/tutorials/hub-basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/hub-basics/</guid>
+      <description>The InfinyOn Hub serves as a centralized repository for InfinyOn SmartConnectors, SmartModules, and other extensions. It facilitates the discovery and deployment of extensions to enhance the data streaming capabilities of Fluvio. The hub provides a platform for developers and data engineers to easily access pre-built solutions or share their own extensions.&#xA;List Listing SmartModules will display the SmartModules available to your cluster.&#xA;%copy first-line%&#xA;$ fluvio hub sm list SMARTMODULE Visibility infinyon-labs/array-map-json@0.</description>
+    </item>
+    <item>
+      <title>Connector Basics</title>
+      <link>http://localhost:1315/docs/tutorials/connector-basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/connector-basics/</guid>
+      <description>Ensure fluvio is installed and logged in to InfinyOn Cloud before proceeding. If not set up, follow the Quick Start.&#xA;Connectors serve to transmit data into or out of your cluster, configurable via a YAML file.&#xA;Utilizing InfinyOn Cloud for managing connectors centralizes your data pipelines, both locally and on the cloud.&#xA;Manage your connectors efficiently with the fluvio cloud connector CLI.&#xA;Create Your First Connector on InfinyOn Cloud This guide demonstrates creating an Inbound HTTP connector to ingest JSON data from an HTTP endpoint.</description>
+    </item>
+    <item>
+      <title>Install Fluvio CLI toolchain</title>
+      <link>http://localhost:1315/docs/tutorials/install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/install/</guid>
+      <description>This is a short introduction to fvm, the Fluvio Version Manager, which allows you to use multiple versions of the Fluvio CLI toolchain.&#xA;The fvm CLI is the official package manager for Fluvio, managing various fluvio binaries and development tools &amp;ndash; enabling the selection from multiple versions or release channels.&#xA;Install fvm The following command will install fvm and fluvio and other binaries in the development kit.&#xA;%copy first-line%&#xA;$ curl -fsS https://hub.</description>
+    </item>
+    <item>
+      <title>Build your own Connectors</title>
+      <link>http://localhost:1315/docs/tutorials/connector-development/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/connector-development/</guid>
+      <description>Connectors Describe connectors&#xA;Installing Connector Development Kit CLI Generate a new SmartModule project Build SmartModule Test SmartModule </description>
+    </item>
+    <item>
+      <title>Cloud Secrets Basics</title>
+      <link>http://localhost:1315/docs/tutorials/secrets-basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/docs/tutorials/secrets-basics/</guid>
+      <description>Manage sensitive data like passwords and API keys securely in Fluvio Cloud using the fluvio cloud secret command. For more details, see the Cloud documentation.&#xA;Secret names For the sake of portability, secret names must&#xA;Consist solely of letters, digits, and the underscore (_) Must not begin with a digit. Set secret values on Cloud %copy first-line%&#xA;$ fluvio cloud secret set my_secret my-secret-value Secret &amp;#34;my_secret&amp;#34; set successfully Using secrets with connectors Cloud Connectors support secrets.</description>
+    </item>
+  </channel>
+</rss>

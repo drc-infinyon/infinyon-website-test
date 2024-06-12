@@ -1,0 +1,10 @@
+{{ define "head-meta" }}
+  {{ partial "header-footer/head-metadata.html" .ctx }}
+{{ end }}
+
+{{ define "main" }}
+<main>
+  {{ partial (printf "components/%s.html" (.ctx.Param "hero.component")) .ctx -}}
+  {{ partial "resources/resource.html" .ctx -}}
+</main>
+{{- end }}

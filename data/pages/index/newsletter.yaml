@@ -1,0 +1,10 @@
+section: "subscribe"
+content:
+  title:  "Newsletter"
+  description: "Subscribe to our newsletter to keep up with the latest news and upcoming releases."
+  form: 
+    button: "Subscribe"
+    action: "/subscribe"
+  metadata:
+    - type: "subscribe"
+    - source: "front-page"

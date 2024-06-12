@@ -1,0 +1,8 @@
+{{- $partialName := (printf "heroicons/svgs/%s" .name) -}}
+{{- $class := .class | default "h-5 w-5" -}}
+{{- $bgColor := .bgColor | default "bg-magenta-300" -}}
+{{ if fileExists (printf "layouts/partials/%s.html" $partialName) -}}
+  <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md text-white {{ $bgColor }}">
+    {{ partial $partialName (dict "class" $class) -}}
+  </div>
+{{ end -}}

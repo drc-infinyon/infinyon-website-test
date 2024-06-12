@@ -1,0 +1,36 @@
+
+{{- $content := .Content -}}
+{{- $title := .Param "title" -}}
+{{- $link := .Param "jobLink" -}}
+{{- $careersData := .Site.Data.careers -}}
+{{- $beforeContent := $careersData.beforeContent -}}
+{{- $afterContent := $careersData.afterContent -}}
+
+<div class="flex flex-1 items-start overflow-hidden p-10 md:my-3">
+  <div class="mx-auto max-w-6xl prose prose-quoteless prose-zing prose-md">
+
+    {{ range $beforeContent -}}
+      {{ .title | markdownify }}
+      {{ range .content -}}
+        <p>{{ . | markdownify -}}</p>
+      {{- end }}
+    {{- end }}
+
+    {{ $content }}
+    
+    {{ range $afterContent -}}
+      {{ .title | markdownify }}
+      {{ range .content -}}
+        <p>{{ . | markdownify -}}</p>
+      {{- end }}
+    {{- end }}
+
+    <div class="text-center py-4">
+      <a href="{{ $link }}">
+        <button class="py-2.5 px-20 bg-magenta-400 hover:ring-2 text-white rounded-lg shadow">
+          Apply Now
+        </button>  
+      </a>
+    </div>     
+  </div>   
+</div>

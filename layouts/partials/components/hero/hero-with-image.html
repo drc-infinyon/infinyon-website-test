@@ -1,0 +1,196 @@
+{{- $titleLine1 := .Param "hero.title.line1" | default "Your mondern stateful streaming platform" -}}
+{{- $titleLine2 := .Param "hero.title.line2" | default "" -}}
+{{- $titleLines2 := .Param "hero.title.lines2" -}}
+{{- $titleLine2Color := .Site.Data.styling.hero_bg_color -}}
+
+{{- $descriptionL1 := .Param "hero.description.line1" }}
+{{- $descriptionL2 := .Param "hero.description.line2" }}
+
+{{- $image := .Param "hero.image" -}}
+{{- $imageSrc := .Param "hero.image.src" -}}
+{{- $imageClass := .Param "hero.image.class" | default "" -}}
+{{- $imageAlt := .Param "hero.image.alt" | default "" -}}
+
+{{- $annoucement := .Param "hero.annoucement" -}}
+{{- $annoucementButton := .Param "hero.annoucement.button" -}}
+{{- $annoucementText := .Param "hero.annoucement.text" -}}
+{{- $annoucementRef := .Param "hero.annoucement.ref" -}}
+
+{{- $emailTrial := .Param "hero.emailTrial" -}}
+{{- $emailTrialButton := .Param "hero.emailTrial.button" -}}
+{{- $emailTrialAd := .Param "hero.emailTrial.ad" -}}
+{{- $emailTrialFormAction := .Param "hero.emailTrial.formAction" -}}
+{{- $emailTrialTermsOfServicesRef := .Param "hero.emailTrial.termsOfServiceRef" -}}
+
+{{- $buttons := .Param "hero.buttons" -}}
+{{- $btnLeft := .Param "hero.buttons.left" -}}
+{{- $btnRight := .Param "hero.buttons.right" -}}
+
+{{- $code := .Param "hero.code" -}}
+
+<div class=" bg-gradient-to-b from-magenta-900 to-gray-800 pt-6 sm:pt-8 lg:overflow-hidden">
+  <div class="relative mx-auto max-w-7xl lg:px-8 pb-2 lg:pb-12"> 
+    <div class="lg:grid lg:grid-cols-2 lg:gap-5">
+
+      <div class="mb-24">
+        <div class="mx-auto max-w-2xl px-6 sm:max-w-2xl sm:text-center lg:flex lg:items-start lg:px-4 lg:text-left">
+          <div class="lg:pt-8"> 
+
+            {{ if $annoucement -}}
+              <a href="{{ $annoucementRef }}" class="inline-flex items-center rounded-full bg-black p-1 pr-2 text-white hover:text-gray-200 sm:text-base lg:text-sm xl:text-base">
+                <span class="rounded-full bg-gradient-to-r from-pink-600 to-indigo-400 px-3 py-1 text-sm font-semibold leading-5 text-white">
+                  {{- $annoucementButton -}}
+                </span>
+                <span class="ml-4 text-sm">
+                {{- $annoucementText -}}
+                </span>
+                {{ partial "heroicons/svgs/chevron-right" (dict "class" "h-5 w-8 text-gray-400") -}}
+              </a>
+            {{- end }}
+  
+            <div class="mt-4 sm:mt-5 lg:mt-8">
+              <h1 class="text-3xl font-bold leading-tight tracking-wide">
+                <span class="block text-white">
+                  {{- $titleLine1 -}}
+                </span>
+
+                {{ if $titleLines2 -}}
+                  <div class="slide-text mt-2">
+                    <div class="slide-up">
+                      {{- range $titleLines2 }}
+                        <span class="bg-clip-text pb-4 text-transparent {{ $titleLine2Color }}">{{.}}</span>
+                      {{- end }}
+                    </div>
+                  </div>
+                {{- else }}
+                  <span class="block bg-clip-text pt-2 pb-3 text-transparent sm:pb-5 {{ $titleLine2Color }}">
+                    {{- $titleLine2 -}}
+                  </span>
+                {{- end }}
+              </h1>
+            </div>
+
+            <div class="mt-10">
+              <p class="text-base text-gray-200 tracking-wider lg:text-md">
+                {{- $descriptionL1 | markdownify -}} <br />
+                {{- $descriptionL2 | markdownify -}}  
+              </p>
+            </div>
+
+            <div class="mt-10 sm:mt-12">
+              {{ if $emailTrial -}}
+                <form action="{{ $emailTrialFormAction }}" class="sm:mx-auto sm:max-w-xl lg:mx-0">
+                  <div class="sm:flex">
+                    <div class="min-w-0 flex-1">
+                      <label for="email" class="sr-only">
+                        Email address
+                      </label>
+                      <input id="email" type="email" placeholder="Enter your email" class="block w-full rounded-md border-0 px-4 py-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900">
+                    </div>
+                    <div class="mt-3 sm:mt-0 sm:ml-3">
+                      <button type="submit" class="rounded-md bg-gradient-to-r from-pink-600 to-indigo-400 px-8 py-2.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
+                        {{- $emailTrialButton -}}
+                      </button>
+                    </div>
+                  </div>
+                  <p class="mt-3 text-sm text-gray-300 sm:mt-4">
+                    {{- $emailTrialAd -}}
+                    <span>
+                      By providing your email, you agree to our 
+                      <a href="{{ $emailTrialTermsOfServicesRef }}" class="font-medium text-white">
+                      terms of service</a>.
+                      </p>
+                  </span>
+                </form>
+              {{- end }}
+            </div>
+            
+          </div>
+        </div> 
+
+        {{ if $buttons -}}
+        <div class="flex flex-wrap justify-center lg:justify-start lg:ml-5 gap-4">
+          {{ if $btnLeft -}}
+          {{ if $btnLeft.modal -}}
+          <!-- If modal -->
+          <div x-data="{ modal: false, toggle_modal() { this.modal = !this.modal; } }">
+            <button type="button"
+              class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              @click="toggle_modal()" x-effect="console.log(modal)">
+              {{ $btnLeft.label }}
+            </button>
+
+            <div x-show="modal" x-cloak>
+              {{- partial "components/modal" (dict "content"  $btnLeft.content) -}}
+            </div>
+          </div>
+          {{ else }}
+          <!-- If link -->
+          <a href="{{ $btnLeft.ref }}"
+            class="uppercase rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">{{
+            $btnLeft.label }}</a>
+          {{- end }}
+          {{- end }}
+          {{ if $btnRight -}}
+          {{ if $btnRight.modal -}}
+          <!-- If modal -->
+          <div x-data="{ modal: false, toggle_modal() { this.modal = !this.modal; } }">
+            <button type="button"
+              class="uppercase rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              @click="toggle_modal()" x-effect="console.log(modal)">
+              {{ $btnRight.label }}
+            </button>
+
+            <div x-show="modal" x-cloak>
+              {{- partial "components/modal" (dict "content"  $btnRight.content) -}}
+            </div>
+          </div>
+          {{ else }}
+          <!-- If link -->
+          <a href="{{ $btnRight.ref }}"
+            class="uppercase rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">{{
+            $btnRight.label }}</a>
+          {{- end }}
+          {{- end }}
+        </div>
+        {{- end }}
+                
+      </div>
+
+      {{ if $code -}}
+        <div class="lg:relative pb-20">
+          <div class="mx-auto max-w-2xl px-5">
+            <div class="hidden sm:inline mt-0 lg:mt-12">
+              {{ partial "codegroup/hero-code-tabs" (dict "page" . "code" $code) -}}
+            </div>
+            <div class="inline sm:hidden">
+              {{ partial "codegroup/hero-code-tabs-mobile" (dict "page" . "code" $code) -}}
+            </div>
+          </div>
+        </div>  
+      {{ else if $image -}}
+        <div class="lg:relative lg:py-10 pb-20">
+          <div class="mx-auto px-0 max-w-xl">
+              <img class="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none {{ $imageClass }}" src="{{ $imageSrc }}" alt="{{ $imageAlt }}">
+          </div>
+        </div>  
+      {{- end }}
+
+    </div>
+
+    {{/* 
+    <svg viewBox="0 0 1024 768" class="absolute left-1/2 top-1/2 h-[64rem] w-[64rem] -translate-x-1/2" aria-hidden="true">
+      <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)" fill-opacity="0.7" />
+      <defs>
+        <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(512 512) rotate(90) scale(512)">
+          <stop stop-color="bg-magenta-800" />
+          <stop offset="1" stop-color="#E935C1" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+    </svg>
+    */}}
+    
+  </div>
+</div>
+
+<script src="/js/animate-text.js"></script>

@@ -1,0 +1,10 @@
+version: 0.1.0
+meta:
+  name: dedup-bus-events
+deduplication:
+  bounds:
+    count: 1000000
+    age: 24h
+  filter:
+    transform:
+      uses: infinyon-labs/dedup-filter@0.0.2

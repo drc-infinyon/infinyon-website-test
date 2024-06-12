@@ -1,0 +1,34 @@
+{{- $content := .Content -}}
+{{- $content := partial "augment/caution-symbol.html" $content -}}
+{{- $content := partial "augment/idea-symbol.html" $content -}}
+{{- $content := partial "augment/copy-code.html" $content -}}
+{{- $content := partial "augment/headline-hash.html" $content -}}
+{{- if .Params.code.height }}
+    {{- $content = partial "augment/code-box-height.html" (dict "content" $content "height" .Params.code.height) -}}
+{{- end -}}
+{{- $skill := .Param "skill" -}}
+{{- $show_page := eq (.Param "show-page") true | default false -}}
+{{- $show_section_cards := (and .IsSection (not $show_page)) }}
+
+<div class="prose lg:max-w-screen-md xl:max-w-4xl max-w-screen-lg">
+  <h1 class="pt-8 lg:pt-12">
+    {{ .Title }}
+  </h1>
+  {{- if $skill }}
+    <h4 class="-mt-4 text-gray-800">Skill <span class="px-2">-</span><span class="pl-2 text-orange-600">{{ $skill }}</span></h4>
+  {{ end -}}
+</div>
+
+{{ if $show_section_cards -}}
+  <div class="my-6 mx-5">
+    {{ partial "docs/section-cards" . }}
+  </div>
+{{- else }}
+  <div class="blog pt-6 prose prose-quoteless prose-zing prose-md shrink-0 lg:max-w-screen-md xl:max-w-4xl max-w-screen-lg">
+    {{ $content }}
+  </div>
+{{- end }}
+
+<div class="pt-12"></div>
+
+<script src="/js/copy-code.js"></script>

@@ -1,0 +1,4 @@
+name = "submit"
+main = "functions/api/v0/submit.js"
+compatibility_date = "2023-09-04"
+route = { pattern = "infinyon.com/api/v0/submit", zone_name = "infinyon.com" }

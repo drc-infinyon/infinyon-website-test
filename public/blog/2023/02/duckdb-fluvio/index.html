@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script>
+    <title>Using DuckDB with Fluvio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"><script defer src="/js/alpine_3_11_1.js"></script>
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Using DuckDB with Fluvio" />
+  <meta property="og:description" content="Learn how to use how to utilize Fluvio SmartModules and DuckDb SQL to convert data records and create effective materialized views." />
+  <meta property="og:image" content="http://localhost:1315/blog/images/fluvio-duckdb/using-fluvio-with-duckdb.png">
+  <meta name="twitter:site" content="@InfinyOn">
+  <meta name="twitter:image:src" content="http://localhost:1315/blog/images/fluvio-duckdb/using-fluvio-with-duckdb.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  </head>
+  <body>
+    
+<div class="relative isolate flex items-center gap-x-6 overflow-hidden bg--100 py-2.5 px-6 sm:px-3.5 sm:before:flex-1 bg-indigo-300">
+  <div class="flex flex-auto items-center gap-y-2 gap-x-4">
+    <p class="text-sm leading-6 text-gray-900">
+      <strong class="font-semibold">Stateful Services (private release)</strong>
+      <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+      Build composable event-driven data pipelines in minutes.
+    </p>
+    <a href="/request/ss-early-access" class="flex-none rounded-full bg-gray-900 py-1 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+      Request access <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</div><div id="content">
+      <header id="header" class="sticky top-0 z-20">
+        <div 
+  x-data="{ isOpen: false, menuOpen: '', showBorder: false }"
+  @scroll.window="showBorder = (document.querySelector('#header').getBoundingClientRect().top <= 0 && window.pageYOffset > 2 ) ? true : false"
+  :class="{ 'border-b border-gray-700' : showBorder}"
+>
+  <div class="bg-magenta-900 pt-4 pb-4">
+    <nav class="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
+      <div class="flex flex-1 items-center">
+        <div class="flex w-full items-center justify-between md:w-auto">
+          <a href="/">
+            <span class="sr-only">InfinyOn</span>
+            <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+          </a>
+
+          <div class="-mr-2 flex items-center md:hidden">
+            <button 
+              @click="isOpen = !isOpen" 
+              type="button" 
+              class="focus-ring-inset inline-flex items-center justify-center rounded-md bg-magenta-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white" aria-expanded="false"
+              >
+              <span class="sr-only">Open main menu</span>
+              
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.4" stroke="white" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>                  
+          </div>
+        </div>
+
+        <div class="hidden space-x-8 md:ml-10 md:flex">
+              
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Use Cases</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-8 py-7 bg-slate-50" aria-labelledby="solutions-heading">
+          <ul role="list" class="space-y-5">
+              <li class="flow-root">
+                <a href="/clickstream" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+</svg><span class="ml-4">Clickstream Analytics</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/iot" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+</svg><span class="ml-4">IoT Mirroring</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/stateful-streaming" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+</svg>
+<span class="ml-4">Stateful Streaming</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+  
+</div>    
+            
+<a href="/docs" class="text-base text-white hover:text-gray-300 " class="">Docs</a>    
+            
+<a href="/blog" class="text-base text-white hover:text-gray-300  underline underline-offset-8 decoration-1" class="">Blog</a>    
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Resources</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-16 py-8 grid grid-cols-2 gap-24 bg-slate-50" aria-labelledby="solutions-heading">
+
+          <div>
+            <h3 class="text-md text-gray-700">Company</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/about" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+</svg><span class="ml-4">About</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/careers" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+</svg><span class="ml-4">Careers</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/press-releases" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+</svg><span class="ml-4">Press</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-md text-gray-700">Resources</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/resources" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+</svg><span class="ml-4">Articles</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/webinars" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+</svg><span class="ml-4">Webinars</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="https://www.youtube.com/@infinyon/videos" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+</svg><span class="ml-4">Videos</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+  
+</div>    
+                
+            </div>
+
+      </div>
+      
+      <div class="hidden md:flex md:items-center md:space-x-6">
+            
+          
+        <a href="https://infinyon.cloud?utm_campaign=global%20cloud%20link&amp;utm_source=website&amp;utm_medium=global%20button&amp;utm_term=infinyon%20cloud&amp;utm_content=cloud-registration" class="inline-flex items-center rounded-md px-4 py-1.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600">Cloud Login</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="absolute inset-x-0 top-0 px-2 origin-top transform transition md:hidden">
+  <div x-show="isOpen" x-cloak x-transition:enter="duration-150 ease-out" x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="duration-100 ease-in"
+    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+    class="overflow-hidden rounded-lg bg-slate-50 shadow-lg ring-1 ring-black ring-opacity-5">
+
+    <div class="flex items-center justify-between px-5 pt-4 pb-2 bg-magenta-900">
+      <div>
+        <a href="/">
+          <span class="sr-only">InfinyOn</span>
+          <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        </a>
+      </div>
+      <div class="-mr-2">
+        <button type="button" @click="isOpen = !isOpen"
+          class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+          <span class="sr-only">Close menu</span>
+          
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-5 pb-6 max-h-screen -mb-16 overflow-y-auto">
+      <div class="mb-16 space-y-1 px-2">
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Use Cases</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/clickstream"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Clickstream Analytics</a>
+                  
+                    <a href="/iot"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">IoT Mirroring</a>
+                  
+                    <a href="/stateful-streaming"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Stateful Streaming</a>
+                  </div>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Documentation</p> 
+              <a href="/docs"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Docs</a>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Blog Articles</p> 
+              <a href="/blog"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Blog</a>
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Resources</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/about"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">About</a>
+                  
+                    <a href="/careers"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Careers</a>
+                  
+                    <a href="/press-releases"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Press</a>
+                  
+                    <a href="/resources"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Articles</a>
+                  
+                    <a href="/webinars"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Webinars</a>
+                  
+                    <a href="https://www.youtube.com/@infinyon/videos"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Videos</a>
+                  </div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+      </header>
+<main>
+  <div class="flex flex-1 items-start overflow-hidden max-w-7xl mx-auto py-6">
+  <main class="flex-1 overflow-y-auto">
+    <section aria-labelledby="primary-heading" class="flex min-w-0 flex-1 flex-col">
+      <div class="mx-5">
+        <div class="mb-6">
+          <nav class="flex" aria-label="Breadcrumb">
+
+  <ol role="list" class="flex items-center space-x-1">
+    <li>
+      <svg class="h-5 w-5 flex-shrink-0 text-magenta-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+      </svg>
+    </li>
+    <li>
+      <a href="/blog" class="text-base text-magenta-200 hover:underline">Blog</a>
+    </li>
+  </ol>
+  <div class="grow"></div>
+
+  <div class="flex flex-row mr-5 items-end text-gray-500">
+    <div class="flex items-center text-base  hidden sm:inline-flex whitespace-nowrap">
+      <svg class="mr-1.5 h-5 x-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>      
+      Read Time: 8 minutes
+    </div>
+    <div class="flex items-center text-base ml-4">
+      <svg class="mr-1.5 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+      </svg>
+      February 03, 2023
+    </div>
+  </div>
+
+</nav></div>
+        <div class="mb-6">
+          <h1 class="text-2xl md:text-3xl font-semibold font-md tracking-tight tracking-wide leading-tight bg-gradient-to-r from-magenta-800 to-magenta-300 inline-block text-transparent bg-clip-text">
+  Using DuckDB with Fluvio
+</h1></div>
+        
+        <div class="block lg:hidden mt-4">
+          <div class="flex flex-row">
+            <div class="ml-4">
+              <div class="flex flex-col">
+  <img src="https://avatars.githubusercontent.com/sehz" alt="Sehyo Chang" class="h-16 w-16 rounded-full bg-gray-100">
+  <div class="text-base leading-6 pt-2">
+    <p class="font-semibold text-gray-900">
+      <a href="https://github.com/sehz">
+        Sehyo Chang
+      </a>
+    </p>
+    <p class="text-sm text-gray-600">
+      Co-founder &amp; CTO, InfinyOn
+    </p>
+  </div>
+</div>
+</div>
+            <div class="grow"></div>
+            <div class="flex flex-col mr-4 sm:mr-10">
+              <h5 class="text-base text-gray-500">SHARE ON</h5>
+              <div class="mt-1 pt-2">
+                <div class="flex flex-row">
+  <div class="pr-2 hover:brightness-75">
+    <a class="twitter" title="Share on Twitter"
+        href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2023%2f02%2fduckdb-fluvio&text=Using%20DuckDB%20with%20Fluvio"
+        target="_blank">
+        <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#00aced"></circle>
+  <path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="button reddit" title="Share on Reddit"
+      href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2023%2f02%2fduckdb-fluvio&title=Using%20DuckDB%20with%20Fluvio&text=Learn%20how%20to%20use%20how%20to%20utilize%20Fluvio%20SmartModules%20and%20DuckDb%20SQL%20to%20convert%20data%20records%20and%20create%20effective%20materialized%20views."
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#ff4500"></circle>
+  <path d="m 52.8165,31.942362 c 0,-2.4803 -2.0264,-4.4965 -4.5169,-4.4965 -1.2155,0 -2.3171,0.4862 -3.128,1.2682 -3.077,-2.0247 -7.2403,-3.3133 -11.8507,-3.4782 l 2.5211,-7.9373 6.8272,1.5997 -0.0102,0.0986 c 0,2.0281 1.6575,3.6771 3.6958,3.6771 2.0366,0 3.6924,-1.649 3.6924,-3.6771 0,-2.0281 -1.6575,-3.6788 -3.6924,-3.6788 -1.564,0 -2.8968,0.9758 -3.4357,2.3443 l -7.3593,-1.7255 c -0.3213,-0.0782 -0.6477,0.1071 -0.748,0.4233 L 32,25.212062 c -4.8246,0.0578 -9.1953,1.3566 -12.41,3.4425 -0.8058,-0.7446 -1.8751,-1.2104 -3.0583,-1.2104 -2.4905,0 -4.5152,2.0179 -4.5152,4.4982 0,1.649 0.9061,3.0787 2.2389,3.8607 -0.0884,0.4794 -0.1462,0.9639 -0.1462,1.4569 0,6.6487 8.1736,12.0581 18.2223,12.0581 10.0487,0 18.224,-5.4094 18.224,-12.0581 0,-0.4658 -0.0493,-0.9248 -0.1275,-1.377 1.4144,-0.7599 2.3885,-2.2304 2.3885,-3.9406 z m -29.2808,3.0872 c 0,-1.4756 1.207,-2.6775 2.6894,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 -1.4824,0 -2.6894,-1.2002 -2.6894,-2.6758 z m 15.4037,7.9373 c -1.3549,1.3481 -3.4816,2.0043 -6.5008,2.0043 l -0.0221,-0.0051 -0.0221,0.0051 c -3.0209,0 -5.1476,-0.6562 -6.5008,-2.0043 -0.2465,-0.2448 -0.2465,-0.6443 0,-0.8891 0.2465,-0.2465 0.6477,-0.2465 0.8942,0 1.105,1.0999 2.9393,1.6337 5.6066,1.6337 l 0.0221,0.0051 0.0221,-0.0051 c 2.6673,0 4.5016,-0.5355 5.6066,-1.6354 0.2465,-0.2465 0.6477,-0.2448 0.8942,0 0.2465,0.2465 0.2465,0.6443 0,0.8908 z m -0.3213,-5.2615 c -1.4824,0 -2.6877,-1.2002 -2.6877,-2.6758 0,-1.4756 1.2053,-2.6775 2.6877,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="linkedin" title="Share on LinkedIn"
+      href="https://www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2023%2f02%2fduckdb-fluvio&title=Using%20DuckDB%20with%20Fluvio&summary=Learn%20how%20to%20use%20how%20to%20utilize%20Fluvio%20SmartModules%20and%20DuckDb%20SQL%20to%20convert%20data%20records%20and%20create%20effective%20materialized%20views."
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#007fb1"></circle>
+  <path d="M20.4,44h5.4V26.6h-5.4V44z M23.1,18c-1.7,0-3.1,1.4-3.1,3.1c0,1.7,1.4,3.1,3.1,3.1 c1.7,0,3.1-1.4,3.1-3.1C26.2,19.4,24.8,18,23.1,18z M39.5,26.2c-2.6,0-4.4,1.4-5.1,2.8h-0.1v-2.4h-5.2V44h5.4v-8.6 c0-2.3,0.4-4.5,3.2-4.5c2.8,0,2.8,2.6,2.8,4.6V44H46v-9.5C46,29.8,45,26.2,39.5,26.2z" fill="white">
+  </path>
+</svg></a>
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="ycombinator" title="Share on Y Combinator"
+      href="https://news.ycombinator.com/submitlink?u=http%3a%2f%2flocalhost%3a1315%2fblog%2f2023%2f02%2fduckdb-fluvio&t=Using%20DuckDB%20with%20Fluvio&text=Learn%20how%20to%20use%20how%20to%20utilize%20Fluvio%20SmartModules%20and%20DuckDb%20SQL%20to%20convert%20data%20records%20and%20create%20effective%20materialized%20views."
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <circle cx="128" cy="128" r="125" fill="#FB651E"></circle>
+	<path d="M119.373653,144.745813 L75.43296,62.4315733 L95.5144533,62.4315733 L121.36192,114.52416 C121.759575,115.452022 122.2235,116.413008 122.753707,117.407147 C123.283914,118.401285 123.747838,119.428546 124.145493,120.48896 C124.410597,120.886615 124.609422,121.251127 124.741973,121.582507 C124.874525,121.913886 125.007075,122.212123 125.139627,122.477227 C125.802386,123.802744 126.39886,125.095105 126.929067,126.354347 C127.459274,127.613589 127.923198,128.773399 128.320853,129.833813 C129.381268,127.580433 130.541078,125.1614 131.80032,122.57664 C133.059562,119.99188 134.351922,117.307747 135.67744,114.52416 L161.92256,62.4315733 L180.612267,62.4315733 L136.27392,145.739947 L136.27392,198.826667 L119.373653,198.826667 L119.373653,144.745813 Z" fill="white">
+  </path>
+</svg></a>
+  </div>
+</div></div>
+              <div class="mt-1 pt-2">
+                <div class="github">
+  <a href="https://gitHub.com/infinyon/fluvio/stargazers/"><img src="https://img.shields.io/github/stars/infinyon/fluvio?style=social" alt="GitHub stars"></a>
+</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="blog mt-8 lg:max-w-5xl max-w-7xl prose prose-quoteless prose-zing prose-md">
+          <p><a href="https://duckdb.org/">DuckDB</a> is an open-source SQL OLAP database that&rsquo;s lightweight, fast, and user-friendly, a perfect match for Fluvio data streaming. Integrating these two technologies is a step toward Real-Time OLAP. This blog will show how to use Fluvio SmartModules and DuckDb SQL to transform data records and generate powerful materialized views.</p>
+<h2 id="prerequisite">Prerequisite</h2>
+<p>This blog assumes that you have already installed Fluvio and have a running cluster. You have 2 options:</p>
+<ul>
+<li><a href="https://infinyon.cloud/signup?utm_campaign=duckdb&amp;utm_source=website&amp;utm_medium=blog&amp;utm_term=duckdb&amp;utm_content=cloud-registration">Sign-up for InfinyOn Cloud</a>
+<ul>
+<li>You&rsquo;ll need an InfinyOn Cloud account to download <code>jolt</code> from <a href="https://www.fluvio.io/smartmodules/">SmartModule Hub</a></li>
+</ul>
+</li>
+<li><a href="https://fluvio.io/docs/get-started/mac/">Install Fluvio on your local machine</a></li>
+</ul>
+
+<div class="mb-3"><aside class="callout idea">
+  <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.0" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+  </svg>
+  <div class="content">
+ This demo also uses the development version of the Fluvio toolchain.
+</div></aside></div>
+<p>Let&rsquo;s get started.</p>
+<h2 id="data-source">Data Source</h2>
+<p>In this example, we will consume live data from <a href="https://www.hsl.fi/">transit vehicles in Helsinki</a>, Finland. The city publishes real-time metrics such as speed, acceleration, route, etc., and makes this data publicly available via MQTT. We will read this data and calculate the average speed per vehicle.</p>
+<h2 id="use-fluvio-cdk-to-setup-up-an-mqtt-connector">Use Fluvio CDK to setup up an MQTT Connector</h2>
+<p>We will use Fluvio&rsquo;s Connector Developer Kit (CDK) to setup MQTT connector.</p>
+
+<div class="mb-3"><aside class="callout idea">
+  <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.0" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+  </svg>
+  <div class="content">
+ CDK is currently in development, we will need to build and install development version.
+</div></aside></div>
+<h3 id="building-cdk">Building CDK</h3>
+<p>This section assumes that you have Rust installed. Please follow <a href="https://www.rust-lang.org/tools/install">setup instructions</a> to install Rust and Cargo.</p>
+<p>Clone the Fluvio repository:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git clone https://github.com/infinyon/fluvio.git 
+</span></span></code></pre></div><p>Build CDK:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> fluvio<span class="p">;</span> make build-cdk <span class="nv">RELEASE</span><span class="o">=</span><span class="nb">true</span>
+</span></span></code></pre></div><p>Check that the binary has been generated</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ls target/release/cdk
+</span></span><span class="line"><span class="cl">target/release/cdk
+</span></span></code></pre></div><p>For convenience, you may want to copy the binary to your <code>PATH</code>.</p>
+<h3 id="building-mqtt-connector-using-cdk">Building MQTT Connector using CDK</h3>
+<p>Now, we can deploy the MQTT connector using CDK. First, we clone the new MQTT connector repository.</p>
+
+<div class="mb-3"><aside class="callout idea">
+  <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.0" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+  </svg>
+  <div class="content">
+ The following instructions are different from the MQTT connector in the documentation.
+</div></aside></div>
+<p>Clone MQTT connector repository:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> ..<span class="p">;</span> git clone https://github.com/infinyon/mqtt-connector.git
+</span></span></code></pre></div><p>Use CDk to build mqtt-connector:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> mqtt-connector<span class="p">;</span> ../fluvio/target/release/cdk build
+</span></span></code></pre></div><h3 id="deploying-mqtt-connector-to-connect-to-helsinki-mqtt-broker">Deploying MQTT Connector to connect to Helsinki MQTT Broker</h3>
+<p>Create following configuration file <code>h1.yaml</code>:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">h2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">mqtt-source</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">veh1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">create-topic</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mqtt</span><span class="p">:</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mqtt://mqtt.hsl.fi&#34;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/hfp/v2/journey/ongoing/vp/+/+/+/#&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluvio-mqtt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">secs</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">nanos</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">payload_output_type</span><span class="p">:</span><span class="w"> </span><span class="l">json</span><span class="w">
+</span></span></span></code></pre></div><p>Then run following command to start MQTT connector:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ../fluvio/target/release/cdk deploy start --config h1.yaml
+</span></span></code></pre></div><p>This will start MQTT connector and connect to Helsinki MQTT broker.  It will subscribe to the topic <code>/hfp/v2/journey/ongoing/vp/+/+/+/#</code> and publish the data to Fluvio topic <code>veh1</code>.</p>
+<p>You can verify that the connector is running by running following command:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ fluvio consume veh1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Consuming records from <span class="s1">&#39;veh1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span><span class="s2">&#34;mqtt_topic&#34;</span>:<span class="s2">&#34;/hfp/v2/journey/ongoing/vp/bus/0012/02244/1098/1/Rastila(M)/19:03/1453126/5/60;25/20/07/96&#34;</span>,<span class="s2">&#34;payload&#34;</span>:<span class="o">{</span><span class="s2">&#34;VP&#34;</span>:<span class="o">{</span><span class="s2">&#34;desi&#34;</span>:<span class="s2">&#34;98&#34;</span>,<span class="s2">&#34;dir&#34;</span>:<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;oper&#34;</span>:12,<span class="s2">&#34;veh&#34;</span>:2244,<span class="s2">&#34;tst&#34;</span>:<span class="s2">&#34;2023-02-02T17:00:15.231Z&#34;</span>,<span class="s2">&#34;tsi&#34;</span>:1675357215,<span class="s2">&#34;spd&#34;</span>:0.0,<span class="s2">&#34;hdg&#34;</span>:244,<span class="s2">&#34;lat&#34;</span>:60.209415,<span class="s2">&#34;long&#34;</span>:25.076423,<span class="s2">&#34;acc&#34;</span>:0.0,<span class="s2">&#34;dl&#34;</span>:179,<span class="s2">&#34;odo&#34;</span>:90,<span class="s2">&#34;drst&#34;</span>:0,<span class="s2">&#34;oday&#34;</span>:<span class="s2">&#34;2023-02-02&#34;</span>,<span class="s2">&#34;jrn&#34;</span>:304,<span class="s2">&#34;line&#34;</span>:145,<span class="s2">&#34;start&#34;</span>:<span class="s2">&#34;19:03&#34;</span>,<span class="s2">&#34;loc&#34;</span>:<span class="s2">&#34;GPS&#34;</span>,<span class="s2">&#34;stop&#34;</span>:1453126,<span class="s2">&#34;route&#34;</span>:<span class="s2">&#34;1098&#34;</span>,<span class="s2">&#34;occu&#34;</span>:0<span class="o">}}}</span>
+</span></span><span class="line"><span class="cl">.....
+</span></span></code></pre></div><p>If you are using <a href="https://infinyon.cloud/signup?utm_campaign=duckdb&amp;utm_source=website&amp;utm_medium=blog&amp;utm_term=duckdb&amp;utm_content=cloud-registration">InfinyOn Cloud</a>, checkout the Dashboard:</p>
+<p><img src="/blog/images/fluvio-duckdb/cloud-traffic.png"
+alt="InfinyOn Cloud Traffic"
+style="margin: auto; max-width: 90%" /></p>
+<p>This is lots of data.</p>
+<h2 id="building-duckdb-fluvio-extension">Building DuckDB Fluvio extension</h2>
+<p>Fluvio-duck is a Fluvio extension that allows DuckDB to query data from Fluvio.  It&rsquo;s still in development and not yet published to crates.io. So we will need to build it from source.</p>
+<h3 id="pre-requisite">Pre-requisite</h3>
+<p>Building Fluvio-Duck requires full build of DuckDB which requires CMake.</p>
+<p>Install on Mac:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ brew install cmake
+</span></span></code></pre></div><p>For other platforms, please follow CMake installation instructions  <a href="https://cmake.org/download/">here</a>.</p>
+<h3 id="downloading-and-building-fluvio-duck">Downloading and building Fluvio-Duck</h3>
+<p>Clone the repository:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> git clone --recurse-submodules https://github.com/infinyon/fluvio-duck.git
+</span></span></code></pre></div>
+<div class="mb-3"><aside class="callout caution">
+    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.1" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+    </svg>  
+    <div class="content">
+ There is a linking issue on Linux.
+</div></aside></div>
+<p>As a workaround please add the following to <code>CMakeLists.txt</code>:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">target_link_libraries<span class="o">(</span><span class="si">${</span><span class="nv">LIB_NAME</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">                      <span class="s2">&#34;</span><span class="si">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="si">}</span><span class="s2">/src/libduckdb_static.a&#34;</span><span class="o">)</span>
+</span></span></code></pre></div><p>Then build the extension:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> fluvio-duck <span class="o">&amp;&amp;</span> make release
+</span></span></code></pre></div><p>This will take a while&hellip; good time for a coffee break.</p>
+<p>Once it is done, both DuckDB and Fluvio-Duck will be stored in the <code>.build/release</code> directory.</p>
+<h2 id="querying-data-from-fluvio-using-duckdb">Querying data from Fluvio using DuckDB</h2>
+<p>Now we are ready to query data from Fluvio using DuckDB.  The Fluvio-Duckdb extension is using development version of DuckDB.  So we will need to start DuckDB build from prev steps.</p>
+<p>Run DuckDb:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ./build/release/duckdb --unsigned
+</span></span></code></pre></div><p>Loading extension:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D load <span class="s1">&#39;./build/release/extension/fluvio-duck/fluvioduck.duckdb_extension&#39;</span><span class="p">;</span>
+</span></span></code></pre></div><p>Now we can use the extension to query data from Fluvio.</p>
+<h3 id="getting-topics-and-partitions">Getting topics and partitions</h3>
+<p>Fluvio object such as <code>topics</code> and <code>partitions</code> can be queried directly from DuckDB.</p>
+<p>Retrieve topics:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D <span class="k">select</span> * from fluvio_topics<span class="o">()</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌─────────┬────────────┐
+</span></span><span class="line"><span class="cl">│  name   │ partitions │
+</span></span><span class="line"><span class="cl">│ varchar │   int32    │
+</span></span><span class="line"><span class="cl">├─────────┼────────────┤
+</span></span><span class="line"><span class="cl">│ veh1    │          <span class="m">1</span> │
+</span></span><span class="line"><span class="cl">└─────────┴────────────┘
+</span></span></code></pre></div><p>Topic <code>h1</code> was created by the MQTT connector. If there are other topics they are also displayed.</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D <span class="k">select</span> * from fluvio_partitions<span class="o">()</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">┌─────────┬───────────┬───────┐
+</span></span><span class="line"><span class="cl">│  topic  │ partition │  LEO  │
+</span></span><span class="line"><span class="cl">│ varchar │  varchar  │ int32 │
+</span></span><span class="line"><span class="cl">├─────────┼───────────┼───────┤
+</span></span><span class="line"><span class="cl">│ veh1    │ <span class="m">0</span>         │ <span class="m">28994</span> │
+</span></span><span class="line"><span class="cl">└─────────┴───────────┴───────┘
+</span></span></code></pre></div><h3 id="querying-fluvio-topics">Querying Fluvio topics</h3>
+<p>With SQL, you can query Fluvio topics and materialize as SQL table.</p>
+<p>The SQL command has the following format:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">D</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">&lt;</span><span class="n">param</span><span class="o">&gt;</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">fluvio_consume</span><span class="p">(</span><span class="s1">&#39;&lt;topic_name&gt; &lt;options&gt;&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>Feed Fluvio CLI commands as function parameters and queries as SQL parameters.</p>
+<p>For example, run the following command to get last 5 events from topic <code>h1</code>:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D <span class="k">select</span> * from fluvio_consume<span class="o">(</span><span class="s1">&#39;veh1 --tail 5&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">┌────────┬──────────────────────┬─────────────────────────────────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│ offset │      timestamp       │                                        value                                        │
+</span></span><span class="line"><span class="cl">│ int32  │     timestamp_ms     │                                       varchar                                       │
+</span></span><span class="line"><span class="cl">├────────┼──────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ <span class="m">100914</span> │ 2023-02-02 17:10:5…  │ <span class="o">{</span><span class="s2">&#34;mqtt_topic&#34;</span>:<span class="s2">&#34;/hfp/v2/journey/ongoing/vp/bus/0022/00921/2549/2/Tapiola (M)/18:44…  │
+</span></span></span><span class="line"><span class="cl"><span class="s2">│ 100915 │ 2023-02-02 17:10:5…  │ {&#34;</span>mqtt_topic<span class="s2">&#34;:&#34;</span>/hfp/v2/journey/ongoing/vp/bus/0022/00967/2582/2/Espoon keskus/18:…  │
+</span></span><span class="line"><span class="cl">│ <span class="m">100916</span> │ 2023-02-02 17:10:5…  │ <span class="o">{</span><span class="s2">&#34;mqtt_topic&#34;</span>:<span class="s2">&#34;/hfp/v2/journey/ongoing/vp/bus/0022/01143/2510/2/Herttoniemi(M)/18…  │
+</span></span></span><span class="line"><span class="cl"><span class="s2">│ 100917 │ 2023-02-02 17:10:5…  │ {&#34;</span>mqtt_topic<span class="s2">&#34;:&#34;</span>/hfp/v2/journey/ongoing/vp/train/0090/06055/3001R/1/Riihimäki/16:3…  │
+</span></span><span class="line"><span class="cl">│ <span class="m">100918</span> │ 2023-02-02 17:10:5…  │ <span class="o">{</span><span class="s2">&#34;mqtt_topic&#34;</span>:<span class="s2">&#34;/hfp/v2/journey/ongoing/vp/train/0090/01081/3001I/1/Lentoas. - Hel…  │
+</span></span></span><span class="line"><span class="cl"><span class="s2">└────────┴──────────────────────┴─────────────────────────────────────────────────────────────────────────────────────┘
+</span></span></span></code></pre></div><p>You can ask for Fluvio help by using the <code>--help</code> option:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D <span class="k">select</span> * from fluvio_consume<span class="o">(</span><span class="s1">&#39;--help&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">.... <span class="nb">help</span> <span class="nb">command</span> output
+</span></span></code></pre></div><h3 id="using-smartmodules-to-transform-mqtt-data">Using SmartModules to transform MQTT data</h3>
+<p>Fluvio connector converts the MQTT data to JSON format. Next, we can use Fluvio SmartModules to transform the data and make it suitable for queries and analytics.</p>
+<p>In this case, we only want the following fields from the data <code>lat</code>, <code>long</code>, <code>veh</code>. While at it, we also want to rename fields for readability: <code>veh</code> to <code>vehicle</code>. The <code>jolt</code> SmartModule published in the <a href="https://www.fluvio.io/smartmodules/">SmartModule Hub</a> can be used for this purpose.</p>
+<p>To download the <code>jolt</code> SmartModule, you&rsquo;ll need an <a href="https://infinyon.cloud/signup?utm_campaign=duckdb&amp;utm_source=website&amp;utm_medium=blog&amp;utm_term=duckdb&amp;utm_content=cloud-registration">InfinyOn Cloud</a> account.</p>
+<p>Download the SmartModule using <code>fluvio</code> CLI:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ fluvio hub sm download infinyon/jolt@0.3.0
+</span></span><span class="line"><span class="cl">downloading infinyon/jolt@0.3.0 to infinyon-jolt-0.3.0.ipkg
+</span></span><span class="line"><span class="cl">... downloading <span class="nb">complete</span>
+</span></span><span class="line"><span class="cl">... checking package
+</span></span><span class="line"><span class="cl">trying connection to fluvio router.infinyon.cloud:9003
+</span></span><span class="line"><span class="cl">... cluster smartmodule install <span class="nb">complete</span>
+</span></span></code></pre></div><h3 id="transformation-file">Transformation file</h3>
+<p>The Jolt transformation step is defined in the following YAML file: <code>jolt.yaml</code></p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">transforms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">infinyon/jolt@0.3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">shift</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">payload</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">VP</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">lat</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;lat&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">long</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;long&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">veh</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vehicle&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">route</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;route&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">spd</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;speed&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">tst</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;tst&#34;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="querying-with-transformation">Querying with transformation</h3>
+<p>To get last 10 events from topic <code>veh1</code> and transform the data using <code>jolt.yaml</code> file:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D <span class="k">select</span> *  from  fluvio_consume<span class="o">(</span><span class="s1">&#39;veh1 --tail 5 --transforms-file=jolt.yaml&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">┌────────┬──────────────────────┬─────────────────────────────────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│ offset │      timestamp       │                                        value                                        │
+</span></span><span class="line"><span class="cl">│ int32  │     timestamp_ms     │                                       varchar                                       │
+</span></span><span class="line"><span class="cl">├────────┼──────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ <span class="m">728564</span> │ 1969-12-31 23:59:5…  │ <span class="o">{</span><span class="s2">&#34;lat&#34;</span>:60.172147,<span class="s2">&#34;long&#34;</span>:24.947603,<span class="s2">&#34;route&#34;</span>:<span class="s2">&#34;1055&#34;</span>,<span class="s2">&#34;speed&#34;</span>:5.96,<span class="s2">&#34;tst&#34;</span>:<span class="s2">&#34;2023-02-02T1…  │
+</span></span></span><span class="line"><span class="cl"><span class="s2">│ 728565 │ 1969-12-31 23:59:5…  │ {&#34;</span>lat<span class="s2">&#34;:60.20546,&#34;</span>long<span class="s2">&#34;:24.878425,&#34;</span>route<span class="s2">&#34;:&#34;</span>1500<span class="s2">&#34;,&#34;</span>speed<span class="s2">&#34;:4.99,&#34;</span>tst<span class="s2">&#34;:&#34;</span>2023-02-02T17…  │
+</span></span><span class="line"><span class="cl">│ <span class="m">728566</span> │ 1969-12-31 23:59:5…  │ <span class="o">{</span><span class="s2">&#34;lat&#34;</span>:60.178948,<span class="s2">&#34;long&#34;</span>:24.828018,<span class="s2">&#34;route&#34;</span>:<span class="s2">&#34;2550&#34;</span>,<span class="s2">&#34;speed&#34;</span>:9.72,<span class="s2">&#34;tst&#34;</span>:<span class="s2">&#34;2023-02-02T1…  │
+</span></span></span><span class="line"><span class="cl"><span class="s2">│ 728567 │ 1969-12-31 23:59:5…  │ {&#34;</span>lat<span class="s2">&#34;:60.209576,&#34;</span>long<span class="s2">&#34;:25.076889,&#34;</span>route<span class="s2">&#34;:&#34;</span>1082<span class="s2">&#34;,&#34;</span>speed<span class="s2">&#34;:0.0,&#34;</span>tst<span class="s2">&#34;:&#34;</span>2023-02-02T17…  │
+</span></span><span class="line"><span class="cl">....
+</span></span></code></pre></div><h3 id="mapping-json-columns-to-sql-columns">Mapping JSON columns to SQL columns</h3>
+<p>In the previous example, the JSON data is returned as a single column.  That still make harder to analyze using SQL or DuckDB. You can map the JSON columns to SQL columns using the <code>-c</code> option.  The <code>-c</code> option takes a column name and a JSON path.  The JSON path is a dot separated path to the JSON column.  For example, to map the <code>lat</code> column to <code>d</code> column, you can use <code>-c lat:d=&quot;lat&quot;</code>.</p>
+<p>Following example show how to create materialized view with mapped columns:</p>
+<div class="copy-code"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">D</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">transit</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">fluvio_consume</span><span class="p">(</span><span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">  veh1 
+</span></span></span><span class="line"><span class="cl"><span class="s1">    --tail 5 
+</span></span></span><span class="line"><span class="cl"><span class="s1">    --transforms-file=jolt.yaml
+</span></span></span><span class="line"><span class="cl"><span class="s1">    -c lat:d=&#34;lat&#34; 
+</span></span></span><span class="line"><span class="cl"><span class="s1">    -c long:d=&#34;long&#34; 
+</span></span></span><span class="line"><span class="cl"><span class="s1">    -c vehicle:i=&#34;vehicle&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    -c route=&#34;route&#34; 
+</span></span></span><span class="line"><span class="cl"><span class="s1">    -c speed:d=&#34;speed&#34; 
+</span></span></span><span class="line"><span class="cl"><span class="s1">    -c time:t=&#34;tst&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">  &#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>Let&rsquo;s run it:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D <span class="k">select</span> * from transit<span class="p">;</span>
+</span></span><span class="line"><span class="cl">┌─────────────┬─────────────┬─────────┬─────────┬────────┬─────────────────────────┐
+</span></span><span class="line"><span class="cl">│     lat     │    long     │ vehicle │  route  │ speed  │          <span class="nb">time</span>           │
+</span></span><span class="line"><span class="cl">│   double    │   double    │  int32  │ varchar │ double │      timestamp_ms       │
+</span></span><span class="line"><span class="cl">├─────────────┼─────────────┼─────────┼─────────┼────────┼─────────────────────────┤
+</span></span><span class="line"><span class="cl">│   60.208204 │   24.974945 │     <span class="m">693</span> │ <span class="m">1055</span>    │   0.01 │ 2023-02-02 17:27:34.587 │
+</span></span><span class="line"><span class="cl">│   60.208783 │   24.947053 │      <span class="m">19</span> │ <span class="m">1069</span>    │   3.66 │ 2023-02-02 17:27:34.564 │
+</span></span><span class="line"><span class="cl">│   60.741549 │   24.782922 │    <span class="m">6079</span> │ 3001R   │    0.0 │ 2023-02-02 17:27:34.558 │
+</span></span><span class="line"><span class="cl">│   60.178087 │   24.950206 │     <span class="m">424</span> │ <span class="m">1006</span>    │   2.83 │ 2023-02-02 17:27:34.57  │
+</span></span><span class="line"><span class="cl">│   60.221636 │   24.896216 │    <span class="m">1416</span> │ <span class="m">1052</span>    │  11.21 │ 2023-02-02 17:27:34.553 │
+</span></span><span class="line"><span class="cl">├─────────────┴─────────────┴─────────┴─────────┴────────┴─────────────────────────┤
+</span></span><span class="line"><span class="cl">│  <span class="m">5</span> rows                                                                <span class="m">6</span> columns │
+</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><p>Now fields are mapped into SQL readable columns, you can use SQL commands to perform analysis on the data.  For example, let&rsquo;s get the average speed of the vehicles by route:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D <span class="k">select</span> route, avg<span class="o">(</span>speed<span class="o">)</span> from transit group by route<span class="p">;</span>
+</span></span><span class="line"><span class="cl">┌─────────┬──────────────────────┐
+</span></span><span class="line"><span class="cl">│  route  │      avg<span class="o">(</span>speed<span class="o">)</span>      │
+</span></span><span class="line"><span class="cl">│ varchar │        double        │
+</span></span><span class="line"><span class="cl">├─────────┼──────────────────────┤
+</span></span><span class="line"><span class="cl">│ 31M2    │                17.02 │
+</span></span><span class="line"><span class="cl">│ 31M1    │   12.065000000000001 │
+</span></span><span class="line"><span class="cl">│ <span class="m">9641</span>    │                12.66 │
+</span></span><span class="line"><span class="cl">│ <span class="m">1071</span>    │                7.045 │
+</span></span><span class="line"><span class="cl">│ <span class="m">1506</span>    │                4.605 │
+</span></span><span class="line"><span class="cl">├─────────┴──────────────────────┤
+</span></span><span class="line"><span class="cl">│  <span class="m">5</span> rows              <span class="m">2</span> columns │
+</span></span><span class="line"><span class="cl">└────────────────────────────────┘
+</span></span></code></pre></div><h3 id="converting-fluvio-topic-data-to-parquet">Converting fluvio topic data to Parquet</h3>
+<p>Previous examples show how to consume data from fluvio topics and perform SQL analysis on the data.  You can also convert the data to Parquet format and perform analysis using Parquet tools. To convert the data to Parquet format, you can use the <code>COPY</code> command:</p>
+<p>First install Parquet extensions into DuckDB:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D INSTALL parquet<span class="p">;</span> Load <span class="s1">&#39;parquet&#39;</span><span class="p">;</span>
+</span></span></code></pre></div><p>The comman structure to copy data into a <code>parquet</code> format is the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D COPY <span class="o">(</span>SELECT * FROM &lt;fluvio_topic&gt;<span class="o">)</span> TO <span class="s1">&#39;&lt;parquet_file&gt;&#39;</span> <span class="o">(</span>FORMAT <span class="s1">&#39;parquet&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span></code></pre></div><p>To convert the data from <code>transit</code> materialized view to <code>helsinki.parquet</code> file, you can run the following command:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D COPY <span class="o">(</span>SELECT * FROM transit<span class="o">)</span> TO <span class="s1">&#39;helsinki.parquet&#39;</span> <span class="o">(</span>FORMAT <span class="s1">&#39;parquet&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span></code></pre></div>
+<div class="mb-3"><aside class="callout idea">
+  <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.0" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+  </svg>
+  <div class="content">
+ Current version of fluvio-duck extension is not yet optimized for performance.  It is recommended to use the <code>COPY</code> command for small data sets.
+</div></aside></div>
+<p>To read back from the <code>parquet</code> file, use:</p>
+<div class="copy-first-line"></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">D <span class="k">select</span> * from read_parquet<span class="o">(</span><span class="s1">&#39;helsinki.parquet&#39;</span><span class="o">)</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">┌─────────────┬─────────────┬─────────┬─────────┬────────┬─────────────────────────┐
+</span></span><span class="line"><span class="cl">│     lat     │    long     │ vehicle │  route  │ speed  │          <span class="nb">time</span>           │
+</span></span><span class="line"><span class="cl">│   double    │   double    │  int32  │ varchar │ double │      timestamp_ms       │
+</span></span><span class="line"><span class="cl">├─────────────┼─────────────┼─────────┼─────────┼────────┼─────────────────────────┤
+</span></span><span class="line"><span class="cl">│   60.208204 │   24.974945 │     <span class="m">693</span> │ <span class="m">1055</span>    │   0.01 │ 2023-02-02 17:27:34.587 │
+</span></span><span class="line"><span class="cl">│   60.208783 │   24.947053 │      <span class="m">19</span> │ <span class="m">1069</span>    │   3.66 │ 2023-02-02 17:27:34.564 │
+</span></span><span class="line"><span class="cl">│   60.741549 │   24.782922 │    <span class="m">6079</span> │ 3001R   │    0.0 │ 2023-02-02 17:27:34.558 │
+</span></span><span class="line"><span class="cl">│   60.178087 │   24.950206 │     <span class="m">424</span> │ <span class="m">1006</span>    │   2.83 │ 2023-02-02 17:27:34.57  │
+</span></span><span class="line"><span class="cl">│   60.221636 │   24.896216 │    <span class="m">1416</span> │ <span class="m">1052</span>    │  11.21 │ 2023-02-02 17:27:34.553 │
+</span></span><span class="line"><span class="cl">├─────────────┴─────────────┴─────────┴─────────┴────────┴─────────────────────────┤
+</span></span><span class="line"><span class="cl">│  <span class="m">5</span> rows                                                                <span class="m">6</span> columns │
+</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>In this blog post, we showed that it is possible to use DuckDB to perform SQL analysis on data from Fluvio topics. This is just beginning of the integration between Fluvio and DuckDB. Join our community on <a href="https://discordapp.com/invite/bBG2dTz" target="_blank">Discord</a> to give us feedback on the integration of Fluvio and DuckDB. Let us know if there are other use cases you&rsquo;ll find valuable.</p>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a href="/blog/2022/06/smartmodule-xml/">Handling XML data in Fluvio SmartModules</a></li>
+<li><a href="/blog/2021/08/smartmodule-map-use-cases/">Transform streaming data in real-time with WebAssembly</a></li>
+</ul>
+
+        </div>      
+      </div>
+
+    </section>
+  </main> 
+
+  <aside class="hidden mx-5 w-72 overflow-y-auto lg:block py-6">
+  <article class="flex flex-col items-start px-4">
+
+    <h2 class="text-sm text-gray-500 tracking-widest">
+      SHARE ON
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-4 w-5/6" />
+    <div class="w-full mx-auto pb-4">
+      <div class="flex flex-row">
+  <div class="pr-2 hover:brightness-75">
+    <a class="twitter" title="Share on Twitter"
+        href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2023%2f02%2fduckdb-fluvio&text=Using%20DuckDB%20with%20Fluvio"
+        target="_blank">
+        <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#00aced"></circle>
+  <path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="button reddit" title="Share on Reddit"
+      href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2023%2f02%2fduckdb-fluvio&title=Using%20DuckDB%20with%20Fluvio&text=Learn%20how%20to%20use%20how%20to%20utilize%20Fluvio%20SmartModules%20and%20DuckDb%20SQL%20to%20convert%20data%20records%20and%20create%20effective%20materialized%20views."
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#ff4500"></circle>
+  <path d="m 52.8165,31.942362 c 0,-2.4803 -2.0264,-4.4965 -4.5169,-4.4965 -1.2155,0 -2.3171,0.4862 -3.128,1.2682 -3.077,-2.0247 -7.2403,-3.3133 -11.8507,-3.4782 l 2.5211,-7.9373 6.8272,1.5997 -0.0102,0.0986 c 0,2.0281 1.6575,3.6771 3.6958,3.6771 2.0366,0 3.6924,-1.649 3.6924,-3.6771 0,-2.0281 -1.6575,-3.6788 -3.6924,-3.6788 -1.564,0 -2.8968,0.9758 -3.4357,2.3443 l -7.3593,-1.7255 c -0.3213,-0.0782 -0.6477,0.1071 -0.748,0.4233 L 32,25.212062 c -4.8246,0.0578 -9.1953,1.3566 -12.41,3.4425 -0.8058,-0.7446 -1.8751,-1.2104 -3.0583,-1.2104 -2.4905,0 -4.5152,2.0179 -4.5152,4.4982 0,1.649 0.9061,3.0787 2.2389,3.8607 -0.0884,0.4794 -0.1462,0.9639 -0.1462,1.4569 0,6.6487 8.1736,12.0581 18.2223,12.0581 10.0487,0 18.224,-5.4094 18.224,-12.0581 0,-0.4658 -0.0493,-0.9248 -0.1275,-1.377 1.4144,-0.7599 2.3885,-2.2304 2.3885,-3.9406 z m -29.2808,3.0872 c 0,-1.4756 1.207,-2.6775 2.6894,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 -1.4824,0 -2.6894,-1.2002 -2.6894,-2.6758 z m 15.4037,7.9373 c -1.3549,1.3481 -3.4816,2.0043 -6.5008,2.0043 l -0.0221,-0.0051 -0.0221,0.0051 c -3.0209,0 -5.1476,-0.6562 -6.5008,-2.0043 -0.2465,-0.2448 -0.2465,-0.6443 0,-0.8891 0.2465,-0.2465 0.6477,-0.2465 0.8942,0 1.105,1.0999 2.9393,1.6337 5.6066,1.6337 l 0.0221,0.0051 0.0221,-0.0051 c 2.6673,0 4.5016,-0.5355 5.6066,-1.6354 0.2465,-0.2465 0.6477,-0.2448 0.8942,0 0.2465,0.2465 0.2465,0.6443 0,0.8908 z m -0.3213,-5.2615 c -1.4824,0 -2.6877,-1.2002 -2.6877,-2.6758 0,-1.4756 1.2053,-2.6775 2.6877,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="linkedin" title="Share on LinkedIn"
+      href="https://www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2023%2f02%2fduckdb-fluvio&title=Using%20DuckDB%20with%20Fluvio&summary=Learn%20how%20to%20use%20how%20to%20utilize%20Fluvio%20SmartModules%20and%20DuckDb%20SQL%20to%20convert%20data%20records%20and%20create%20effective%20materialized%20views."
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#007fb1"></circle>
+  <path d="M20.4,44h5.4V26.6h-5.4V44z M23.1,18c-1.7,0-3.1,1.4-3.1,3.1c0,1.7,1.4,3.1,3.1,3.1 c1.7,0,3.1-1.4,3.1-3.1C26.2,19.4,24.8,18,23.1,18z M39.5,26.2c-2.6,0-4.4,1.4-5.1,2.8h-0.1v-2.4h-5.2V44h5.4v-8.6 c0-2.3,0.4-4.5,3.2-4.5c2.8,0,2.8,2.6,2.8,4.6V44H46v-9.5C46,29.8,45,26.2,39.5,26.2z" fill="white">
+  </path>
+</svg></a>
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="ycombinator" title="Share on Y Combinator"
+      href="https://news.ycombinator.com/submitlink?u=http%3a%2f%2flocalhost%3a1315%2fblog%2f2023%2f02%2fduckdb-fluvio&t=Using%20DuckDB%20with%20Fluvio&text=Learn%20how%20to%20use%20how%20to%20utilize%20Fluvio%20SmartModules%20and%20DuckDb%20SQL%20to%20convert%20data%20records%20and%20create%20effective%20materialized%20views."
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <circle cx="128" cy="128" r="125" fill="#FB651E"></circle>
+	<path d="M119.373653,144.745813 L75.43296,62.4315733 L95.5144533,62.4315733 L121.36192,114.52416 C121.759575,115.452022 122.2235,116.413008 122.753707,117.407147 C123.283914,118.401285 123.747838,119.428546 124.145493,120.48896 C124.410597,120.886615 124.609422,121.251127 124.741973,121.582507 C124.874525,121.913886 125.007075,122.212123 125.139627,122.477227 C125.802386,123.802744 126.39886,125.095105 126.929067,126.354347 C127.459274,127.613589 127.923198,128.773399 128.320853,129.833813 C129.381268,127.580433 130.541078,125.1614 131.80032,122.57664 C133.059562,119.99188 134.351922,117.307747 135.67744,114.52416 L161.92256,62.4315733 L180.612267,62.4315733 L136.27392,145.739947 L136.27392,198.826667 L119.373653,198.826667 L119.373653,144.745813 Z" fill="white">
+  </path>
+</svg></a>
+  </div>
+</div></div>
+
+    <h2 class="mt-4 text-sm text-gray-500 tracking-widest">
+      AUTHOR
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-4 w-5/6" />
+
+    <div class="w-full mx-auto flex flex-col items-start">
+      <div class="flex flex-col">
+  <img src="https://avatars.githubusercontent.com/sehz" alt="Sehyo Chang" class="h-16 w-16 rounded-full bg-gray-100">
+  <div class="text-base leading-6 pt-2">
+    <p class="font-semibold text-gray-900">
+      <a href="https://github.com/sehz">
+        Sehyo Chang
+      </a>
+    </p>
+    <p class="text-sm text-gray-600">
+      Co-founder &amp; CTO, InfinyOn
+    </p>
+  </div>
+</div>
+</div>
+
+    <h2 class="mt-8 text-sm text-gray-500 tracking-widest">
+      FLUVIO OSS
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-6 w-5/6" />
+    <div class="github">
+  <a href="https://gitHub.com/infinyon/fluvio/stargazers/"><img src="https://img.shields.io/github/stars/infinyon/fluvio?style=social" alt="GitHub stars"></a>
+</div>
+<h2 class="mt-12 text-sm text-gray-500 tracking-widest">
+  INFINYON CLOUD
+</h2>
+<hr class="border-b-0 border-gray-200 w-full mt-3 pb-3" />
+<div class="mt-2 py-5 w-full rounded-md bg-gradient-to-r from-magenta-800 to-magenta-400">
+  <a href="https://infinyon.cloud/signup">
+  <h3 class="text-base font-semibold text-pink-400 text-center">
+    Accelerated Onboarding
+  </h3>
+  <div class="pt-1 flex flex-row">
+    <div class="flex flex-col w-4/6 justify-center">
+      <h5 class="text-xs text-gray-100 pl-3">
+         Sign-up for personalized assistance from dedicated InfinyOn architect.
+      </h5>
+    </div>
+    <div class="flex flex-col mt-2 mr-2 h-20 w-20 rounded-md bg-black items-center justify-center">
+      <h5 class="text-base leading-5 font-bold text-neon-300 w-16 break-words text-center">
+        Free $3000
+      </h5>
+        <h6 class="text-xxs text-gray-100 pt-1">
+          2000 credits
+        </h6>
+    </div>
+  </div>
+  </a>
+</div></article>
+</aside></div>
+
+<script src="/js/copy-code.js"></script></main>
+    </div>
+    <footer class="bg-gray-900" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8">
+    <div class="lg:grid lg:grid-cols-10 lg:gap-8">
+
+      
+      <div class="lg:col-span-2 space-y-6">
+        <img class="h-7 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        <p class="text-sm leading-6 text-gray-300"></p>
+        <div class="flex space-x-6">
+            <a href="https://github.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">GitHub</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+            <a href="https://twitter.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">Twitter</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+</svg>
+            </a>
+            <a href="https://linkedin.com/company/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">linkedin</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
+  <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+</svg>
+            </a>
+            <a href="https://discordapp.com/invite/bBG2dTz" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">discord</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true"
+    viewBox="0 0 640 512">
+    <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z" />
+</svg>
+            </a>
+            <a href="https://www.youtube.com/@infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">YouTube</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+        </div>
+      </div>
+
+      
+      <div class="lg:col-span-8">
+        <div class="mt-16 lg:mt-0 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Cloud</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/infinyon-cloud" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Cloud
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/signup" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Sign Up
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/login" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Login
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Product</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Platform
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Hub
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Connectors
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webhooks
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    SmartModules
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Event Streams
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Stateful Streams
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Solutions</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/iot" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    IoT Aggregation
+                </a>
+                </li>
+                <li>
+                  <a href="/clickstream" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Website Monitoring
+                </a>
+                </li>
+                <li>
+                  <a href="/" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Microservices Event Bridge
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">About</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/about" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Company
+                </a>
+                </li>
+                <li>
+                  <a href="/careers" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Careers
+                </a>
+                </li>
+                <li>
+                  <a href="/resources" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Articles
+                </a>
+                </li>
+                <li>
+                  <a href="/press-releases" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    News
+                </a>
+                </li>
+                <li>
+                  <a href="/webinars" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webinars
+                </a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@infinyon/videos" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Videos
+                </a>
+                </li>
+                <li>
+                  <a href="/blog" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Blog
+                </a>
+                </li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="mt-8 border-t border-white/10 pt-4 text-center">
+      <div class="text-center text-xs text-gray-400">
+        
+        <span><a href="/legal/privacy">Privacy Policy</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/security">Security</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/user-agreement">Terms and Conditions</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/cookies">Cookie Notice</a></span>
+          
+      </div>
+      <p class="text-xs leading-5 text-gray-400">&copy; <span id="year"></span> InfinyOn, Inc. All rights reserved.</p>
+      <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+      </script>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+</html>

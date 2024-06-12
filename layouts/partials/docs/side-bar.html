@@ -1,0 +1,96 @@
+{{ $this_page := . }}
+{{ $collapsable := true }}
+{{ $is_section := eq .CurrentSection .FirstSection }}
+{{ $color_default := "btext-slate-800" }}
+{{ $color_select := "bg-slate-100 text-indigo-600" }}
+{{ $color_hover := "bg-slate-100" }}
+
+<div class="ml-1 mr-2">
+  
+  <nav id="docs-nav" class="flex flex-col justify-start grow">
+    {{ $docs_page := .Site.GetPage "docs" -}}
+    {{ $hide := $docs_page.Param "hidden" | default false }}
+    {{ if ne $hide true -}}
+      {{- $title := $docs_page.Params.menu | default $docs_page.Params.title -}}
+      {{- $docs_style := $color_default -}}
+      {{- if eq $this_page $docs_page -}} 
+        {{- $docs_style = $color_select -}}
+      {{- end -}}
+      <div>
+        <div class="hover:cursor-pointer" onclick="window.location.href = '/docs'">
+        <div class="pl-3 leading-8 hover:{{ $color_hover }} {{ $docs_style }}">
+          {{ $title | markdownify }}
+        </div>
+      </div>
+    {{- end }}
+
+    {{ with .Site.GetPage "docs" }} 
+      {{- range $index, $section := .Sections.ByWeight -}}    
+        {{ $this_section := eq $section $this_page.CurrentSection -}}
+        {{ $hidden := $section.Param "hidden" | default false }}
+        {{ $hide_section := $section.Param "hide-section" | default false }}
+        {{ if eq $hide_section true -}}
+          {{- $hidden = not ($this_section) }}  
+        {{ end -}}
+        {{ if ne $hidden true -}}
+          {{- $sectionTitle := $section.Params.menu | default $section.Params.title -}}
+          {{- $style := $color_default -}}
+          {{- if eq $this_page $section -}} 
+            {{- $style = $color_select -}}
+          {{- else if eq $this_page.Parent $section -}} 
+            {{- $style = "text-indigo-600" -}}
+          {{- end -}}
+
+          <ul role="list">
+            <li class="py-2">
+
+              <!-- Keep the active section open by default -->
+              <ul role="list">
+                <li class="hover:cursor-pointer" onclick="window.location.href = '{{ $section.RelPermalink }}'">
+                  <div class="pl-3 leading-8 hover:{{ $color_hover }} {{ $style }} ">
+                    {{ $sectionTitle | markdownify }}
+                  </div>
+
+                  {{- $show := true }}
+                  {{- if $collapsable }}
+                    {{- $show = (or $is_section $this_section) }}  
+                  {{- end -}}
+
+                  {{ if $show -}}
+                    <!-- Expandable link section, show/hide based on state. -->
+                    <ul class="pl-2" id="sub-menu-1">
+                      {{- range $section.Pages.ByWeight }}
+                        {{- $page := . -}}
+                        {{ $hidden := $page.Param "hidden" | default false }}                     
+                        {{ if ne $hidden true -}}
+                          {{- $label := $page.Params.menu | default $page.Params.title -}}
+                          {{- $styling := "text-slate-600" -}}
+                          {{- if eq $this_page $page -}} 
+                            {{- $styling = "border-l-2 border-indigo-400 bg-slate-50 text-indigo-600 font-medium pointer-events-none" -}}
+                          {{- end -}}
+
+                          <li class="ml-4 border-l border-gray-300 hover:{{ $color_hover }} {{ $styling }}">
+                            <a href="{{ $page.RelPermalink }}" class="block rounded-md py-1 pr-2 pl-5 text-sm leading-6">
+                              <button 
+                                type="button"
+                                class="flex items-center w-48 text-left rounded-md lg:pt-0 gap-x-3 text-sm ml-4 lg:ml-0 lg:mr-4 @click:bg-slate-500"
+                                aria-controls="sub-menu-1" aria-expanded="false">
+                                {{ $label }}
+                              </button>
+                            </a>
+                          </li>
+                        {{- end -}}
+                      {{- end -}}
+                    </ul>
+                  {{ end -}}
+
+                </li>
+              </ul>
+                
+            </li>
+          </ul>
+        {{- end -}}
+      {{- end -}}
+    {{ end }}
+  </nav>
+</div>

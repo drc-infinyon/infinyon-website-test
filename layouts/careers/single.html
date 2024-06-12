@@ -1,0 +1,10 @@
+{{ define "head-meta" }}
+  {{ partial "header-footer/head-metadata.html" .ctx }}
+{{ end }}
+
+{{ define "main" }}
+<main>
+  {{ partial "careers/hero-apply" .ctx -}}
+  {{ partial "careers/job-description" .ctx -}}
+</main>
+{{- end }}

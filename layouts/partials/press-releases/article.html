@@ -1,0 +1,22 @@
+<div class="bg-white">
+  <div class="mx-auto max-w-7xl grow lg:flex lg:px-2">
+    <div class="flex-1 lg:flex mb-10">
+
+      <div class="px-6 pt-6 lg:w-96 md:pl-6 lg:pt-10">
+        {{ partial "press-releases/publisher" . -}}
+      </div>
+
+      <div class="px-6 mt-8 lg:mt-6 lg:py-4 md:pl-6 lg:pl-2">
+        <div class="max-w-7xl prose prose-quoteless prose-zing prose-md">
+          {{ .Content }}
+
+          <p class="pt-3">
+            <a href="{{ref . "/press-releases"}}">
+              << Return to Press Releases
+            </a>
+          </p>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>

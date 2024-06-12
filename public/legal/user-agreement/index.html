@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script>
+    <title>User Agreement</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"><script defer src="/js/alpine_3_11_1.js"></script>
+
+  </head>
+  <body>
+    
+<div class="relative isolate flex items-center gap-x-6 overflow-hidden bg--100 py-2.5 px-6 sm:px-3.5 sm:before:flex-1 bg-indigo-300">
+  <div class="flex flex-auto items-center gap-y-2 gap-x-4">
+    <p class="text-sm leading-6 text-gray-900">
+      <strong class="font-semibold">Stateful Services (private release)</strong>
+      <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+      Build composable event-driven data pipelines in minutes.
+    </p>
+    <a href="/request/ss-early-access" class="flex-none rounded-full bg-gray-900 py-1 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+      Request access <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</div><div id="content">
+      <header id="header" class="sticky top-0 z-20">
+        <div 
+  x-data="{ isOpen: false, menuOpen: '', showBorder: false }"
+  @scroll.window="showBorder = (document.querySelector('#header').getBoundingClientRect().top <= 0 && window.pageYOffset > 2 ) ? true : false"
+  :class="{ 'border-b border-gray-700' : showBorder}"
+>
+  <div class="bg-magenta-900 pt-4 pb-4">
+    <nav class="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
+      <div class="flex flex-1 items-center">
+        <div class="flex w-full items-center justify-between md:w-auto">
+          <a href="/">
+            <span class="sr-only">InfinyOn</span>
+            <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+          </a>
+
+          <div class="-mr-2 flex items-center md:hidden">
+            <button 
+              @click="isOpen = !isOpen" 
+              type="button" 
+              class="focus-ring-inset inline-flex items-center justify-center rounded-md bg-magenta-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white" aria-expanded="false"
+              >
+              <span class="sr-only">Open main menu</span>
+              
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.4" stroke="white" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>                  
+          </div>
+        </div>
+
+        <div class="hidden space-x-8 md:ml-10 md:flex">
+              
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Use Cases</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-8 py-7 bg-slate-50" aria-labelledby="solutions-heading">
+          <ul role="list" class="space-y-5">
+              <li class="flow-root">
+                <a href="/clickstream" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+</svg><span class="ml-4">Clickstream Analytics</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/iot" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+</svg><span class="ml-4">IoT Mirroring</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/stateful-streaming" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+</svg>
+<span class="ml-4">Stateful Streaming</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+  
+</div>    
+            
+<a href="/docs" class="text-base text-white hover:text-gray-300 " class="">Docs</a>    
+            
+<a href="/blog" class="text-base text-white hover:text-gray-300 " class="">Blog</a>    
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Resources</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-16 py-8 grid grid-cols-2 gap-24 bg-slate-50" aria-labelledby="solutions-heading">
+
+          <div>
+            <h3 class="text-md text-gray-700">Company</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/about" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+</svg><span class="ml-4">About</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/careers" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+</svg><span class="ml-4">Careers</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/press-releases" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+</svg><span class="ml-4">Press</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-md text-gray-700">Resources</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/resources" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+</svg><span class="ml-4">Articles</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/webinars" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+</svg><span class="ml-4">Webinars</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="https://www.youtube.com/@infinyon/videos" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+</svg><span class="ml-4">Videos</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+  
+</div>    
+                
+            </div>
+
+      </div>
+      
+      <div class="hidden md:flex md:items-center md:space-x-6">
+            
+          
+        <a href="https://infinyon.cloud?utm_campaign=global%20cloud%20link&amp;utm_source=website&amp;utm_medium=global%20button&amp;utm_term=infinyon%20cloud&amp;utm_content=cloud-registration" class="inline-flex items-center rounded-md px-4 py-1.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600">Cloud Login</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="absolute inset-x-0 top-0 px-2 origin-top transform transition md:hidden">
+  <div x-show="isOpen" x-cloak x-transition:enter="duration-150 ease-out" x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="duration-100 ease-in"
+    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+    class="overflow-hidden rounded-lg bg-slate-50 shadow-lg ring-1 ring-black ring-opacity-5">
+
+    <div class="flex items-center justify-between px-5 pt-4 pb-2 bg-magenta-900">
+      <div>
+        <a href="/">
+          <span class="sr-only">InfinyOn</span>
+          <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        </a>
+      </div>
+      <div class="-mr-2">
+        <button type="button" @click="isOpen = !isOpen"
+          class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+          <span class="sr-only">Close menu</span>
+          
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-5 pb-6 max-h-screen -mb-16 overflow-y-auto">
+      <div class="mb-16 space-y-1 px-2">
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Use Cases</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/clickstream"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Clickstream Analytics</a>
+                  
+                    <a href="/iot"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">IoT Mirroring</a>
+                  
+                    <a href="/stateful-streaming"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Stateful Streaming</a>
+                  </div>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Documentation</p> 
+              <a href="/docs"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Docs</a>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Blog Articles</p> 
+              <a href="/blog"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Blog</a>
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Resources</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/about"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">About</a>
+                  
+                    <a href="/careers"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Careers</a>
+                  
+                    <a href="/press-releases"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Press</a>
+                  
+                    <a href="/resources"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Articles</a>
+                  
+                    <a href="/webinars"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Webinars</a>
+                  
+                    <a href="https://www.youtube.com/@infinyon/videos"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Videos</a>
+                  </div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+      </header>
+<main>
+   <div class="bg-white px-6 py-32 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+        <p class="text-base font-semibold leading-7 text-indigo-600 py-4">July 27, 2021</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">User Agreement</h1>
+        <div class="mt-10 max-w-2xl prose">
+            <p>Your use of InfinyOn&rsquo;s products and services, including the use of Infinyon Cloud Service (&ldquo;Cloud Service&rdquo;), Subscriptions to the deployed on-premise Fluvio Platform (together the Infinyon Cloud Service and Subscriptions are the &ldquo;InfinyOn Products”), and Services (defined below) is governed by these terms of service (“Agreement”). “InfinyOn” means InfinyOn, Inc., a Delaware corporation located at  2445 Augustine Drive, Suite 249, Santa Clara, CA 95054, USA. “Your”, “You” and “Customer” are used interchangeably throughout the Agreement and have the same meaning.</p>
+<p>BY REGISTERING TO USE THE INFINYON CLOUD SERVICE, YOU AGREE TO THE TERMS AND CONDITIONS OF THIS AGREEMENT ON BEHALF OF YOUR ORGANIZATION. YOU REPRESENT AND WARRANT THAT YOU HAVE THE LEGAL AUTHORITY TO BIND YOUR ORGANIZATION TO THIS AGREEMENT, AND THAT YOU HAVE READ AND UNDERSTOOD THIS AGREEMENT. IF YOU DO NOT HAVE SUCH AUTHORITY, OR IF YOU OR YOUR ORGANIZATION DOES NOT AGREE WITH THE TERMS OF THIS AGREEMENT, YOU SHOULD NOT ACCEPT IT.</p>
+<ol>
+<li>
+<p>DEFINITIONS</p>
+<p>1.1 <ins>&ldquo;Affiliate&rdquo;</ins> means any entity that, directly or indirectly through one or more intermediaries, controls, or is controlled by, or is under common control with Customer, for so long as such control exists.</p>
+<p>1.2 <ins>&ldquo;Authorized User”</ins> means means a named individual that: (a) is an employee, representative, consultant, contractor or agent of Customer or a Customer Affiliate; (b) is authorized to use the SaaS Service pursuant to this Agreement; and (c) has been supplied a user identification and password by Customer.</p>
+<p>1.3 <ins>&ldquo;Cloud Service&rdquo;</ins> means the managed service offering(s) that InfinyOn makes available through the website as a hosted, web-based service, and that are used by Customer or Authorized Users.</p>
+<p>1.4 <ins>“Customer Data”</ins> means any electronic data or materials provided or submitted by Customer or Authorized Users to or through the Cloud Service.</p>
+<p>1.5 <ins>“Documentation”</ins> means the online help materials, including technical specifications, describing the features and functionality of the Cloud Service, which are located on InfinyOn&rsquo;s publicly-available website at <a href="https://www.fluvio.io/docs">https://www.fluvio.io/docs</a> as updated by InfinyOn.</p>
+<p>1.6 <ins>“Intellectual Property Rights”</ins> means all current and future worldwide intellectual property rights, including without limitation, all patents, copyrights, trademarks, service marks, trade names, domain name rights, know-how and other trade secret rights, and all other intellectual property rights and similar forms of protection, and all applications and registrations for any of the foregoing.</p>
+<p>1.7 <ins>“Subscription Term(s)”</ins> means the term of Customer’s or Authorized User&rsquo;s use of the Subscription, which commences on the commencement date specified in the Subscription. If no such commencement date is specified, the Subscription Term will commence after Customer fully and accurately completes registration on the Infinyon Cloud Services website.</p>
+<p>1.8 <ins>&ldquo;Support Services&rdquo;</ins> means the applicable support and maintenance service that InfinyOn provides pursuant to the applicable Subscription.</p>
+</li>
+<li>
+<p>CLOUD LICENSE AND SUPPORT TERMS</p>
+<p>2.1 <ins>Generally</ins>. InfinyOn will host the Cloud Service and will make the Service available to Customer during the Subscription Term(s), subject to the terms and conditions of this Agreement. The Cloud Service is offered to Customer at no cost, unless customer has selected a paid version of the Software. Customer is responsible for Users&rsquo; compliance with this Agreement.</p>
+<p>2.2 <ins>Customer Responsibility</ins>. Customer shall not resell, sublicense, rent or lease the Cloud Service, or otherwise make it available to anyone other than its Users. Customer shall not use the Cloud Service to violate the security or integrity of any network, computer or communications system, software application, or network or computing device. Customer shall not make network connections to any users, hosts, or networks unless Customer has permission to communicate with them, and may not use manual or electronic means to avoid any use limitations placed on the Cloud Service, such as access and storage restrictions. InfinyOn may, but has no obligation to (a) investigate any violation of this provision or misuse of the Cloud Service, or (b) remove any content, or disable access to any resource, that violates the foregoing. Customer is solely responsible for (i) the legality of Content, (ii) ensuring compliance with all privacy laws applicable to the collection and provision of Content; (iii) Customer’s configuration and use of the Cloud Service, and (iv) taking appropriate action to secure, protect and backup Content, which may include use of encryption to protect Content from unauthorized access. Customer is responsible for communicating with the Cloud Service through encrypted and authenticated connections, as may be required by InfinyOn, and for transmitting all Content using such security methods. To the extent that Customer will be subject to user data access and deletion requests, Customer is responsible for configuring the retention period on Fluvio topics that contain EU personal data to a maximum of 30 days.</p>
+<p>2.3 <ins>Sensitive Data</ins>. Customer agrees that it will not submit the following types of information to the Cloud Service except with InfinyOn&rsquo;s prior written approval: government-issued identification numbers, consumer financial account information, credit and payment card information, personal health information, or information deemed “sensitive” under applicable law (such as racial or ethnic origin, political opinions, or religious or philosophical beliefs) or personal data (as described in the Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data) of data subjects that reside in the European Economic Area (EEA). If Customer wishes to submit any such European personal data to the SaaS Service, Customer will notify InfinyOn and the parties may enter into a separate data processing agreement (including the European Commission’s Standard Contract Clauses for the transfer of personal data to processors established in third countries which do not ensure an adequate level of data protection) with InfinyOn prior to submission of such personal data to the Cloud Service. Customer represents and warrants that it has obtained all necessary consents and permissions from data subjects for the submission and processing of personal data in the Cloud Service.</p>
+<p>2.4 <ins>Excessive Use of Resources</ins>. Customer’s access and usage of the Cloud Service may not exceed the typical and customary utilization of such service, as contemplated by InfinyOn in its sole discretion (including but not limited to the creation of an excessive number of resources), and may not interfere with other users’ utilization of the SaaS Service.</p>
+<p>2.5 <ins>Service Updates</ins>. InfinyOn may update the content, features, functionality, and user interface of the Cloud Service from time to time in its sole discretion, and may discontinue or suspend all or any portion of the Cloud Service at any time in its sole discretion, including during a Subscription Term; provided, that InfinyOn will give Customer at least fifteen (15) days’ advance notice before discontinuing the Cloud Service or materially decreasing the functionality of the Cloud Service during the Subscription Term.</p>
+<p>2.6 <ins>Privacy and Security</ins>. InfinyOn will use commercially reasonable administrative, physical and technical safeguards designed to prevent unauthorized access, use or disclosure of Content for the Customer&rsquo;s data. InfinyOn will not access any Content except as necessary to provide the Cloud Service or Support Services, to enforce the provisions of this Agreement, or for a Permitted Disclosure.</p>
+<p>2.7 <ins>Registration</ins>. Customer must register and setup an authorized account to use the Cloud Service. Customer must keep the registration information accurate and complete. Customer is responsible for the security of its User IDs and passwords and for the use of its accounts and will immediately notify InfinyOn of any unauthorized use at <a href="mailto:support@infinyon.com">support@infinyon.com</a>.</p>
+<p>2.8 <ins>Support Services</ins>. InfinyOn will provide Support Services for the Cloud Service, as provided in InfinyOn&rsquo;s applicable support policy and in accordance with the level of Support Services purchased. If Customer does not purchase a different level of Support Services, InfinyOn will provide a “Free” level of Support Services. Support Services do not include support for any open source versions of Fluvio, and Customer agrees to request support only for the Cloud Service licensed under this Agreement.</p>
+<p>2.9 <ins>Restrictions</ins>. Except as otherwise expressly set forth in this Agreement, Customer will not and will not permit any third party to: (a) sublicense, sell, transfer, assign, distribute or otherwise grant or enable access to the Cloud Service in a manner that allows anyone to access or use the Cloud Service without an Authorized User subscription, or to commercially exploit the Cloud Service; (b) copy, modify or create derivative works based on the Cloud Service; (c) reverse engineer or decompile the Cloud Service (except to the extent permitted by applicable law and only if InfinyOn fails to provide permitted interface information within a reasonable period of time after Customer’s written request); (d) copy any features, functions or graphics of the Cloud Service; (e) allow Authorized User subscriptions to be shared or used by more than one individual Authorized User (except that Authorized User subscriptions may be reassigned to new Authorized Users replacing individuals who no longer use the Cloud Service for any purpose, whether by termination of employment or other change in job status or function); or (f) access to or use of the Cloud Service: (i) to send or store infringing, obscene, threatening, or otherwise unlawful material, including material violative of third-party privacy rights; (ii) in violation of applicable laws; (iii) to send or store material containing software viruses, worms, Trojan horses or other harmful computer code, files, scripts, or agents; (iv) in a manner that interferes with or disrupts the integrity or performance of the Cloud Service (or the data contained therein); (v) to gain unauthorized access to the Cloud Service (including unauthorized features and functionality) or its related systems or networks; (vi) Circumvent defined limits on an account in an unauthorized manner; (vii) Abuse referrals, promotions or credits to get more features than paid for; or (viii) Access, search, or create accounts for the Cloud Service by any means other than InfinyOn&rsquo;s publicly supported interfaces (for example, “scraping” or creating accounts in bulk).</p>
+</li>
+<li>
+<p>INTELLECTUAL PROPERTY OWNERSHIP</p>
+<p>3.1 <ins>Ownership</ins>. The Cloud Service and Documentation, all copies and portions thereof, and all Intellectual Property Rights therein, including, but not limited to derivative works therefrom, are and will remain the sole and exclusive property of InfinyOn notwithstanding any other provision in this Agreement. Customer is not authorized to use (and will not permit any third party to use) the Cloud Service, Documentation or any portion thereof except as expressly authorized by this Agreement.</p>
+<p>3.2 <ins>License to Customer Data</ins>. Customer grants InfinyOn a worldwide, non-exclusive license to host, copy, process, transmit Customer Data in accordance with this Agreement. InfinyOn may use the data to produce statistics and analytics for its own business purposes, including to maintain and improve its products and services and to monitor and analyze its activities in connection with the performance of such services. Subject to this limited license, as between Customer and InfinyOn, Customer owns all right, title and interest, including all related Intellectual Property Rights, in and to the Customer Data.</p>
+<p>3.3 <ins>Use of Aggregate Information</ins>. InfinyOn may collect and aggregate data derived from the operation of the Cloud Service (“Aggregated Data”), and InfinyOn may use such Aggregated Data for purposes of operating InfinyOn&rsquo;s business, monitoring performance of the Cloud Service, and/or improving the Cloud Service; provided, that InfinyOn&rsquo;s use of Aggregated Data does not reveal any Customer Data, Customer Confidential Information, or personally identifiable information of Authorized Users.</p>
+<p>3.4 <ins>Feedback</ins>. Customer has no obligation to provide InfinyOn any suggestions, enhancement requests, recommendations, or other feedback regarding InfinyOn&rsquo;s products and services (“Feedback”). However, InfinyOn may use and include any Feedback that Customer provides in InfinyOn&rsquo;s products and services without restriction or payment.</p>
+</li>
+<li>
+<p>TERM; TERMINATION</p>
+<p>4.1 <ins>Term</ins>. This Agreement commences on the Effective Date. Unless earlier terminated as provided below, the Agreement will continue through the Subscription Term. Unless one party notifies the other the Subscription Term will automatically renew for an additional Subscription Term of the same length.</p>
+<p>4.2 <ins>Termination</ins>. Unless otherwise stated, Customer may discontinue its use of the Cloud Service at any time for any reason by following the process in the InfinyOn website interface to “Delete” Customer’s purchased Cloud Service. Either Party may terminate this Agreement for any reason or no reason by providing the other party at least fifteen (15) days prior written notice. In the event the Customer materially breaches this Agreement and such breach is not cured within thirty (30) days will result in termination (as described &ldquo;Suspension&rdquo; section below). The termination the Subscription will not automatically result in the termination of this Agreement. Either party may also terminate this Agreement immediately if the other party (a) terminates or suspends its business; (b) becomes subject to any bankruptcy or insolvency proceeding under Federal or state statute; (c) becomes insolvent or subject to direct control by a trustee, receiver or similar authority; or (d) has wound up or liquidated, voluntarily or otherwise.</p>
+<p>4.3 <ins>Suspension</ins>. InfinyOn may discontinue or suspend Customer’s access to the Cloud Service immediately if Customer has (or InfinyOn reasonably suspects that Customer has) breached Section 2.9 or infringed InfinyOn&rsquo;s Intellectual Property Rights.</p>
+<p>4.4 <ins>Effect of Termination</ins>. Upon expiration or termination of this Agreement for any reason: (a) InfinyOn’s obligation to provide Support Services and the Cloud Service will terminate, and (b) all of Customer’s and its Authorized Users’ rights to use the Cloud Service will terminate. Customer agrees that following termination of this Agreement, InfinyOn may immediately deactivate Customer’s account(s) for the cloud Service, and InfinyOn has the right to delete those accounts, including all Customer Data, from InfinyOn&rsquo;s site unless legally prohibited. Customer acknowledges and agrees that is responsible to retrieve Customer Data from the Cloud Service prior to expiration of this Agreement. Customer acknowledges that following termination it will have no further access to any Content.</p>
+</li>
+<li>
+<p>CONFIDENTIALITY</p>
+<p>5.1 <ins>Confidentiality Obligations</ins>. Each party shall retain in confidence the non-public information and technical information disclosed or made available by the other party pursuant to this Agreement which is either designated in writing as proprietary and/or confidential, if disclosed in writing, or if disclosed orally, is designated in writing (which may be via email) as confidential within thirty (30) days of the oral disclosure or should reasonably be understood to be confidential by the recipient (“Confidential Information”). Notwithstanding any failure to so designate it, the InfinyOn Software is InfinyOn&rsquo;s Confidential Information, and Content is Customer’s Confidential Information. Each party shall (a) maintain the confidentiality of the other party’s Confidential Information using at least a reasonable degree of care; (b) refrain from using the other party’s Confidential Information except for the purpose of performing its obligations under this Agreement; and (c) not disclose Confidential Information to any third party except to employees, subcontractors and agents as is reasonably required in connection with this Agreement and who are subject to confidentiality obligations at least as protective as those set forth in this section. Each party shall immediately notify the other party of any unauthorized disclosure or use of any Confidential Information and assist the other party in remedying such unauthorized use or disclosure by taking such steps as are reasonably requested by such other party. The foregoing obligations will not apply to Confidential Information of the other party which (a) is or becomes publicly known without breach of this Agreement; (b) is discovered or created by the receiving party without use of, or reference to, the Confidential Information of the disclosing party, as shown in records of the receiving party; or (c) is otherwise known to the receiving party without confidentiality restrictions and through no wrongful conduct of the receiving party. Receiving party may disclose Confidential Information to the extent required by law or court order if the receiving party provides prompt notice and reasonable assistance to the disclosing party to enable the disclosing party to seek a protective order or otherwise prevent or restrict such disclosure (&ldquo;Compelled Disclosures&rdquo;).</p>
+<p>5.2 <ins>Compelled Disclosures</ins>. The Recipient will not be in violation of Section 5.1 regarding a disclosure that was in response to a valid order by a court or other governmental body, provided that the Recipient provides the Discloser with prior written notice of such disclosure in order to permit the Discloser to seek confidential treatment of such information.</p>
+<p>5.3 <ins>Injunctive Relief</ins>. Any breach or threatened breach of this section may cause irreparable harm to the disclosing party for which there is no adequate remedy at law. Therefore, the disclosing party will be entitled to seek injunctive relief without the necessity of proving actual damages or posting a bond, in addition to any other remedies available at law.</p>
+</li>
+<li>
+<p>REPRESENTATIONS AND WARRANTIES</p>
+<p>6.1 <ins>By Each Party</ins>. Each Party represents and warrants that it has the power and authority to enter into this Agreement and that its respective provision and use of the SaaS Service is in compliance with laws applicable to such Party.</p>
+<p>6.2 <ins>Support Services</ins>. InfinyOn represents and warrants that it shall perform Support Services in a professional manner, employing a standard of care, skill and diligence consistent with industry standards. In the event of a material breach of the foregoing warranty, Customer’s exclusive remedy and InfinoOn’s entire liability will be for Customer to request InfinyOn’s assistance through the Support Services, which InfinyOn will provide in accordance with its obligations under Section 2.8 (“Support Services”).</p>
+<p>6.3 <ins>Malicious Code</ins>. InfinyOn warrants that, to the best of its knowledge, the Cloud Service is free from, and InfinyOn will not knowingly introduce, software viruses, worms, Trojan horses or other code, files, scripts, or agents intended to do harm.</p>
+<p>6.4 <ins>Warranty Disclaimer</ins>. EXCEPT FOR THE EXCLUSIVE WARRANTIES SET FORTH IN THIS SECTION 6, TO THE MAXIMUM EXTENT PERMITTED UNDER APPLICABLE LAW, THE CLOUD SERVICE IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, AND INFINYON MAKES NO WARRANTIES, EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, WITH REGARDING OR RELATING TO THE CLOUD SERVICE, DOCUMENTATION, OR SUPPORT SERVICES.INFINYON SPECIFICALLY AND EXPLICITLY DISCLAIMS ALL OTHER WARRANTIES, EXPRESS AND IMPLIED, INCLUDING WITHOUT LIMITATION THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, INFINYON DOES NOT WARRANT THAT THE CLOUD SERVICE OR INFINYON SOFTWARE WILL OPERATE UNINTERRUPTED OR ERROR FREE, OR THAT ALL ERRORS WILL BE CORRECTED. FOR THE AVOIDANCE OF DOUBT, NOTHING IN THIS DISCLAIMER DIMINISHES ANY OBLIGATIONS EXPRESSLY STATED IN THE SERVICE LEVEL AGREEMENT REFERENCED IN THIS AGREEMENT OR AN ORDER HEREUNDER.</p>
+</li>
+<li>
+<p>INDEMNIFICATION</p>
+<p>7.1 <ins>By InfinyOn</ins>. Subject to liability limitations set forth in Section 8, Infinyon will: (a) defend Customer against any third party claim that the Cloud Service infringes any trademark or copyright of such third party, enforceable in the jurisdiction of Customer’s use of the Cloud Service, or misappropriates a trade secret (but only to the extent that such misappropriation is not a result of Customer’s actions) (“Infringement Claim”); and (b) indemnify Customer against and pay any settlement of such Infringement Claim consented to by InfinyOn or any damages finally awarded against Customer to such third party by a court of competent jurisdiction. InfinyOn will have no obligation and assumes no liability under this Section 7 or otherwise with respect to any claim to the extent based on: (a) operation or use of the Cloud Service with any Customer Data or any Customer or third party products, services, hardware, data, content, or business processes not provided by InfinyOn where there would be no Infringement Claim but for such combination; (b) use of the Cloud Service other than in accordance with the terms and conditions of this Agreement and the Documentation; or (c) Customer’s or any Authorized User’s use of the Cloud Service other than as permitted under this Agreement. THIS SECTION SETS FORTH INFINYON’S ENTIRE LIABILITY AND OBLIGATION AND CUSTOMER’S SOLE AND EXCLUSIVE REMEDY FOR ANY CLAIM OF INFRINGEMENT CLAIMS OR ACTIONS.</p>
+<p>7.2 <ins>Remedies</ins>. Should the Cloud Service become, or in InfinyOn&rsquo;s opinion be likely to become, the subject of an Infringement Claim, InfinyOn may, at its option (a) procure for Customer the right to use the Cloud Service in accordance with this Agreement; (b) replace or modify, the Cloud Service to make it non-infringing; or (c) terminate Customer’s right to use the Cloud Service and discontinue the related Support Services.</p>
+<p>7.3 <ins>By Customer</ins>. Customer will defend, indemnify and hold harmless InfinyOn and its Affiliates, and its and their directors, officers, employees, agents and licensors from and against any third-party claims, lawsuit, and costs (including reasonable attorneys’ fees and costs incurred by the indemnified parties) arising out of or relating to (a) Customer’s use of the SaaS Service or (b) Customer Data; provided, that Customer will have no obligation under this Section to the extent the applicable claim arises from InfinyOn’s breach of this Agreement.</p>
+<p>7.4 <ins>Indemnity Process</ins>. Each Party’s indemnification obligations are conditioned on the indemnified party: (a) promptly giving written notice of the claim to the indemnifying Party; (b) giving the indemnifying Party sole control of the defense and settlement of the claim; and (c) providing to the indemnifying Party all available information and assistance in connection with the claim, at the indemnifying Party’s request and expense. The indemnified Party may participate in the defense of the claim, at the indemnified Party’s sole expense (not subject to reimbursement). Neither Party may admit liability for or consent to any judgment or concede or settle or compromise any claim unless such admission or concession or settlement or compromise includes a full and unconditional release of the other Party from all liabilities in respect of such claim.</p>
+</li>
+<li>
+<p>LIMITATION OF LIABILITY</p>
+<p>8.1 <ins>Exclusions and Limitations</ins>. IN NO EVENT WILL EITHER PARTY OR ITS AFFILIATES OR LICENSORS BE LIABLE UNDER THIS AGREEMENT FOR ANY CONSEQUENTIAL, INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR EXEMPLARY DAMAGES, INCLUDING WITHOUT LIMITATION LOST PROFITS, LOSS OF USE, BUSINESS INTERRUPTIONS, LOSS OF DATA, REVENUE, GOODWILL, PRODUCTION, ANTICIPATED SAVINGS, OR COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, WHETHER ALLEGED AS A BREACH OF CONTRACT OR TORTIOUS CONDUCT, INCLUDING NEGLIGENCE, EVEN IF A PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. EXCEPT WITH RESPECT TO LIABILITY ARISING FROM ITS OBLIGATIONS UNDER SECTION 7 (“INDEMNIFICATION”), IN NO EVENT WILL INFINYON’S TOTAL AGGREGATE LIABILITY ARISING UNDER THIS AGREEMENT EXCEED THE AMOUNT PAID OR PAYABLE BY CUSTOMER PURSUANT TO THIS AGREEMENT DURING THE TWELVE (12) MONTHS IMMEDIATELY PRIOR TO THE EVENT GIVING RISE TO SUCH LIABILITY. NOTHING IN THIS SECTION WILL BE DEEMED TO LIMIT EITHER PARTY’S LIABILITY FOR WILLFUL MISCONDUCT, GROSS NEGLIGENCE, FRAUD, OR INFRINGEMENT BY ONE PARTY OF THE OTHER’S INTELLECTUAL PROPERTY RIGHTS.</p>
+<p>8.2 <ins>Limitations Fair and Reasonable</ins>. EACH PARTY ACKNOWLEDGES THAT THE LIMITATIONS OF LIABILITY SET FORTH IN THIS SECTION 8 REFLECT THE ALLOCATION OF RISK BETWEEN THE PARTIES UNDER THIS AGREEMENT, AND THAT IN THE ABSENCE OF SUCH LIMITATIONS OF LIABILITY, THE ECONOMIC TERMS OF THIS AGREEMENT WOULD BE SIGNIFICANTLY DIFFERENT.</p>
+</li>
+<li>
+<p>GENERAL</p>
+<p>9.1 <ins>Assignment</ins>. Neither party may assign or otherwise transfer this Agreement or any rights or obligations hereunder, in whole or in part, whether by operation of law or otherwise, to any third party without the other party’s prior written consent, except to an Affiliate or to any successor to its business or assets to which this Agreement relates, whether by merger, sale of assets, sale of stock, reorganization or otherwise. Any purported transfer, assignment or delegation without such prior written consent will be void. Subject to this section, this Agreement shall be binding upon and inure to the benefit of the parties, and their respective successors and permitted assigns.</p>
+<p>9.2 <ins>Anti-Corruption</ins>. Each Party acknowledges that it is aware of, understands and has complied and will comply with, all applicable U.S. and foreign anti-corruption laws, including without limitation, the U.S. Foreign Corrupt Practices Act (“FCPA”) and the U.K. Bribery Act.</p>
+<p>9.3 <ins>Delays</ins>. In the event that either party is unable to perform any of its obligations under this Agreement due to any Act of God, fire, casualty, flood, earthquake, war, strike, lockout, epidemic, destruction of production facilities, riot, insurrection, material unavailability, or any other cause beyond the reasonable control of the party invoking this section, and if such party used its commercially reasonable efforts to mitigate its effects, such party shall give prompt written notice to the other party, and the time for the performance shall be extended for the period of delay or inability to perform due to such occurrences.</p>
+<p>9.4 <ins>Non-waiver</ins>. Any failure of either Party to insist upon or enforce performance by the other Party of any of the provisions of this Agreement or to exercise any rights or remedies under this Agreement will not be interpreted or construed as a waiver or relinquishment of such Party&rsquo;s right to assert or rely upon such provision, right or remedy in that or any other instance.</p>
+<p>9.5 <ins>Governing Law</ins>. This Agreement is governed by the laws of the State of California without regard to its conflicts of laws principles. All disputes arising out of this Agreement will be subject to the exclusive jurisdiction of and venue in the federal and state courts within Santa Clara County, California. The parties consent to the personal and exclusive jurisdiction and venue of these courts. Neither the United Nations Convention of Contracts for the International Sale of Goods nor the Uniform Computer Information Transactions Act will apply to this Agreement.</p>
+<p>9.6 <ins>Severability</ins>. If any provision of this Agreement is held invalid or unenforceable under applicable law by a court of competent jurisdiction, it will be replaced with the valid provision that most closely reflects the intent of the Parties and the remaining provisions of the Agreement will remain in full force and effect.</p>
+<p>9.7 <ins>Relationship of the Parties</ins>. Nothing in this Agreement is to be construed as creating an agency, partnership, or joint venture relationship between the Parties hereto. Neither Party has any right or authority to assume or create any obligations or to make any representations or warranties on behalf of any other Party, whether express or implied, or to bind the other Party in any respect whatsoever. Each Party may identify the other as a customer or supplier, as applicable.</p>
+<p>9.8 <ins>Export Compliance</ins>. InfinyOn Materials are subject to export control laws and regulations. Customer may not access or use the InfinyOn Materials or any underlying information or technology except in full compliance with all applicable United States export control laws. Neither the InfinyOn Technology nor any underlying information or technology may be accessed or used (a) by any individual or entity in any country to which the United States has embargoed goods; or (b) by anyone on the U.S. Treasury Department’s list of specially designated nationals or the U.S. Commerce Department’s list of prohibited countries or debarred or denied persons or entities.</p>
+<p>9.9 <ins>Government Restricted Rights</ins>. If InfinyOn Software is being licensed by the U.S. Government, the InfinyOn Software is deemed to be “commercial computer software” and “commercial computer documentation” developed exclusively at private expense, and (a) if acquired by or on behalf of a civilian agency, shall be subject solely to the terms of this computer software license as specified in 48 C.F.R. 12.212 of the Federal Acquisition Regulations and its successors; and (b) if acquired by or on behalf of units of the Department of Defense (“DOD”) shall be subject to the terms of this commercial computer software license as specified in 48 C.F.R. 227.7202-2, DOD FAR Supplement and its successors.</p>
+<p>9.10 <ins>Execution</ins>. This Agreement comprises the entire agreement between Customer and InfinyOn, and supersedes all prior or contemporaneous proposals, quotes, negotiations, discussions, or agreements, whether written or oral, between the Parties regarding its subject matter. In the event of a conflict between the terms of this Agreement and any other document referenced in this Agreement, this Agreement will control. Any preprinted terms on any Customer ordering documents or terms referenced or linked therein will have no effect on the terms of this Agreement and are hereby rejected, including where such Customer ordering document is signed by InfinyOn. This Agreement may be executed in counterparts, which taken together form one binding legal instrument. The Parties hereby consent to the use of electronic signatures in connection with the execution of this Agreement, and further agree that electronic signatures to this Agreement will be legally binding with the same force and effect as manually executed signatures.</p>
+</li>
+</ol>
+
+        </div>
+    </div>
+</div>
+</main>
+
+    </div>
+    <footer class="bg-gray-900" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8">
+    <div class="lg:grid lg:grid-cols-10 lg:gap-8">
+
+      
+      <div class="lg:col-span-2 space-y-6">
+        <img class="h-7 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        <p class="text-sm leading-6 text-gray-300"></p>
+        <div class="flex space-x-6">
+            <a href="https://github.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">GitHub</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+            <a href="https://twitter.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">Twitter</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+</svg>
+            </a>
+            <a href="https://linkedin.com/company/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">linkedin</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
+  <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+</svg>
+            </a>
+            <a href="https://discordapp.com/invite/bBG2dTz" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">discord</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true"
+    viewBox="0 0 640 512">
+    <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z" />
+</svg>
+            </a>
+            <a href="https://www.youtube.com/@infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">YouTube</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+        </div>
+      </div>
+
+      
+      <div class="lg:col-span-8">
+        <div class="mt-16 lg:mt-0 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Cloud</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/infinyon-cloud" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Cloud
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/signup" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Sign Up
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/login" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Login
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Product</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Platform
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Hub
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Connectors
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webhooks
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    SmartModules
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Event Streams
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Stateful Streams
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Solutions</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/iot" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    IoT Aggregation
+                </a>
+                </li>
+                <li>
+                  <a href="/clickstream" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Website Monitoring
+                </a>
+                </li>
+                <li>
+                  <a href="/" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Microservices Event Bridge
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">About</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/about" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Company
+                </a>
+                </li>
+                <li>
+                  <a href="/careers" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Careers
+                </a>
+                </li>
+                <li>
+                  <a href="/resources" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Articles
+                </a>
+                </li>
+                <li>
+                  <a href="/press-releases" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    News
+                </a>
+                </li>
+                <li>
+                  <a href="/webinars" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webinars
+                </a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@infinyon/videos" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Videos
+                </a>
+                </li>
+                <li>
+                  <a href="/blog" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Blog
+                </a>
+                </li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="mt-8 border-t border-white/10 pt-4 text-center">
+      <div class="text-center text-xs text-gray-400">
+        
+        <span><a href="/legal/privacy">Privacy Policy</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/security">Security</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/user-agreement">Terms and Conditions</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/cookies">Cookie Notice</a></span>
+          
+      </div>
+      <p class="text-xs leading-5 text-gray-400">&copy; <span id="year"></span> InfinyOn, Inc. All rights reserved.</p>
+      <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+      </script>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+</html>

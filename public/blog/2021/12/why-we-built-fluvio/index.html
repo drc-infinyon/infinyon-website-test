@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script>
+    <title>Why We Built Fluvio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"><script defer src="/js/alpine_3_11_1.js"></script>
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Why We Built Fluvio" />
+  <meta property="og:description" content="Fluvio, a real-time data streaming platform for connected apps" />
+  <meta property="og:image" content="http://localhost:1315/blog/images/why-fluvio/social/fluvio.jpg">
+  <meta name="twitter:site" content="@InfinyOn">
+  <meta name="twitter:image:src" content="http://localhost:1315/blog/images/why-fluvio/social/fluvio.jpg" />
+  <meta name="twitter:card" content="summary" />
+
+  </head>
+  <body>
+    
+<div class="relative isolate flex items-center gap-x-6 overflow-hidden bg--100 py-2.5 px-6 sm:px-3.5 sm:before:flex-1 bg-indigo-300">
+  <div class="flex flex-auto items-center gap-y-2 gap-x-4">
+    <p class="text-sm leading-6 text-gray-900">
+      <strong class="font-semibold">Stateful Services (private release)</strong>
+      <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+      Build composable event-driven data pipelines in minutes.
+    </p>
+    <a href="/request/ss-early-access" class="flex-none rounded-full bg-gray-900 py-1 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+      Request access <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</div><div id="content">
+      <header id="header" class="sticky top-0 z-20">
+        <div 
+  x-data="{ isOpen: false, menuOpen: '', showBorder: false }"
+  @scroll.window="showBorder = (document.querySelector('#header').getBoundingClientRect().top <= 0 && window.pageYOffset > 2 ) ? true : false"
+  :class="{ 'border-b border-gray-700' : showBorder}"
+>
+  <div class="bg-magenta-900 pt-4 pb-4">
+    <nav class="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
+      <div class="flex flex-1 items-center">
+        <div class="flex w-full items-center justify-between md:w-auto">
+          <a href="/">
+            <span class="sr-only">InfinyOn</span>
+            <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+          </a>
+
+          <div class="-mr-2 flex items-center md:hidden">
+            <button 
+              @click="isOpen = !isOpen" 
+              type="button" 
+              class="focus-ring-inset inline-flex items-center justify-center rounded-md bg-magenta-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white" aria-expanded="false"
+              >
+              <span class="sr-only">Open main menu</span>
+              
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.4" stroke="white" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>                  
+          </div>
+        </div>
+
+        <div class="hidden space-x-8 md:ml-10 md:flex">
+              
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Use Cases</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-8 py-7 bg-slate-50" aria-labelledby="solutions-heading">
+          <ul role="list" class="space-y-5">
+              <li class="flow-root">
+                <a href="/clickstream" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+</svg><span class="ml-4">Clickstream Analytics</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/iot" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+</svg><span class="ml-4">IoT Mirroring</span>
+                </a>
+              </li>
+              <li class="flow-root">
+                <a href="/stateful-streaming" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                  <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+</svg>
+<span class="ml-4">Stateful Streaming</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+  
+</div>    
+            
+<a href="/docs" class="text-base text-white hover:text-gray-300 " class="">Docs</a>    
+            
+<a href="/blog" class="text-base text-white hover:text-gray-300  underline underline-offset-8 decoration-1" class="">Blog</a>    
+            <div x-data="{ showDropdown: false }">
+  <button 
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    @click="showDropdown = !showDropdown"
+    type="button" 
+    :class="{ 'text-gray-900' : showDropdown }"
+    class="group inline-flex items-center rounded-md text-base text-white hover:text-gray-300" aria-expanded="false">
+    <span>Resources</span>
+    <svg 
+      :class="{ 'rotate-90 text-gray-300' : showDropdown }"
+      class="ml-2 h-4 w-4 text-white group-hover:text-gray-300"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <div
+    x-cloak
+    x-show="showDropdown"
+    @mouseover="showDropdown = true"
+    @mouseleave="showDropdown = false"
+    class="absolute z-10 pt-3 transform shadow-lg"
+  >
+
+    <div class="overflow-hidden rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+        <div class="relative px-16 py-8 grid grid-cols-2 gap-24 bg-slate-50" aria-labelledby="solutions-heading">
+
+          <div>
+            <h3 class="text-md text-gray-700">Company</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/about" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+</svg><span class="ml-4">About</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/careers" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+</svg><span class="ml-4">Careers</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/press-releases" target="_self" class="-m-3 flex items-center rounded-md p-3 text-gray-700 hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+</svg><span class="ml-4">Press</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-md text-gray-700">Resources</h3>
+            <ul role="list" class="mt-4 space-y-6">
+                <li class="flow-root">
+                  <a href="/resources" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+</svg><span class="ml-4">Articles</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="/webinars" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+</svg><span class="ml-4">Webinars</span>
+                  </a>
+                </li>
+                <li class="flow-root">
+                  <a href="https://www.youtube.com/@infinyon/videos" class="-m-3 flex items-center rounded-md p-3 text-gray-700  hover:bg-slate-100">
+                    <svg class="w-6 h-6 text-magenta-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+</svg><span class="ml-4">Videos</span>
+                  </a>
+                </li>
+
+            </ul>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+  
+</div>    
+                
+            </div>
+
+      </div>
+      
+      <div class="hidden md:flex md:items-center md:space-x-6">
+            
+          
+        <a href="https://infinyon.cloud?utm_campaign=global%20cloud%20link&amp;utm_source=website&amp;utm_medium=global%20button&amp;utm_term=infinyon%20cloud&amp;utm_content=cloud-registration" class="inline-flex items-center rounded-md px-4 py-1.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600">Cloud Login</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="absolute inset-x-0 top-0 px-2 origin-top transform transition md:hidden">
+  <div x-show="isOpen" x-cloak x-transition:enter="duration-150 ease-out" x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="duration-100 ease-in"
+    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+    class="overflow-hidden rounded-lg bg-slate-50 shadow-lg ring-1 ring-black ring-opacity-5">
+
+    <div class="flex items-center justify-between px-5 pt-4 pb-2 bg-magenta-900">
+      <div>
+        <a href="/">
+          <span class="sr-only">InfinyOn</span>
+          <img class="h-6 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        </a>
+      </div>
+      <div class="-mr-2">
+        <button type="button" @click="isOpen = !isOpen"
+          class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+          <span class="sr-only">Close menu</span>
+          
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-5 pb-6 max-h-screen -mb-16 overflow-y-auto">
+      <div class="mb-16 space-y-1 px-2">
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Use Cases</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/clickstream"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Clickstream Analytics</a>
+                  
+                    <a href="/iot"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">IoT Mirroring</a>
+                  
+                    <a href="/stateful-streaming"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Stateful Streaming</a>
+                  </div>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Documentation</p> 
+              <a href="/docs"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Docs</a>
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Blog Articles</p> 
+              <a href="/blog"
+                class="block rounded-md ml-5 px-3 py-2 text-blue-700 hover:bg-gray-50">Blog</a>
+            
+              <p class="block px-3 pt-3 text-md font-medium text-gray-700">Resources</p>
+                
+                <div class="ml-5">
+                  
+                    <a href="/about"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">About</a>
+                  
+                    <a href="/careers"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Careers</a>
+                  
+                    <a href="/press-releases"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Press</a>
+                  
+                    <a href="/resources"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Articles</a>
+                  
+                    <a href="/webinars"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Webinars</a>
+                  
+                    <a href="https://www.youtube.com/@infinyon/videos"
+                      class="block rounded-md px-3 py-2 text-blue-700 hover:bg-gray-50">Videos</a>
+                  </div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+      </header>
+<main>
+  <div class="flex flex-1 items-start overflow-hidden max-w-7xl mx-auto py-6">
+  <main class="flex-1 overflow-y-auto">
+    <section aria-labelledby="primary-heading" class="flex min-w-0 flex-1 flex-col">
+      <div class="mx-5">
+        <div class="mb-6">
+          <nav class="flex" aria-label="Breadcrumb">
+
+  <ol role="list" class="flex items-center space-x-1">
+    <li>
+      <svg class="h-5 w-5 flex-shrink-0 text-magenta-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+      </svg>
+    </li>
+    <li>
+      <a href="/blog" class="text-base text-magenta-200 hover:underline">Blog</a>
+    </li>
+  </ol>
+  <div class="grow"></div>
+
+  <div class="flex flex-row mr-5 items-end text-gray-500">
+    <div class="flex items-center text-base  hidden sm:inline-flex whitespace-nowrap">
+      <svg class="mr-1.5 h-5 x-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>      
+      Read Time: 13 minutes
+    </div>
+    <div class="flex items-center text-base ml-4">
+      <svg class="mr-1.5 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+      </svg>
+      December 20, 2021
+    </div>
+  </div>
+
+</nav></div>
+        <div class="mb-6">
+          <h1 class="text-2xl md:text-3xl font-semibold font-md tracking-tight tracking-wide leading-tight bg-gradient-to-r from-magenta-800 to-magenta-300 inline-block text-transparent bg-clip-text">
+  Why We Built Fluvio
+</h1></div>
+        <div class="w-full lg:block hidden">
+          <img class="mx-auto aspect-[19/10] rounded-lg lg:h-80" src="/blog/images/why-fluvio/social/fluvio.jpg" alt="Why We Built Fluvio">
+        </div>
+        <div class="block lg:hidden mt-4">
+          <div class="flex flex-row">
+            <div class="ml-4">
+              <div class="flex flex-col">
+  <img src="https://avatars.githubusercontent.com/" alt="InfinyOn Team" class="h-16 w-16 rounded-full bg-gray-100">
+  <div class="text-base leading-6 pt-2">
+    <p class="font-semibold text-gray-900">
+      <a href="https://github.com/">
+        InfinyOn Team
+      </a>
+    </p>
+    <p class="text-sm text-gray-600">
+      Contributor, InfinyOn
+    </p>
+  </div>
+</div>
+</div>
+            <div class="grow"></div>
+            <div class="flex flex-col mr-4 sm:mr-10">
+              <h5 class="text-base text-gray-500">SHARE ON</h5>
+              <div class="mt-1 pt-2">
+                <div class="flex flex-row">
+  <div class="pr-2 hover:brightness-75">
+    <a class="twitter" title="Share on Twitter"
+        href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2021%2f12%2fwhy-we-built-fluvio&text=Why%20We%20Built%20Fluvio"
+        target="_blank">
+        <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#00aced"></circle>
+  <path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="button reddit" title="Share on Reddit"
+      href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2021%2f12%2fwhy-we-built-fluvio&title=Why%20We%20Built%20Fluvio&text=Fluvio%2c%20a%20real-time%20data%20streaming%20platform%20for%20connected%20apps"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#ff4500"></circle>
+  <path d="m 52.8165,31.942362 c 0,-2.4803 -2.0264,-4.4965 -4.5169,-4.4965 -1.2155,0 -2.3171,0.4862 -3.128,1.2682 -3.077,-2.0247 -7.2403,-3.3133 -11.8507,-3.4782 l 2.5211,-7.9373 6.8272,1.5997 -0.0102,0.0986 c 0,2.0281 1.6575,3.6771 3.6958,3.6771 2.0366,0 3.6924,-1.649 3.6924,-3.6771 0,-2.0281 -1.6575,-3.6788 -3.6924,-3.6788 -1.564,0 -2.8968,0.9758 -3.4357,2.3443 l -7.3593,-1.7255 c -0.3213,-0.0782 -0.6477,0.1071 -0.748,0.4233 L 32,25.212062 c -4.8246,0.0578 -9.1953,1.3566 -12.41,3.4425 -0.8058,-0.7446 -1.8751,-1.2104 -3.0583,-1.2104 -2.4905,0 -4.5152,2.0179 -4.5152,4.4982 0,1.649 0.9061,3.0787 2.2389,3.8607 -0.0884,0.4794 -0.1462,0.9639 -0.1462,1.4569 0,6.6487 8.1736,12.0581 18.2223,12.0581 10.0487,0 18.224,-5.4094 18.224,-12.0581 0,-0.4658 -0.0493,-0.9248 -0.1275,-1.377 1.4144,-0.7599 2.3885,-2.2304 2.3885,-3.9406 z m -29.2808,3.0872 c 0,-1.4756 1.207,-2.6775 2.6894,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 -1.4824,0 -2.6894,-1.2002 -2.6894,-2.6758 z m 15.4037,7.9373 c -1.3549,1.3481 -3.4816,2.0043 -6.5008,2.0043 l -0.0221,-0.0051 -0.0221,0.0051 c -3.0209,0 -5.1476,-0.6562 -6.5008,-2.0043 -0.2465,-0.2448 -0.2465,-0.6443 0,-0.8891 0.2465,-0.2465 0.6477,-0.2465 0.8942,0 1.105,1.0999 2.9393,1.6337 5.6066,1.6337 l 0.0221,0.0051 0.0221,-0.0051 c 2.6673,0 4.5016,-0.5355 5.6066,-1.6354 0.2465,-0.2465 0.6477,-0.2448 0.8942,0 0.2465,0.2465 0.2465,0.6443 0,0.8908 z m -0.3213,-5.2615 c -1.4824,0 -2.6877,-1.2002 -2.6877,-2.6758 0,-1.4756 1.2053,-2.6775 2.6877,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="linkedin" title="Share on LinkedIn"
+      href="https://www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2021%2f12%2fwhy-we-built-fluvio&title=Why%20We%20Built%20Fluvio&summary=Fluvio%2c%20a%20real-time%20data%20streaming%20platform%20for%20connected%20apps"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#007fb1"></circle>
+  <path d="M20.4,44h5.4V26.6h-5.4V44z M23.1,18c-1.7,0-3.1,1.4-3.1,3.1c0,1.7,1.4,3.1,3.1,3.1 c1.7,0,3.1-1.4,3.1-3.1C26.2,19.4,24.8,18,23.1,18z M39.5,26.2c-2.6,0-4.4,1.4-5.1,2.8h-0.1v-2.4h-5.2V44h5.4v-8.6 c0-2.3,0.4-4.5,3.2-4.5c2.8,0,2.8,2.6,2.8,4.6V44H46v-9.5C46,29.8,45,26.2,39.5,26.2z" fill="white">
+  </path>
+</svg></a>
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="ycombinator" title="Share on Y Combinator"
+      href="https://news.ycombinator.com/submitlink?u=http%3a%2f%2flocalhost%3a1315%2fblog%2f2021%2f12%2fwhy-we-built-fluvio&t=Why%20We%20Built%20Fluvio&text=Fluvio%2c%20a%20real-time%20data%20streaming%20platform%20for%20connected%20apps"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <circle cx="128" cy="128" r="125" fill="#FB651E"></circle>
+	<path d="M119.373653,144.745813 L75.43296,62.4315733 L95.5144533,62.4315733 L121.36192,114.52416 C121.759575,115.452022 122.2235,116.413008 122.753707,117.407147 C123.283914,118.401285 123.747838,119.428546 124.145493,120.48896 C124.410597,120.886615 124.609422,121.251127 124.741973,121.582507 C124.874525,121.913886 125.007075,122.212123 125.139627,122.477227 C125.802386,123.802744 126.39886,125.095105 126.929067,126.354347 C127.459274,127.613589 127.923198,128.773399 128.320853,129.833813 C129.381268,127.580433 130.541078,125.1614 131.80032,122.57664 C133.059562,119.99188 134.351922,117.307747 135.67744,114.52416 L161.92256,62.4315733 L180.612267,62.4315733 L136.27392,145.739947 L136.27392,198.826667 L119.373653,198.826667 L119.373653,144.745813 Z" fill="white">
+  </path>
+</svg></a>
+  </div>
+</div></div>
+              <div class="mt-1 pt-2">
+                <div class="github">
+  <a href="https://gitHub.com/infinyon/fluvio/stargazers/"><img src="https://img.shields.io/github/stars/infinyon/fluvio?style=social" alt="GitHub stars"></a>
+</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="blog mt-8 lg:max-w-5xl max-w-7xl prose prose-quoteless prose-zing prose-md">
+          <p>As more of our work moves online, there is a growing need for collaboration apps where businesses communicate with customers and employees in real-time. These new collaboration apps will accelerate decisions, improve customer experience, and open new revenue opportunities.</p>
+<p>In the article “<a href="https://www.mckinsey.com/business-functions/organization/our-insights/reimagining-the-post-pandemic-organization" target="_blank">Reimagining the post-pandemic organization</a>&quot;, McKinsey astutely observes that antiquated data systems are holding many companies back, forcing them to rely on manual processes to make decisions. Modern businesses must be able to collaborate with customers, partners, and employees in real-time, and do so through a variety of communication channels, organization’s boundaries, time zones, and legal jurisdictions. Making this transition requires new infrastructure that swaps out manual processes with collaboration centric real-time workflows. The proper infrastructure is needed to link human actions with systems, and to facilitate the transition from legacy systems with new technology.</p>
+<p>We’ve found that developers are struggling to build real-time collaboration apps that connect users with the business contexts they care about. A business context is derived from data, but this data is often fragmented and distributed by different teams across an organization. Real-time data handling is a way of bringing data to users as fast as possible. A real-time collaboration app makes data available to users at the time of communication, which accelerates the speed of decisions.</p>
+<p>There are already a number of vertical collaboration systems like Zoom, Slack, and Teams that function primarily as communication platforms. Yet these solutions do not account for business context. Developers focusing on creating real-time collaboration apps must either build plugins for these communication platforms or build their own real-time collaboration infrastructure. Plugin frameworks often provide inadequate access to the business context, and real-time collaboration infrastructure requires significant investments of time and expertise. Furthermore, most organizations do not have the resources to maintain and operate such a complex platform.</p>
+<p>In order to solve the problems described above, we believe there is an opportunity for a purpose-built platform for real-time collaboration. A platform that is easy to operate, requires no upfront investment and allows developers to join data, build business logic, and shorten the time required to roll-out real-time collaboration apps.</p>
+<h2 id="business-faces-an-existential-challenge">Business Faces an Existential Challenge</h2>
+<p>The pandemic has fundamentally changed the way businesses operate. Not only do employees need to stay connected while working from home, but customers demand solutions with immediate feedback and minimal physical interactions. Beyond this, partners need real-time notification for deliveries, supply chain management, or other coordinated activities.</p>
+<p>Because of these challenges, it’s no longer viable to maintain antiquated tools and processes that require constant manual intervention, or to use legacy communication channels for daily business activities. The more manual interventions there are, the more unpredictable resolution time becomes. Traditional resolution times range from minutes to days. Modern organizations that use real-time connections and automated activities require predictable resolution time measuring just milliseconds to seconds.</p>
+<p>Let’s take a look at an example of how a real-time collaboration app could dramatically improve a transaction at a car dealership.</p>
+<h2 id="a-car-dealership-example">A Car Dealership Example</h2>
+<p>The typical method of dealing with transactions at a car dealership involves many inefficient manual processes and antiquated communication methods. Long delays, part shortages, insufficient loaners are common annoyances that erode customer confidence and impact the success of the business.</p>
+<p><img src="/blog/images/why-fluvio/dealership-legacy.svg"
+alt="Dealership Example"
+style="justify: center; max-width: 700px" /></p>
+<p>Imagine taking your car to a dealership for an oil change appointment. The process might go like this:</p>
+<ul>
+<li>First, the parking attendant greets you, places a number on your windshield and walks inside to inform the service advisor.</li>
+<li>A few minutes later, the service advisor walks-up and takes you to his office to check your service records. The advisor is the master coordinator, and he must call up the service department to ensure the parts are available, check the system to see if your service is covered by warranty, etc. In most cases, you’ll be promised a call later in the day.</li>
+<li>Next, you need to arrange your transportation with the vehicle loan office. There is a long line, but after waiting you find out they are out of cars, so you take an Uber instead.</li>
+<li>A few hours later, you get a call from the service advisor who informs you that the car must receive a mandatory service recall and the part is in backorder, scheduled to arrive in a couple of days.</li>
+</ul>
+<p>What was supposed to be a short maintenance appointment has turned into a multi-day ordeal.</p>
+<p>These challenges are not unique to car dealerships. Yet you can see the problems afflicting businesses relying on manual processes and primitive communication channels to interact with employees, vendors, and customers.</p>
+<h2 id="a-vision-for-a-modern-car-dealership">A Vision for a Modern Car Dealership</h2>
+<p>Now imagine the same scenario at a modern car dealership:</p>
+<ul>
+<li>
+<p>When you arrive, a camera reads your license plate, matches your car to the VIN number, and notifies the backend platform of your arrival.</p>
+</li>
+<li>
+<p>The platform looks up your service records, warranty information, and mandatory recalls. It ensures that all parts are available, generates an invoice, checks the loaner location and sends you a welcome message. The message has the cost of service, the loaner location, and the estimated pick-up time.</p>
+</li>
+<li>
+<p>You step out of the car, enter the loaner, and drive off. You are in and out of the car dealership in minutes.</p>
+</li>
+</ul>
+<p>This type of transformation from legacy business to modern business can be highly disruptive and many businesses may see it as an impossible undertaking. We believe proper planning and the right technology can make this transition possible for any organization. With Fluvio, the transition can be as painless as possible.</p>
+<h2 id="introducing-fluvio">Introducing Fluvio</h2>
+<h6 id="a-data-platform-for-real-time-collaboration">A Data Platform for Real-Time Collaboration</h6>
+<p>Fluvio is a high performance distributed platform that coordinates all real-time data exchanges in an organization. It deploys in minutes, operates hands-free, and covers a broad range of use cases. The platform is suitable for services such as:</p>
+<ul>
+<li>Log aggregation for servers</li>
+<li>Command center for IOT devices</li>
+<li>Middle tier for microservices</li>
+<li>Notification services for mobile devices</li>
+<li>Fully-featured collaborative apps, with chat, voice, video, geo-tracking, and more.</li>
+</ul>
+<p>The Fluvio data platform for real-time collaboration was built on these three pillars:</p>
+<ol>
+<li><a href="#data-streams">Data Streams</a></li>
+<li><a href="#collaboration">Collaboration</a></li>
+<li><a href="#ease-of-use">Ease of Use</a></li>
+</ol>
+<h3 id="data-streams">Data Streams</h3>
+<p>Streaming Data is data that is generated and delivered continuously. A data stream often consists of individual messages that describe events that have occurred. A key advantage of streaming data, as opposed to having batches of data delivered periodically, is that the average time to take action on an event is much lower. Since streaming data is delivered immediately, events can be processed and acted upon immediately. Therefore, a critical prerequisite to building real-time collaborative applications is having a scalable, durable, low-latency data streaming platform. We built Fluvio to meet this need.</p>
+<p>Fluvio data streaming platform is built to optimize the following: speed, scale, retention, and resilience.</p>
+<h4 id="speed">Speed</h4>
+<p>Fluvio takes advantage of all system cores and hardware IO interfaces to achieve high-speed and low latency. This is a game-changer for businesses like financial services, gaming and augmented reality companies, or service providers offering 5G services.</p>
+<h4 id="scale">Scale</h4>
+<p>As organizations grow and new services are deployed, the volume of real-time data grows in proportion. Growing organizations must be able to effectively scale their data streams and platforms. Fluvio is designed for parallelism and horizontal scale.</p>
+<p>At the core Fluvio’s design are Streaming Processing Units (SPUs). A Fluvio cluster can handle hundreds of SPUs and each SPU can serve thousands of consumers. This makes the platform capable of handling any real-time data streaming needs, from a small one-person prototype to the most demanding multi-team, multi-app, globally distributed environments.</p>
+<p>Fluvio allows you to scale-up your cluster gradually rather than provisioning for peak. As your demand for real-time streaming grows, you can simply add SPUs and Fluvio will do the rest.</p>
+<p>Horizontal scale ensures you don’t need new real-time infrastructure to deploy new services. You also won’t need to ask your IT department to work overtime when you roll out a marketing campaign that brings more clients to your service.</p>
+<h4 id="retention">Retention</h4>
+<p>The term retention is often found in the context of storage systems, where it defines the time period the data should persist for. Organizations may have data retention policies that range from 5 to 10 years. In the context of real-time data systems, retention periods are more often measured in seconds to minutes.</p>
+<p>Fluvio extends the retention period for real-time data streams from seconds to years. Each data stream is an immutable store, where the messages are written in the order they are received. A long lived immutable store sets the foundation for a series of new features. The data streams can become the authoritative data source (A.K.A. <a href="https://en.wikipedia.org/wiki/System_of_record" target="_blank">System of Record (SOR)</a>) for all events generated by different systems organization-wide. These events can be played back anytime in the future. Playbacks can be used to:</p>
+<ul>
+<li>Recover a persistent store</li>
+<li>Rebuild an in-memory database</li>
+<li>Playback historical data for new features</li>
+<li>Perform retrospective analysis</li>
+<li>Run audit reports, and more.</li>
+</ul>
+<p>For example, suppose a dealership stored all appointments in a database that was corrupted during a power outage. The last backup was performed the previous week and 7 days of data had been lost. Since Fluvio was used, the database changes were also captured as events in a data stream. The events were played back and all appointments were recovered.</p>
+<h4 id="resiliency">Resiliency</h4>
+<p>Resiliency is the ability to continue operating in the event of a failure. A platform responsible for real-time data services must be highly resilient.</p>
+<p>Fluvio data streams are replicated for durability and they can survive multiple points of failure. Failures may result from system crashes, network outages, or reasons yet to be determined Should a failure happen, Fluvio ensures that data streams remain available with minimal interruption. Once a failure is detected, the cluster redistributes workloads and temporarily removes the failed component from the quorum. Upon recovery, the cluster ensures the component is fully synchronized before it is allowed to re-join the quorum. For additional information on high availability, check out the <a href="https://fluvio.io/docs/architecture">Fluvio architecture</a>.</p>
+<p>Fluvio supports a wide range of deployment scenarios: single cloud, multi-cloud, cloud-to-data center, and more. If Fluvio is deployed in a single availability zone, it protects against server outages. When deployed across availability zones, Fluvio protects against zone outages, and when deployed in hybrid mode it protects against data center outages. It’s up to the users to define the deployment model most suitable for their environment.</p>
+<h6 id="to-sum-up">To sum up:</h6>
+<ul>
+<li>Fluvio is low-latency.</li>
+<li>Fluvio also allows you to scale up and manage data streams as your needs increase.</li>
+<li>Fluvio’s retention reliably stores incoming data streams for years.</li>
+<li>Fluvio’s resiliency provides protection against outages and crashes.</li>
+</ul>
+<h3 id="collaboration">Collaboration</h3>
+<p>At the top-most level, a real-time collaboration app has 3 components: a collaboration interface, a real-time streaming platform, and one or more business logic services.</p>
+<p>The collaboration interface allows users to communicate with each other and produce an action. The real-time streaming platform passes the action to one or more services, and returns a result. The services translate the request into a response, based on the organization’s business logic.</p>
+<h4 id="collaboration-interface">Collaboration Interface</h4>
+<p>The design of the collaboration interface depends on the organization&rsquo;s needs. Some organizations prefer to integrate with purpose-built communication tools such as Slack or Teams. Others prefer to build custom interfaces where they can control the workflow end-to-end. Fluvio supports both of these collaboration styles.</p>
+<p>In terms of support for purpose built tools, Fluvio gives access to a programmable interface that allows the creation of a custom connector. Connectors can be configured to produce actions, listen for responses, then publish the result. For organizations that prefer to roll-out their own collaboration interface, Fluvio’s programmable interface can serve as a single point of contact for the application to send and receive events.</p>
+<p>to give developers a framework for their first collaboration app.</p>
+<h4 id="real-time-streaming-platform">Real Time Streaming Platform</h4>
+<p>A powerful use-case for a real-time data streaming platform is to connect services that typically operate independently, enabling cross-service capabilities. Fluvio offers language-native programmable interfaces that each service can utilize to send or receive messages, to and from real-time data streams.</p>
+<p>In the dealership example there are multiple services that need to communicate with each other :</p>
+<ul>
+<li>Advisors: coordinate customer communication.</li>
+<li>Services: look-up maintenance schedules and assign mechanics.</li>
+<li>Billing: charges customer credit cards and generates receipts.</li>
+</ul>
+<p>Fluvio handles multi-service communication through data streams called <code>topics</code>. When a service completes work, it generates an event that is published to a <code>topic</code>. Fluvio receives the event and notifies all other interested services. Consuming services receive notification, complete their work and generate an event on their own, and so on. Let’s look at an example:</p>
+<ol>
+<li>When a customer arrives at the dealership, advisory service looks-up the car and publishes an event on the <code>advisory</code> topic.</li>
+<li>Services receives the event, schedules mechanics to perform the work, and generates an event on the <code>services</code> topic.</li>
+<li>Billing receives the event, charges the customer credit card and sends an event with the amount paid on <code>billing</code> topic.</li>
+</ol>
+<h4 id="business-logic-services">Business Logic Services</h4>
+<p>When organizations roll out their own real-time collaborative apps, they implicitly build services to implement the business logic.</p>
+<p>Fluvio programmable interfaces are built for polyglot applications, where developers have the freedom to use their preferred programming languages to implement a service. Fluvio develops and maintains language native APIs for Rust, Node and Swift. Upcoming releases will roll-out additional native language APIs for Java, Python, Go, and common languages.</p>
+<h6 id="to-sum-up-1">To sum up:</h6>
+<ul>
+<li>Fluvio supports both purpose-built and custom collaboration tools, letting users of both choose how to receive and manage events.</li>
+<li>Fluvio’s streaming platform lets independent services communicate through data streams/topics.</li>
+<li>Fluvio supports the creation of business logic services in common programming languages.</li>
+</ul>
+<h3 id="ease-of-use">Ease of Use</h3>
+<p>Fluvio ensures ease of use by making its core components easy and intuitive to utilize. Fluvio is an open-source distributed system with two core components: the cluster running streaming services and the clients that communicate with the cluster. The clusters are available in two flavors: Infinyon Cloud and Fluvio Open Source. They are managed by Fluvio clients through the CLI or programmatic APIs.</p>
+<p>Beyond the core components, Fluvio prioritizes operational efficiency through declarative configuration management and reconciliation. The declarative approach lets developers simply declare the goal of their configuration and then the configuration management tool will do the rest. Meanwhile reconciliation ensures any cluster changes are still in line with the stated goal of the system.</p>
+<h4 id="clusters">Clusters</h4>
+<h5 id="infinyon-cloud">Infinyon Cloud</h5>
+<p><a href="https://infinyon.cloud">Infinyon Cloud</a>({&lt;ref &ldquo;/cloud&rdquo;&gt;}) eliminates the need to install and operate a cluster. The installation, upgrading, and all other maintenance tasks are managed by our team.</p>
+<h5 id="fluvio-open-source">Fluvio Open Source</h5>
+<p><a href="https://github.com/infinyon/fluvio">Fluvio Open Source</a> can be installed in private data centers, public clouds, or on personal machines. <a href="https://www.fluvio.io/cli/">Fluvio CLI</a> has built-in pre-check tests and installation scripts for most common environments. To install Fluvio, first download the Fluvio CLI from Github, and then run the installer.</p>
+<h4 id="clients">Clients</h4>
+<h5 id="fluvio-cli">Fluvio CLI</h5>
+<p><a href="https://www.fluvio.io/cli/">Fluvio CLI</a> covers a broad range of operations: cluster installation, data stream provisioning, produce/consume operations, and more. Checkout the CLI Guide for a detailed list of commands.</p>
+<p>Fluvio CLI has built-in multi-cluster support, where the CLI can switch from one environment to another with one command. This feature is particularly useful when testing client software against different data sets. Developers can build the code against a local data set, then switch to a cloud instance to run the code against production data</p>
+<h4 id="programmatic-apis">Programmatic APIs</h4>
+<p>Fluvio has programmatic APIs and role-based access for all operations. The operations are divided in two groups: admin and user. Operations such as cluster installation and topic management are reserved for administrators, whereas producer/consumer are open to users.</p>
+<p>API interfaces are currently available in Node, Rust and Swift, while other languages will be implemented in upcoming releases. Check out <a href="https://www.fluvio.io/api/">Fluvio docs</a> for the API references.</p>
+<h4 id="operational-efficiency">Operational Efficiency</h4>
+<p>Fluvio uses declarative configuration management to simplify manageability and improve operational efficiency. With declarative configuration, the operator specifies the intended outcome, rather than how to accomplish it. For example, a topic with 3 partitions is a desired outcome. Given this outcome, Fluvio automatically distributes the topics across the SPUs to achieve optimal performance and reliability.</p>
+<p>Anytime there are changes in the cluster, Fluvio uses reconciliation to ensure all outcomes can still be met. This allows the system to self-heal and recover from any conditions automatically without human intervention. For example an SPU loses power and it disconnects from the cluster in the middle of receiving a batch of records. A few minutes later, the SPU comes back online and the reconciliation loop kicks-in.  During reconciliation, the SPU is brought back in sync with the cluster before it resumes its operations.</p>
+<h6 id="to-sum-up-2">To sum up:</h6>
+<ul>
+<li>Fluvio clusters can be either cloud-based and automatically managed by the Fluvio team, or open-source.</li>
+<li>Fluvio clients allow management of the clusters with either the Fluvio CLI or a programmatic API.</li>
+<li>Fluvio ensures operational efficiency with declarative configuration management and reconciliation, making cluster management both intuitive and reliable.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Modern business is happening in real-time. Customers demand immediate results, and business leaders require operational insight approaching clairvoyance. The transition from collaboration to real-time collaboration requires a foundation that can provide the data for the business context in real-time. This transition doesn’t need to be difficult.</p>
+<p>Fluvio is the first purpose-built platform for real-time collaboration. With Fluvio, the focus is on business data. We bring context first, then apply collaboration features to enable real-time decisions. Our product is in early infancy and we look forward to working with you, the community, in providing us feedback as we iterate through the next wave of collaborative features.</p>
+<p>Join us, create an account in our <a href="https://infinyon.cloud">InfinyOn Cloud</a>, check out our open source project in <a href="https://github.com/infinyon/fluvio">Github</a> or connect with us in <a href="https://discordapp.com/invite/bBG2dTz">Discord</a>.</p>
+<p>We look forward to talking to you, see you soon.</p>
+
+        </div>      
+      </div>
+
+    </section>
+  </main> 
+
+  <aside class="hidden mx-5 w-72 overflow-y-auto lg:block py-6">
+  <article class="flex flex-col items-start px-4">
+
+    <h2 class="text-sm text-gray-500 tracking-widest">
+      SHARE ON
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-4 w-5/6" />
+    <div class="w-full mx-auto pb-4">
+      <div class="flex flex-row">
+  <div class="pr-2 hover:brightness-75">
+    <a class="twitter" title="Share on Twitter"
+        href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2021%2f12%2fwhy-we-built-fluvio&text=Why%20We%20Built%20Fluvio"
+        target="_blank">
+        <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#00aced"></circle>
+  <path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="button reddit" title="Share on Reddit"
+      href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2021%2f12%2fwhy-we-built-fluvio&title=Why%20We%20Built%20Fluvio&text=Fluvio%2c%20a%20real-time%20data%20streaming%20platform%20for%20connected%20apps"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#ff4500"></circle>
+  <path d="m 52.8165,31.942362 c 0,-2.4803 -2.0264,-4.4965 -4.5169,-4.4965 -1.2155,0 -2.3171,0.4862 -3.128,1.2682 -3.077,-2.0247 -7.2403,-3.3133 -11.8507,-3.4782 l 2.5211,-7.9373 6.8272,1.5997 -0.0102,0.0986 c 0,2.0281 1.6575,3.6771 3.6958,3.6771 2.0366,0 3.6924,-1.649 3.6924,-3.6771 0,-2.0281 -1.6575,-3.6788 -3.6924,-3.6788 -1.564,0 -2.8968,0.9758 -3.4357,2.3443 l -7.3593,-1.7255 c -0.3213,-0.0782 -0.6477,0.1071 -0.748,0.4233 L 32,25.212062 c -4.8246,0.0578 -9.1953,1.3566 -12.41,3.4425 -0.8058,-0.7446 -1.8751,-1.2104 -3.0583,-1.2104 -2.4905,0 -4.5152,2.0179 -4.5152,4.4982 0,1.649 0.9061,3.0787 2.2389,3.8607 -0.0884,0.4794 -0.1462,0.9639 -0.1462,1.4569 0,6.6487 8.1736,12.0581 18.2223,12.0581 10.0487,0 18.224,-5.4094 18.224,-12.0581 0,-0.4658 -0.0493,-0.9248 -0.1275,-1.377 1.4144,-0.7599 2.3885,-2.2304 2.3885,-3.9406 z m -29.2808,3.0872 c 0,-1.4756 1.207,-2.6775 2.6894,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 -1.4824,0 -2.6894,-1.2002 -2.6894,-2.6758 z m 15.4037,7.9373 c -1.3549,1.3481 -3.4816,2.0043 -6.5008,2.0043 l -0.0221,-0.0051 -0.0221,0.0051 c -3.0209,0 -5.1476,-0.6562 -6.5008,-2.0043 -0.2465,-0.2448 -0.2465,-0.6443 0,-0.8891 0.2465,-0.2465 0.6477,-0.2465 0.8942,0 1.105,1.0999 2.9393,1.6337 5.6066,1.6337 l 0.0221,0.0051 0.0221,-0.0051 c 2.6673,0 4.5016,-0.5355 5.6066,-1.6354 0.2465,-0.2465 0.6477,-0.2448 0.8942,0 0.2465,0.2465 0.2465,0.6443 0,0.8908 z m -0.3213,-5.2615 c -1.4824,0 -2.6877,-1.2002 -2.6877,-2.6758 0,-1.4756 1.2053,-2.6775 2.6877,-2.6775 1.4824,0 2.6877,1.2019 2.6877,2.6775 0,1.4756 -1.2053,2.6758 -2.6877,2.6758 z" fill="white">
+  </path>
+</svg></a>    
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="linkedin" title="Share on LinkedIn"
+      href="https://www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1315%2fblog%2f2021%2f12%2fwhy-we-built-fluvio&title=Why%20We%20Built%20Fluvio&summary=Fluvio%2c%20a%20real-time%20data%20streaming%20platform%20for%20connected%20apps"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#007fb1"></circle>
+  <path d="M20.4,44h5.4V26.6h-5.4V44z M23.1,18c-1.7,0-3.1,1.4-3.1,3.1c0,1.7,1.4,3.1,3.1,3.1 c1.7,0,3.1-1.4,3.1-3.1C26.2,19.4,24.8,18,23.1,18z M39.5,26.2c-2.6,0-4.4,1.4-5.1,2.8h-0.1v-2.4h-5.2V44h5.4v-8.6 c0-2.3,0.4-4.5,3.2-4.5c2.8,0,2.8,2.6,2.8,4.6V44H46v-9.5C46,29.8,45,26.2,39.5,26.2z" fill="white">
+  </path>
+</svg></a>
+  </div>
+  <div class="pr-2 hover:brightness-75">
+    <a class="ycombinator" title="Share on Y Combinator"
+      href="https://news.ycombinator.com/submitlink?u=http%3a%2f%2flocalhost%3a1315%2fblog%2f2021%2f12%2fwhy-we-built-fluvio&t=Why%20We%20Built%20Fluvio&text=Fluvio%2c%20a%20real-time%20data%20streaming%20platform%20for%20connected%20apps"
+      target="_blank">
+      <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <circle cx="128" cy="128" r="125" fill="#FB651E"></circle>
+	<path d="M119.373653,144.745813 L75.43296,62.4315733 L95.5144533,62.4315733 L121.36192,114.52416 C121.759575,115.452022 122.2235,116.413008 122.753707,117.407147 C123.283914,118.401285 123.747838,119.428546 124.145493,120.48896 C124.410597,120.886615 124.609422,121.251127 124.741973,121.582507 C124.874525,121.913886 125.007075,122.212123 125.139627,122.477227 C125.802386,123.802744 126.39886,125.095105 126.929067,126.354347 C127.459274,127.613589 127.923198,128.773399 128.320853,129.833813 C129.381268,127.580433 130.541078,125.1614 131.80032,122.57664 C133.059562,119.99188 134.351922,117.307747 135.67744,114.52416 L161.92256,62.4315733 L180.612267,62.4315733 L136.27392,145.739947 L136.27392,198.826667 L119.373653,198.826667 L119.373653,144.745813 Z" fill="white">
+  </path>
+</svg></a>
+  </div>
+</div></div>
+
+    <h2 class="mt-4 text-sm text-gray-500 tracking-widest">
+      AUTHOR
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-4 w-5/6" />
+
+    <div class="w-full mx-auto flex flex-col items-start">
+      <div class="flex flex-col">
+  <img src="https://avatars.githubusercontent.com/" alt="InfinyOn Team" class="h-16 w-16 rounded-full bg-gray-100">
+  <div class="text-base leading-6 pt-2">
+    <p class="font-semibold text-gray-900">
+      <a href="https://github.com/">
+        InfinyOn Team
+      </a>
+    </p>
+    <p class="text-sm text-gray-600">
+      Contributor, InfinyOn
+    </p>
+  </div>
+</div>
+</div>
+
+    <h2 class="mt-8 text-sm text-gray-500 tracking-widest">
+      FLUVIO OSS
+    </h2>
+    <hr class="border-b-0 border-gray-200 w-full mt-3 pb-6 w-5/6" />
+    <div class="github">
+  <a href="https://gitHub.com/infinyon/fluvio/stargazers/"><img src="https://img.shields.io/github/stars/infinyon/fluvio?style=social" alt="GitHub stars"></a>
+</div>
+<h2 class="mt-12 text-sm text-gray-500 tracking-widest">
+  INFINYON CLOUD
+</h2>
+<hr class="border-b-0 border-gray-200 w-full mt-3 pb-3" />
+<div class="mt-2 py-5 w-full rounded-md bg-gradient-to-r from-magenta-800 to-magenta-400">
+  <a href="https://infinyon.cloud/signup">
+  <h3 class="text-base font-semibold text-pink-400 text-center">
+    Accelerated Onboarding
+  </h3>
+  <div class="pt-1 flex flex-row">
+    <div class="flex flex-col w-4/6 justify-center">
+      <h5 class="text-xs text-gray-100 pl-3">
+         Sign-up for personalized assistance from dedicated InfinyOn architect.
+      </h5>
+    </div>
+    <div class="flex flex-col mt-2 mr-2 h-20 w-20 rounded-md bg-black items-center justify-center">
+      <h5 class="text-base leading-5 font-bold text-neon-300 w-16 break-words text-center">
+        Free $3000
+      </h5>
+        <h6 class="text-xxs text-gray-100 pt-1">
+          2000 credits
+        </h6>
+    </div>
+  </div>
+  </a>
+</div></article>
+</aside></div>
+
+<script src="/js/copy-code.js"></script></main>
+    </div>
+    <footer class="bg-gray-900" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8">
+    <div class="lg:grid lg:grid-cols-10 lg:gap-8">
+
+      
+      <div class="lg:col-span-2 space-y-6">
+        <img class="h-7 w-auto" src="/assets/infinyon-logo-text-white.svg" alt="InfinyOn">
+        <p class="text-sm leading-6 text-gray-300"></p>
+        <div class="flex space-x-6">
+            <a href="https://github.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">GitHub</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+            <a href="https://twitter.com/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">Twitter</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+</svg>
+            </a>
+            <a href="https://linkedin.com/company/infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">linkedin</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
+  <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+</svg>
+            </a>
+            <a href="https://discordapp.com/invite/bBG2dTz" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">discord</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" aria-hidden="true"
+    viewBox="0 0 640 512">
+    <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z" />
+</svg>
+            </a>
+            <a href="https://www.youtube.com/@infinyon" class="text-gray-300 hover:text-gray-100" target="_blank"><span class="sr-only">YouTube</span>
+<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd" />
+</svg>
+            </a>
+        </div>
+      </div>
+
+      
+      <div class="lg:col-span-8">
+        <div class="mt-16 lg:mt-0 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Cloud</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/infinyon-cloud" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Cloud
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/signup" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Sign Up
+                </a>
+                </li>
+                <li>
+                  <a href="https://infinyon.cloud/login" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Login
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Product</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Platform
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    InfinyOn Hub
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Connectors
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webhooks
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    SmartModules
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Event Streams
+                </a>
+                </li>
+                <li>
+                  <a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Stateful Streams
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">Solutions</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/iot" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    IoT Aggregation
+                </a>
+                </li>
+                <li>
+                  <a href="/clickstream" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Website Monitoring
+                </a>
+                </li>
+                <li>
+                  <a href="/" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Microservices Event Bridge
+                </a>
+                </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold leading-4 text-white">About</h3>
+            <ul role="list" class="mt-6 space-y-2">
+                <li>
+                  <a href="/about" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Company
+                </a>
+                </li>
+                <li>
+                  <a href="/careers" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Careers
+                </a>
+                </li>
+                <li>
+                  <a href="/resources" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Articles
+                </a>
+                </li>
+                <li>
+                  <a href="/press-releases" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    News
+                </a>
+                </li>
+                <li>
+                  <a href="/webinars" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Webinars
+                </a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@infinyon/videos" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Videos
+                </a>
+                </li>
+                <li>
+                  <a href="/blog" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    Blog
+                </a>
+                </li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="mt-8 border-t border-white/10 pt-4 text-center">
+      <div class="text-center text-xs text-gray-400">
+        
+        <span><a href="/legal/privacy">Privacy Policy</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/security">Security</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/user-agreement">Terms and Conditions</a></span>
+           
+          <span class="px-1">|</span> <span><a href="/legal/cookies">Cookie Notice</a></span>
+          
+      </div>
+      <p class="text-xs leading-5 text-gray-400">&copy; <span id="year"></span> InfinyOn, Inc. All rights reserved.</p>
+      <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+      </script>
+    </div>
+  </div>
+</footer>
+    
+  </body>
+</html>
